@@ -1,6 +1,8 @@
-# LPOO_TG Project Name
+# LPOO_25 Ghost Rumble (GR)
 
-> Include here one or two paragraphs explaining the main idea of the project, followed by a sentence identifying who the authors are. 
+> Ghost Rumble (or GR for short) is a survival arena combat game, in which the player must defeat waves of ghosts and other mysterious enemies, in order to survive.
+
+> The game lasts as long as the player is able to overcome all enemies, which grow in number and power with each passing wave. (Some have claimed to have seen Bosses every 5 waves  :eyes::eyes:)
 
 ## Screenshots
 
