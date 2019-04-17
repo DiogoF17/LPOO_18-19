@@ -6,10 +6,8 @@ public class Application {
 
     public static void main(String[] args) {
 
-        Game game = new Game();
-
         try {
-            game.run();
+            new Game().run();
 
         } catch(IOException e) {
             e.printStackTrace();

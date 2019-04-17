@@ -13,12 +13,10 @@ public class Arena {
     private int height;
     private Player player;
     private List<Wall> walls;
-    private boolean end;
 
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
-        this.end = false;
         this.player = new Player();
         this.walls = createWalls();
     }
@@ -50,11 +48,4 @@ public class Arena {
         }
     }
 
-    public void close() {
-        end = true;
-    }
-
-    public boolean checkEnd() {
-        return end;
-    }
 }

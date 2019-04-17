@@ -14,13 +14,11 @@ public class Game {
         private Screen screen;
         private Arena arena;
 
-        public Game() {
+        public Game() throws IOException {
             this(80, 24);
         }
 
-        public Game(int width, int height) {
-
-            try {
+        public Game(int width, int height) throws IOException {
 
                 Terminal terminal = new DefaultTerminalFactory().createTerminal();
                 this.screen = new TerminalScreen(terminal);
@@ -28,12 +26,8 @@ public class Game {
                 this.screen.setCursorPosition(null);
                 this.screen.startScreen();
                 this.screen.doResizeIfNecessary();
+
                 this.arena = new Arena(width, height);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
 
         private void draw() throws IOException {
@@ -52,18 +46,20 @@ public class Game {
 
         public void run() throws IOException {
 
-            while (!arena.checkEnd()) {
+            while (true) {
+
                 this.draw();
                 KeyStroke key = this.screen.readInput();
-                if (key.getKeyType() == KeyType.Escape) {
-                    arena.close();
-                }
+
+                if (key.getKeyType() == KeyType.Escape)
+                    screen.close();
+
+                if(key.getKeyType() == KeyType.EOF)
+                    break;
 /*
                 this.processKey(key);
 */
             }
-
-            this.screen.close();
 
         }
 
