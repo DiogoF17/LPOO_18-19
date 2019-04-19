@@ -35,6 +35,8 @@ public class Player extends Element {
                 new TerminalSize(maxHealth - currentHealth, 1),
                 '_');
 
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#2D1694"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#B8243F"));
         graphics.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "X");
     }
 }

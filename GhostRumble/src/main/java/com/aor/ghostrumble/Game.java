@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Game {
 
         private Screen screen;
-        private Arena arena;
+        private HauntedHouse house;
 
         public Game() throws IOException {
             this(80, 24);
@@ -27,13 +27,13 @@ public class Game {
                 this.screen.startScreen();
                 this.screen.doResizeIfNecessary();
 
-                this.arena = new Arena(width, height);
+                this.house = new HauntedHouse(width, height);
         }
 
         private void draw() throws IOException {
 
             this.screen.clear();
-            this.arena.draw(screen.newTextGraphics());
+            this.house.draw(screen.newTextGraphics());
             this.screen.refresh();
 
         }

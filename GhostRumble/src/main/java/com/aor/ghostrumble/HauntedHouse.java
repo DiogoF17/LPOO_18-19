@@ -8,13 +8,13 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Arena {
+public class HauntedHouse {
     private int width;
     private int height;
     private Player player;
     private List<Wall> walls;
 
-    public Arena(int width, int height) {
+    public HauntedHouse(int width, int height) {
         this.width = width;
         this.height = height;
         this.player = new Player();
@@ -38,7 +38,7 @@ public class Arena {
     }
 
     public void draw(TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#2D1694"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
 
         this.player.draw(graphics);
@@ -46,6 +46,8 @@ public class Arena {
         for (Wall wall : walls) {
             wall.draw(graphics);
         }
+
+        new Zombie(15, 15).draw(graphics);
     }
 
 }
