@@ -30,7 +30,11 @@
      
 #### 1.3 Implementation
      
-[Application](../GhostRumble/src/main/java/com/aor/ghostrumble/Application.java)
+> Here's how we decided to implement the design pattern:
+
+
+
+> [Application](../GhostRumble/src/main/java/com/aor/ghostrumble/Application.java)
      
      
 #### 1.4 Consequences
