@@ -15,7 +15,7 @@
 > This section is similar to the previous one but should list the features that are not yet implemented. Instead of screenshots you should include GUI mock-ups for the planned features.
 
 ## Design
-### 1. Seperating the Game´s Logic and the Drawing Module
+### 1. Separating the Game´s Logic and the Drawing Module
      
 #### 1.1 Problem in Context
      
