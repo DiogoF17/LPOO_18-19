@@ -15,9 +15,6 @@
 > This section is similar to the previous one but should list the features that are not yet implemented. Instead of screenshots you should include GUI mock-ups for the planned features.
 
 ## Design
-
-> This section should be organized in different subsections, each describing a different design problem that you had to solve during the project. Each subsection should be organized in four different parts: "Problem in Context", "The Pattern", "Implementation" and "Consequences".
-
 ### 1. Seperating the Game´s Logic and the Drawing Module
      
 #### 1.1 Problem in Context
