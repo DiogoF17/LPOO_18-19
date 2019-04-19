@@ -1,6 +1,5 @@
 package com.aor.ghostrumble;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
 
 public abstract class Element {
     private Position position;
@@ -16,6 +15,4 @@ public abstract class Element {
     public void setPosition(Position position) {
         this.position = position;
     }
-
-    public abstract void draw(TextGraphics graphics);
 }

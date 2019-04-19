@@ -18,6 +18,5 @@ public abstract class Enemy extends Element {
         this.speed = speed;
     }
 
-
     protected abstract Movement createMovStrategy();
 }

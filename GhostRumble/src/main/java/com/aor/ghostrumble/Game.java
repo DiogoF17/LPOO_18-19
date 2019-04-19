@@ -1,66 +1,37 @@
 package com.aor.ghostrumble;
 
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
-
 import java.io.IOException;
 
-public class Game {
+public abstract class Game {
 
-        private Screen screen;
-        private HauntedHouse house;
+    private HauntedHouse house;
+    private DrawingMethod drawingMethod;
 
-        public Game() throws IOException {
-            this(80, 24);
+    protected void init(int width, int height) {
+        this.house = new HauntedHouse(width, height);
+        this.drawingMethod = createDrawingMethod();
+    }
+
+    protected abstract DrawingMethod createDrawingMethod();
+
+
+    private void draw() throws IOException {
+            this.drawingMethod.drawAll(house);
+    }
+
+    protected abstract boolean handleInput() throws IOException;
+
+
+    public void run() throws IOException {
+
+        while (true) {
+
+            this.draw();
+
+            if(!handleInput())
+                break;
         }
 
-        public Game(int width, int height) throws IOException {
-
-                Terminal terminal = new DefaultTerminalFactory().createTerminal();
-                this.screen = new TerminalScreen(terminal);
-
-                this.screen.setCursorPosition(null);
-                this.screen.startScreen();
-                this.screen.doResizeIfNecessary();
-
-                this.house = new HauntedHouse(width, height);
-        }
-
-        private void draw() throws IOException {
-
-            this.screen.clear();
-            this.house.draw(screen.newTextGraphics());
-            this.screen.refresh();
-
-        }
-
-/*
-        private void processKey(KeyStroke key) throws IOException {
-            arena.processKey(key);
-        }
-*/
-
-        public void run() throws IOException {
-
-            while (true) {
-
-                this.draw();
-                KeyStroke key = this.screen.readInput();
-
-                if (key.getKeyType() == KeyType.Escape)
-                    screen.close();
-
-                if(key.getKeyType() == KeyType.EOF)
-                    break;
-/*
-                this.processKey(key);
-*/
-            }
-
-        }
+    }
 
 }

@@ -7,7 +7,10 @@ public class Application {
     public static void main(String[] args) {
 
         try {
-            new Game().run();
+
+            Game game = new GameLanterna();
+
+            game.run();
 
         } catch(IOException e) {
             e.printStackTrace();

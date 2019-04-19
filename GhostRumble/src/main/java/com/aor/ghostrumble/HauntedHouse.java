@@ -1,10 +1,5 @@
 package com.aor.ghostrumble;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +8,22 @@ public class HauntedHouse {
     private int height;
     private Player player;
     private List<Wall> walls;
+    private List<Enemy> enemies;
 
     public HauntedHouse(int width, int height) {
         this.width = width;
         this.height = height;
         this.player = new Player();
         this.walls = createWalls();
+        this.enemies = new ArrayList<>();
     }
+
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+    public Player getPlayer() { return player; }
+    public List<Wall> getWalls() { return walls; }
+    public List<Enemy> getEnemies() { return enemies; }
+
 
     private List<Wall> createWalls() {
         List<Wall> walls = new ArrayList<>();
@@ -37,17 +41,5 @@ public class HauntedHouse {
         return walls;
     }
 
-    public void draw(TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#2D1694"));
-        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
-
-        this.player.draw(graphics);
-
-        for (Wall wall : walls) {
-            wall.draw(graphics);
-        }
-
-        new Zombie(15, 15).draw(graphics);
-    }
 
 }
