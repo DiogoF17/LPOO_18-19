@@ -32,6 +32,7 @@
      
 > Here's how we decided to implement the design pattern:
 
+![Alt text](images/UML_Factory_Method_1/UML_Factory_Method_1.png)
 
 
 > [Application](../GhostRumble/src/main/java/com/aor/ghostrumble/Application.java)
