@@ -18,23 +18,23 @@
 
 > This section should be organized in different subsections, each describing a different design problem that you had to solve during the project. Each subsection should be organized in four different parts: "Problem in Context", "The Pattern", "Implementation" and "Consequences".
 
-> 1. Seperating the Game´s Logic and the Drawing Module
+### 1. Seperating the Game´s Logic and the Drawing Module
      
-> 1.1 Problem in Context
+#### 1.1 Problem in Context
      
->     One of the first decisions/problems that we had was to find a way to seperate the code for the game's logic (that is, the inner workings of the game, such as the player and enemies movement, when the game ends, etc) from the drawing module, that is in charge of transmiting the game´s logic and current state onto the screen, for the user to understand/interract. Seperating the two modules would help us in the future, if we wanted to change only the drawing module, for example: we wouldn't need to change anything in the logic module, because they are seperated and not dependent.
+> One of the first decisions/problems that we had was to find a way to seperate the code for the game's logic (that is, the inner workings of the game, such as the player and enemies movement, when the game ends, etc) from the drawing module, that is in charge of transmiting the game´s logic and current state onto the screen, for the user to understand/interract. Seperating the two modules would help us in the future, if we wanted to change only the drawing module, for example: we wouldn't need to change anything in the logic module, because they are seperated and not dependent.
      
->     1.2 The Pattern
+#### 1.2 The Pattern
      
->     For this, we decided to implement the Factory Method design pattern. In the game class, that will have a drawing interface associated, a method will be called to decide the specific way of drawing the elements. In the concrete classes that extend the game class, we can instanciate the concrete drawing interface that we want for that specific game.
+> For this, we decided to implement the Factory Method design pattern. In the game class, that will have a drawing interface associated, a method will be called to decide the specific way of drawing the elements. In the concrete classes that extend the game class, we can instanciate the concrete drawing interface that we want for that specific game.
      
->     1.3 Implementation
+#### 1.3 Implementation
      
      
      
->     1.4 Consequences
+#### 1.4 Consequences
      
->     This procedure ensures that the first SOLID principle, the Single Responsibility Principle, is not violated, because the modules created are only in charge of one specific task, and have only "one reason" to be changed.
+> This procedure ensures that the first SOLID principle, the Single Responsibility Principle, is not violated, because the modules created are only in charge of one specific task, and have only "one reason" to be changed.
 
 ## Known Code Smells and Refactoring Suggestions
 
