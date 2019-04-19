@@ -24,12 +24,20 @@ public abstract class Game {
 
     public void run() throws IOException {
 
-        while (true) {
+        boolean loop = true;
 
+        while (loop) {
+
+            /**
+             * 1 - INPUT
+             * 2 - LOGIC
+             * 3 - DRAW
+             */
+
+            // loop = handleInput();
+            house.clockTick();
             this.draw();
 
-            if(!handleInput())
-                break;
         }
 
     }

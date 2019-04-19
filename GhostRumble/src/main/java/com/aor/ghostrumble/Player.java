@@ -8,7 +8,7 @@ public class Player extends Element {
     public Player() { this(10, 10); }
     public Player(int x, int y) {
         super(x, y);
-        currentHealth = 5;
+        currentHealth = 2;
         maxHealth = 10;
     }
 

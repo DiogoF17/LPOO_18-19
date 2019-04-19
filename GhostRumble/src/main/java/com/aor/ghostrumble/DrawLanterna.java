@@ -23,8 +23,6 @@ public class DrawLanterna implements DrawingMethod {
 
         TextGraphics graphics = screen.newTextGraphics();
 
-        this.screen.clear();
-
         this.drawHouse(house.getWidth(), house.getHeight(), graphics);
         this.drawPlayerHP(house.getPlayer(), graphics);
         this.drawPlayer(house.getPlayer(), graphics);
@@ -36,16 +34,21 @@ public class DrawLanterna implements DrawingMethod {
 
 
     private void drawHouse(int width, int height, TextGraphics graphics) {
-
         graphics.setBackgroundColor(TextColor.Factory.fromString("#2D1694"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
     }
 
     private void drawPlayerHP(Player player, TextGraphics graphics) {
 
+
         graphics.enableModifiers(SGR.BOLD);
 
         graphics.putString(new TerminalPosition(5, 2), "HP: ");
+
+        // <PERHAPS>
+
+
+/*
         graphics.setBackgroundColor(TextColor.Factory.fromString("#77FF77"));
         graphics.fillRectangle(
                 new TerminalPosition(9, 2),
@@ -54,11 +57,35 @@ public class DrawLanterna implements DrawingMethod {
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.setForegroundColor(TextColor.Factory.fromString("#77FF77"));
+*/
+
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+
+        if (player.getCurrentHealth() > 2) {
+            graphics.setForegroundColor(TextColor.Factory.fromString("#77FF77"));
+        }
+        else {
+            graphics.enableModifiers(SGR.BLINK);
+            graphics.setForegroundColor(TextColor.Factory.fromString("#FF7777"));
+        }
+
+        graphics.fillRectangle(
+                new TerminalPosition(9, 2),
+                new TerminalSize(player.getCurrentHealth(), 1),
+                '█');
+
+
+
+        // </PERHAPS>
+
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
 
         graphics.fillRectangle(
                 new TerminalPosition(9 + player.getCurrentHealth(), 2),
                 new TerminalSize(player.getMaxHealth() - player.getCurrentHealth(), 1),
                 ' ');
+
+        graphics.disableModifiers(SGR.BLINK);
     }
 
 
@@ -83,12 +110,17 @@ public class DrawLanterna implements DrawingMethod {
     private void drawEnemies(List<Enemy> enemies, TextGraphics graphics) {
 
         for(Enemy enemy : enemies) {
-            graphics.setForegroundColor(TextColor.Factory.fromString("#79CF1E"));
             graphics.enableModifiers(SGR.BOLD);
+            /**
+             * Arranjar maneira de desenhar cada inimigo especifico
+             * de maneira diferente (Zombies a verde com a letra Z,
+             * Ghosts a branco com a letra G, etc.) sem comprometer
+             * a estrutura do codigo.
+             */
+            graphics.setForegroundColor(TextColor.Factory.fromString("#79CF1E"));
             graphics.putString(new TerminalPosition(enemy.getPosition().getX(), enemy.getPosition().getY()), "Z");
         }
+
     }
-
-
 
 }

@@ -41,9 +41,9 @@ public class GameLanterna extends Game {
 
         if(key.getKeyType() == KeyType.EOF)
             return false;
-/*
-               this.processKey(key);
-*/
+
+        // this.processKey(key);
+
         return true;
     }
 
