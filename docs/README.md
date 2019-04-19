@@ -34,13 +34,22 @@
 
 ![Alt text](images/UML_FactoryMethod_1/UML_FactoryMethod_1.png)
 
+> The classes can be found in the following files:
 
-> [Application](../GhostRumble/src/main/java/com/aor/ghostrumble/Application.java)
+> [Game](../GhostRumble/src/main/java/com/aor/ghostrumble/Game.java)
+> [GameLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/GameLanterna.java)
+> [DrawingMethod](../GhostRumble/src/main/java/com/aor/ghostrumble/DrawingMethod.java)
+> [DrawLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/DrawLanterna.java)
      
-     
+    
 #### 1.4 Consequences
-     
-> This procedure ensures that the first SOLID principle, the Single Responsibility Principle, is not violated, because the modules created are only in charge of one specific task, and have only "one reason" to be changed.
+
+> As said before, using the design makes it much easier to, in the future, change only the drawing module without the need to change the logic module. It increases the modularity of the code.
+
+> This procedure also ensures that the first SOLID principle, the Single Responsibility Principle, is not violated, because the modules created are only in charge of one specific task, and have only "one reason" to be changed.
+
+
+
 
 ## Known Code Smells and Refactoring Suggestions
 
