@@ -8,11 +8,36 @@
 
 ## Implemented Features
 
-> This section should contain a list of implemented features and their descriptions. In the end of the section, include two or three screenshots that illustrate the most important features.
+### Player and Walls Representation
+> The player character is shown inside a haunted house, delimited by walls, that the player cannot trespass.
+
+### Movement of the Monsters
+> The different types os monsters and creatures each have their own way of travelling arround the map; they also have different speeds.
+
+### HP Bar
+> The player HP bar is shown in the top of the screen; it is green when the HP is medium/high, and it is red and flickering when the HP is low.
 
 ## Planned Features
 
-> This section is similar to the previous one but should list the features that are not yet implemented. Instead of screenshots you should include GUI mock-ups for the planned features.
+### Player Movement
+> The player will be able to move using the WASD keys.
+
+### Shooting/Attacking
+> The player will also be able to shoot the monsters from a distance, launching a projectile/bullet in a certain direction, as well as performing a melee attack (short distance). The concept of limited ammo may also be added to the game.
+
+### Monsters Chase the Player
+> The monsters, instead of roaming around the haunted house, will actually pursue the player and try to chase him down.
+
+### Monsters Causing Damage
+> If a monster touches the player, it will die, but it will inflict damage on the player, lowering his HP.
+
+### Coin Collecting
+> In the future there may be coins scattered arround the house, for the player to collect.
+
+### Upgrade Store
+> The player would be able to use those coins in an upgrade store, that would open in the end of a wave, in order to purchase things like health regeneration, damage boost, etc.
+
+### ... and maybe some more.
 
 ## Design
 ### 1. Separating the Game´s Logic and the Drawing Module
