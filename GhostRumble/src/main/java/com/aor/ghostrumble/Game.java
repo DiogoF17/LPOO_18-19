@@ -35,7 +35,7 @@ public abstract class Game {
              */
 
             loop = handleInput();
-            house.clockTick();
+            house.update();
             this.draw();
         }
 

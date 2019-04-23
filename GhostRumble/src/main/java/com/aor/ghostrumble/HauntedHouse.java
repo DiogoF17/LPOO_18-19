@@ -11,7 +11,6 @@ public class HauntedHouse {
     private Player player;
     private List<Position> walls;
     private List<Enemy> enemies;
-    private int frameClock;
 
     public HauntedHouse(int width, int height) {
         this.width = width;
@@ -19,7 +18,6 @@ public class HauntedHouse {
         this.player = new Player();
         this.walls = createWalls();
         this.enemies = createEnemies();
-        this.frameClock = 0;
     }
 
     public int getWidth() { return width; }
@@ -49,19 +47,15 @@ public class HauntedHouse {
 
         enemies.add(new Ghost(60, 8));
         enemies.add(new Zombie(50, 20));
+        enemies.add(new Poltergeist(5, 5));
 
         return enemies;
     }
 
-    private void update() {
+    public void update() {
         for (Enemy enemy : enemies) {
             enemy.move();
         }
-    }
-
-    public void clockTick() {
-        frameClock++;
-        update();
     }
 
     public void processKey(KeyStroke key) {
@@ -92,11 +86,9 @@ public class HauntedHouse {
                         break;
 
                 }
-
                 break;
 
             default:
-
                 break;
 
         }

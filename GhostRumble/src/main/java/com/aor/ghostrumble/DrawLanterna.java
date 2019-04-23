@@ -45,20 +45,6 @@ public class DrawLanterna implements DrawingMethod {
 
         graphics.putString(new TerminalPosition(5, 2), "HP: ");
 
-        // <PERHAPS>
-
-
-/*
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#77FF77"));
-        graphics.fillRectangle(
-                new TerminalPosition(9, 2),
-                new TerminalSize(player.getCurrentHealth(), 1),
-                ' ');
-
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
-        graphics.setForegroundColor(TextColor.Factory.fromString("#77FF77"));
-*/
-
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
 
         if (player.getCurrentHealth() > 2) {
@@ -73,10 +59,6 @@ public class DrawLanterna implements DrawingMethod {
                 new TerminalPosition(9, 2),
                 new TerminalSize(player.getCurrentHealth(), 1),
                 '█');
-
-
-
-        // </PERHAPS>
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
 
@@ -115,14 +97,19 @@ public class DrawLanterna implements DrawingMethod {
 
         for(Enemy enemy : enemies) {
             graphics.enableModifiers(SGR.BOLD);
-            /**
-             * Arranjar maneira de desenhar cada inimigo especifico
-             * de maneira diferente (Zombies a verde com a letra Z,
-             * Ghosts a branco com a letra G, etc.) sem comprometer
-             * a estrutura do codigo.
-             */
-            graphics.setForegroundColor(TextColor.Factory.fromString("#79CF1E"));
-            graphics.putString(new TerminalPosition(enemy.getPosition().getX(), enemy.getPosition().getY()), "Z");
+
+            if (enemy instanceof Zombie) {
+                graphics.setForegroundColor(TextColor.Factory.fromString("#55831C"));
+                graphics.putString(new TerminalPosition(enemy.getPosition().getX(), enemy.getPosition().getY()), "Z");
+            }
+            else if (enemy instanceof Ghost) {
+                graphics.setForegroundColor(TextColor.Factory.fromString("#AAAAAA"));
+                graphics.putString(new TerminalPosition(enemy.getPosition().getX(), enemy.getPosition().getY()), "G");
+            }
+            else if(enemy instanceof Poltergeist) {
+                graphics.setForegroundColor(TextColor.Factory.fromString("#B7F072"));
+                graphics.putString(new TerminalPosition(enemy.getPosition().getX(), enemy.getPosition().getY()), "P");
+            }
         }
 
     }
