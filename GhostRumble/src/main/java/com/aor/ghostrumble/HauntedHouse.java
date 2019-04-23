@@ -55,9 +55,7 @@ public class HauntedHouse {
 
     private void update() {
         for (Enemy enemy : enemies) {
-            if (frameClock % enemy.getSpeed() == 0) {
-                enemy.move();
-            }
+            enemy.move();
         }
     }
 

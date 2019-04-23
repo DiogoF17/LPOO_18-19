@@ -1,5 +1,7 @@
 package com.aor.ghostrumble;
 
+import static java.lang.System.currentTimeMillis;
+
 public abstract class Enemy extends Movable {
 
     // tem aqui um atributo de uma classe MovementStrategy, que dizia
@@ -11,6 +13,7 @@ public abstract class Enemy extends Movable {
 
     private MovementStrategy movStrategy;
     private int speed; // numero de frames que e preciso para ele se mover
+    private long lastMoved;
 
     public Enemy(int x, int y, int speed) {
         super(x, y);
@@ -18,14 +21,13 @@ public abstract class Enemy extends Movable {
         this.speed = speed;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
     protected abstract MovementStrategy createMovStrategy();
 
     protected void move() {
-        movStrategy.move(this);
+        if (currentTimeMillis() - lastMoved > speed) {
+            movStrategy.move(this);
+            lastMoved = currentTimeMillis();
+        }
     }
 
 }
