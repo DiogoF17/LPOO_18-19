@@ -52,7 +52,7 @@ public class GameLanterna extends Game {
         return true;
     }
 
-        private void processKey(KeyStroke key) throws IOException {
+        private void processKey(KeyStroke key) {
             house.processKey(key);
         }
 
