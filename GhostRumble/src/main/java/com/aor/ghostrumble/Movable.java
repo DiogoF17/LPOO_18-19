@@ -16,20 +16,24 @@ public abstract class Movable {
         this.position = position;
     }
 
+    protected Position moveCustom(int x, int y) {
+        return new Position(position.getX() + x, position.getY() + y);
+    }
+
     protected Position moveUp() {
-        return new Position(position.getX(), position.getY() - 1);
+        return moveCustom(0, -1);
     }
 
     protected Position moveDown() {
-        return new Position(position.getX(), position.getY() + 1);
+        return moveCustom(0, 1);
     }
 
     protected Position moveLeft() {
-        return new Position(position.getX() - 1, position.getY());
+        return moveCustom(-1, 0);
     }
 
     protected Position moveRight() {
-        return new Position(position.getX() + 1, position.getY());
+        return moveCustom(1, 0);
     }
 
 }

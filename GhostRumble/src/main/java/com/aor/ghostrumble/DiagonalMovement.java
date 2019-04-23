@@ -1,10 +1,21 @@
 package com.aor.ghostrumble;
 
-public class DiagonalMovement implements MovementStrategy {
+import static java.lang.Math.abs;
+
+public class DiagonalMovement extends MovementStrategy {
+
+    public DiagonalMovement() {super();}
 
     @Override
-    public void move(Enemy enemy) {
-        enemy.setPosition(enemy.moveDown());
-        enemy.setPosition(enemy.moveRight());
+    public void update(Enemy enemy) {
+        int heroX = 2;
+        int heroY = 2;
+
+        deltaX = heroX - enemy.getPosition().getX();
+        if (deltaX != 0) deltaX /= abs(deltaX);
+
+        deltaY = heroY - enemy.getPosition().getY();
+        if (deltaY != 0) deltaY /= abs(deltaY);
     }
+
 }
