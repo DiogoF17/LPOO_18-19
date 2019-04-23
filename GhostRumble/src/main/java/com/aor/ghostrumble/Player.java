@@ -1,7 +1,7 @@
 package com.aor.ghostrumble;
 
 
-public class Player extends Element {
+public class Player extends Movable {
     private int currentHealth;
     private int maxHealth;
 

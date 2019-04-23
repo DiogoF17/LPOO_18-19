@@ -4,11 +4,11 @@ import java.io.IOException;
 
 public abstract class Game {
 
-    private HauntedHouse house;
+    protected HauntedHouse house;
     private DrawingMethod drawingMethod;
 
     protected void init(int width, int height) {
-        this.house = new HauntedHouse(width, height);
+        this.house = new HauntedHouse(width, height - 5);
         this.drawingMethod = createDrawingMethod();
     }
 
@@ -34,10 +34,9 @@ public abstract class Game {
              * 3 - DRAW
              */
 
-            // loop = handleInput();
+            loop = handleInput();
             house.clockTick();
             this.draw();
-
         }
 
     }

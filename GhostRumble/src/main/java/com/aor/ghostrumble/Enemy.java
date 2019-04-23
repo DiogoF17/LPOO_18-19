@@ -1,6 +1,6 @@
 package com.aor.ghostrumble;
 
-public abstract class Enemy extends Element {
+public abstract class Enemy extends Movable {
 
     // tem aqui um atributo de uma classe MovementStrategy, que dizia
     // como e que um determinado inimigo se moveria; ia ser instanciado

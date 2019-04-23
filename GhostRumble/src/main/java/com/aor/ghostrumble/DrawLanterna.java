@@ -35,7 +35,7 @@ public class DrawLanterna implements DrawingMethod {
 
     private void drawHouse(int width, int height, TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#2D1694"));
-        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height + 5), ' ');
     }
 
     private void drawPlayerHP(Player player, TextGraphics graphics) {
@@ -93,21 +93,25 @@ public class DrawLanterna implements DrawingMethod {
         graphics.enableModifiers(SGR.BOLD);
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#2D1694"));
-        graphics.setForegroundColor(TextColor.Factory.fromString("#B8243F"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#CEC20F"));
         graphics.putString(new TerminalPosition(player.getPosition().getX(), player.getPosition().getY()), "X");
     }
 
 
-    private void drawWalls(List<Wall> walls, TextGraphics graphics) {
+    private void drawWalls(List<Position> walls, TextGraphics graphics) {
 
-        for(Wall wall : walls) {
+        for(Position wall : walls) {
             graphics.setForegroundColor(TextColor.Factory.fromString("#9A3324"));
             graphics.enableModifiers(SGR.BOLD);
-            graphics.putString(new TerminalPosition(wall.getPosition().getX(), wall.getPosition().getY()), "#");
+            graphics.putString(new TerminalPosition(wall.getX(), wall.getY()), "#");
         }
     }
 
     private void drawEnemies(List<Enemy> enemies, TextGraphics graphics) {
+
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#2D1694"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(new TerminalPosition(5, screen.getTerminalSize().getRows() - 4), "Enemies left: " + enemies.size());
 
         for(Enemy enemy : enemies) {
             graphics.enableModifiers(SGR.BOLD);

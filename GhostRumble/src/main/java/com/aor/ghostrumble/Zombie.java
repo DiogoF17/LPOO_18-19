@@ -3,7 +3,7 @@ package com.aor.ghostrumble;
 public class Zombie extends Enemy {
 
     public Zombie(int x, int y) {
-        super(x, y, 4000);
+        super(x, y, 2000);
     }
 
     @Override

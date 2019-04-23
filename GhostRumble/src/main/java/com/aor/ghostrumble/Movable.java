@@ -1,10 +1,10 @@
 package com.aor.ghostrumble;
 
 
-public abstract class Element {
+public abstract class Movable {
     private Position position;
 
-    public Element(int x, int y) {
+    public Movable(int x, int y) {
         this.position = new Position(x, y);
     }
 
