@@ -58,13 +58,13 @@
 
 > The classes can be found in the following files:
 
-> [Game](../GhostRumble/src/main/java/com/aor/ghostrumble/Game.java)
+>[Game](../GhostRumble/src/main/java/com/aor/ghostrumble/Game.java)
 >
-> [GameLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/GameLanterna.java)
+>[GameLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
 >
-> [DrawingMethod](../GhostRumble/src/main/java/com/aor/ghostrumble/DrawingMethod.java)
+>[DrawingMethod](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
 >
->[DrawLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/DrawLanterna.java)
+>[DrawLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
      
     
 #### 1.4 Consequences
