@@ -1,5 +1,7 @@
 package com.aor.ghostrumble;
 
+import com.aor.ghostrumble.view.GameLanterna;
+
 import java.io.IOException;
 
 public class Application {

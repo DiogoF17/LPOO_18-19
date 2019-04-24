@@ -1,4 +1,6 @@
-package com.aor.ghostrumble;
+package com.aor.ghostrumble.controller;
+
+import com.aor.ghostrumble.model.*;
 
 public class Updater {
 

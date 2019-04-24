@@ -1,5 +1,6 @@
 package com.aor.ghostrumble;
 
+import com.aor.ghostrumble.view.GameLanterna;
 import org.junit.Test;
 import org.mockito.Mockito;
 

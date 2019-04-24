@@ -1,4 +1,4 @@
-package com.aor.ghostrumble;
+package com.aor.ghostrumble.model;
 
 public abstract class MovementStrategy {
     protected int deltaX;

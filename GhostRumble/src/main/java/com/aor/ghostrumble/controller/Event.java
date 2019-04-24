@@ -1,8 +1,8 @@
-package com.aor.ghostrumble;
+package com.aor.ghostrumble.controller;
 
 public class Event {
 
-    enum TYPE { PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP, PLAYER_DOWN, CLOSE, EXIT, NO_EVENT};
+    public enum TYPE { PLAYER_LEFT, PLAYER_RIGHT, PLAYER_UP, PLAYER_DOWN, CLOSE, EXIT, NO_EVENT }
 
     private TYPE type;
 

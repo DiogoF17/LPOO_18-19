@@ -1,4 +1,4 @@
-package com.aor.ghostrumble;
+package com.aor.ghostrumble.model;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -23,7 +23,7 @@ public abstract class Enemy extends Movable {
 
     protected abstract MovementStrategy createMovStrategy();
 
-    protected void move() {
+    public void move() {
         if (currentTimeMillis() - lastMoved > speed) {
             movStrategy.move(this);
             lastMoved = currentTimeMillis();

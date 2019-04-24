@@ -1,4 +1,4 @@
-package com.aor.ghostrumble;
+package com.aor.ghostrumble.model;
 
 import static java.lang.Math.abs;
 

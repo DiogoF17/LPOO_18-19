@@ -1,4 +1,4 @@
-package com.aor.ghostrumble;
+package com.aor.ghostrumble.model;
 
 public class Poltergeist extends Enemy {
 
@@ -8,6 +8,6 @@ public class Poltergeist extends Enemy {
 
     @Override
     protected MovementStrategy createMovStrategy() {
-        return new DiagonalMovement();
+        return new DVDMovement();
     }
 }

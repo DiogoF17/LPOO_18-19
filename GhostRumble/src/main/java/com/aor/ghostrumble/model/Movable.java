@@ -1,4 +1,4 @@
-package com.aor.ghostrumble;
+package com.aor.ghostrumble.model;
 
 
 public abstract class Movable {
@@ -20,19 +20,19 @@ public abstract class Movable {
         return new Position(position.getX() + x, position.getY() + y);
     }
 
-    protected Position moveUp() {
+    public Position moveUp() {
         return moveCustom(0, -1);
     }
 
-    protected Position moveDown() {
+    public Position moveDown() {
         return moveCustom(0, 1);
     }
 
-    protected Position moveLeft() {
+    public Position moveLeft() {
         return moveCustom(-1, 0);
     }
 
-    protected Position moveRight() {
+    public Position moveRight() {
         return moveCustom(1, 0);
     }
 
