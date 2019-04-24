@@ -32,14 +32,12 @@ public class DrawLanterna implements DrawingMethod {
         this.screen.refresh();
     }
 
-
     private void drawHouse(int width, int height, TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#2D1694"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height + 5), ' ');
     }
 
     private void drawPlayerHP(Player player, TextGraphics graphics) {
-
 
         graphics.enableModifiers(SGR.BOLD);
 

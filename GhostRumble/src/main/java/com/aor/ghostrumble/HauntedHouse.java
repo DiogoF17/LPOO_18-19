@@ -1,7 +1,5 @@
 package com.aor.ghostrumble;
 
-import com.googlecode.lanterna.input.KeyStroke;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,67 +45,10 @@ public class HauntedHouse {
 
         enemies.add(new Ghost(60, 8));
         enemies.add(new Zombie(50, 20));
-        enemies.add(new Poltergeist(5, 5));
+        enemies.add(new Poltergeist(6, 6));
 
         return enemies;
     }
 
-    public void update() {
-        for (Enemy enemy : enemies) {
-            enemy.move();
-        }
-    }
-
-    public void processKey(KeyStroke key) {
-
-        switch(key.getKeyType()) {
-
-            case Character:
-
-                switch(key.getCharacter()) {
-
-                    case 'w':
-                        moveElement(player, player.moveUp());
-                        break;
-
-                    case 'a':
-                        moveElement(player, player.moveLeft());
-                        break;
-
-                    case 's':
-                        moveElement(player, player.moveDown());
-                        break;
-
-                    case 'd':
-                        moveElement(player, player.moveRight());
-                        break;
-
-                    default:
-                        break;
-
-                }
-                break;
-
-            default:
-                break;
-
-        }
-
-    }
-
-    private void moveElement(Movable movable, Position position) {
-        if (canMoveTo(position))
-            movable.setPosition(position);
-    }
-
-    private boolean canMoveTo(Position position) {
-        for (Position wall : walls) {
-            if (position.equals(wall)) return false;
-        }
-        for (Enemy enemy : enemies) {
-            if (position.equals(enemy.getPosition())) return false;
-        }
-        return true;
-    }
 
 }

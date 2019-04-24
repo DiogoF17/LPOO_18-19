@@ -2,7 +2,6 @@ package com.aor.ghostrumble;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -30,30 +29,76 @@ public class GameLanterna extends Game {
     }
 
     @Override
-    protected DrawingMethod createDrawingMethod() { return new DrawLanterna(screen); }
+    protected DrawingMethod createDrawingMethod() {
+        return new DrawLanterna(screen);
+    }
+
+    private void createEvent(KeyStroke key, Event event) {
+
+        if (key == null) {
+            event.setType(Event.TYPE.NO_EVENT);
+            return;
+        }
+
+        switch(key.getKeyType()) {
+
+            case Character:
+
+                switch(key.getCharacter()) {
+
+                    case 'w':
+                        event.setType(Event.TYPE.PLAYER_UP);
+                        break;
+
+                    case 'a':
+                        event.setType(Event.TYPE.PLAYER_LEFT);
+                        break;
+
+                    case 's':
+                        event.setType(Event.TYPE.PLAYER_DOWN);
+                        break;
+
+                    case 'd':
+                        event.setType(Event.TYPE.PLAYER_RIGHT);
+                        break;
+
+                    default:
+                        event.setType(Event.TYPE.NO_EVENT);
+                        break;
+
+                }
+                break;
+
+            case Escape:
+                event.setType(Event.TYPE.CLOSE);
+                break;
+
+            case EOF:
+                event.setType(Event.TYPE.EXIT);
+                break;
+
+            default:
+                event.setType(Event.TYPE.NO_EVENT);
+                break;
+
+        }
+    }
 
     @Override
-    protected boolean handleInput() throws IOException {
+    protected boolean handleInput(Event event) throws IOException {
 
         KeyStroke key = this.screen.pollInput();
 
-        if (key != null) {
+        createEvent(key, event);
 
-            if (key.getKeyType() == KeyType.Escape)
-                screen.close();
+        if (event.getType() == Event.TYPE.CLOSE)
+            screen.close();
 
-            if (key.getKeyType() == KeyType.EOF)
-                return false;
-
-            this.processKey(key);
-
-        }
+        if (event.getType() == Event.TYPE.EXIT)
+            return false;
 
         return true;
     }
 
-        private void processKey(KeyStroke key) {
-            house.processKey(key);
-        }
 
 }

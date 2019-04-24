@@ -12,6 +12,13 @@ public abstract class MovementStrategy {
     public abstract void update(Enemy enemy);
 
     public Position move(Enemy enemy) {
+
+        //--
+        //so para teste
+        enemy.setPosition(enemy.moveRight());
+        //--
+
+        //deve estar aqui
         return enemy.moveCustom(deltaX, deltaY);
     }
 }

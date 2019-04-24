@@ -6,6 +6,6 @@ public class LinearMovement extends MovementStrategy {
 
     @Override
     public void update(Enemy enemy) {
-        enemy.setPosition(enemy.moveLeft());
+        //enemy.setPosition(enemy.moveLeft());
     }
 }

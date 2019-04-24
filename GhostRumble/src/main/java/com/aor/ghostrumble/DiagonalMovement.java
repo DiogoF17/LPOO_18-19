@@ -8,14 +8,14 @@ public class DiagonalMovement extends MovementStrategy {
 
     @Override
     public void update(Enemy enemy) {
-        int heroX = 2;
+        /*int heroX = 2;
         int heroY = 2;
 
         deltaX = heroX - enemy.getPosition().getX();
         if (deltaX != 0) deltaX /= abs(deltaX);
 
         deltaY = heroY - enemy.getPosition().getY();
-        if (deltaY != 0) deltaY /= abs(deltaY);
+        if (deltaY != 0) deltaY /= abs(deltaY);*/
     }
 
 }
