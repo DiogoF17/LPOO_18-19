@@ -1,4 +1,6 @@
-package com.aor.ghostrumble.model;
+package com.aor.ghostrumble.view;
+
+import com.aor.ghostrumble.model.HauntedHouse;
 
 import java.io.IOException;
 

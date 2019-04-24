@@ -2,7 +2,7 @@ package com.aor.ghostrumble;
 
 import com.aor.ghostrumble.controller.Event;
 import com.aor.ghostrumble.controller.Updater;
-import com.aor.ghostrumble.model.DrawingMethod;
+import com.aor.ghostrumble.view.DrawingMethod;
 import com.aor.ghostrumble.model.HauntedHouse;
 
 import java.io.IOException;
