@@ -35,8 +35,22 @@ public abstract class Game {
 
         Event event = new Event(Event.TYPE.NO_EVENT);
 
+        new Thread() {
+
+            @Override
+            public void run() {
+                while (loop) {
+                    try{
+                        loop = handleInput(event);
+                    }catch(IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+
         while (loop) {
-            loop = handleInput(event);
+
             updater.update(event, house);
             drawingMethod.drawAll(house);
         }

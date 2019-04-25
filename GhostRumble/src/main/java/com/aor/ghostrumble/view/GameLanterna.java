@@ -37,11 +37,6 @@ public class GameLanterna extends Game {
 
     private void createEvent(KeyStroke key, Event event) {
 
-        if (key == null) {
-            event.setType(Event.TYPE.NO_EVENT);
-            return;
-        }
-
         switch(key.getKeyType()) {
 
             case Character:
@@ -89,7 +84,7 @@ public class GameLanterna extends Game {
     @Override
     protected boolean handleInput(Event event) throws IOException {
 
-        KeyStroke key = this.screen.pollInput();
+        KeyStroke key = this.screen.readInput();
 
         createEvent(key, event);
 

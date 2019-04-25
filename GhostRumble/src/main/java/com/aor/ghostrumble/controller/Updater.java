@@ -7,6 +7,9 @@ public class Updater {
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);
         moveEnemies(house);
+
+        //resets the event
+        event.setType(Event.TYPE.NO_EVENT);
     }
 
     private void moveEnemies(HauntedHouse house) {
