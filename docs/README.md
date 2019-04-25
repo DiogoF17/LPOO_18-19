@@ -49,7 +49,7 @@
 
 #### 1.3 The Implementation
 > Here's how we decided to implement the pattern:
-(image)
+![Alt text](images/UML_MVC/UML_MVC.png)
 
 > The classes can be found in the following files:
 >
