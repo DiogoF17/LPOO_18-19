@@ -8,8 +8,8 @@
 
 ## Implemented Features
 
-### Player and Walls Representation
-> The player character is shown inside a haunted house, delimited by walls, that the player cannot trespass.
+### Player, Walls, and Enemies Representation
+> The player character is shown inside a haunted house, delimited by walls, that the player cannot trespass; some monsters, like zombies and ghosts, will appear in the haunted house too.
 
 ### Movement of the Monsters
 > The different types os monsters and creatures each have their own way of travelling arround the map; they also have different speeds.
@@ -66,8 +66,8 @@
 > [Updater](../GhostRumble/src/main/java/com/aor/ghostrumble/controller/Updater.java)
 
 #### 1.4 Consequences
-> As said before, using the MVC design (or similar, like we did) increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, deciding to use another way of drawing and reading inputs, other than Lanterna), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that uses a new way of read inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen).
-
+> As said before, using the MVC design (or similar, like we did) increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, deciding to use another way of drawing and reading inputs, other than Lanterna), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that uses a new way of read inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen). This shows that our code structure respects the Open-Closed Principle: modules are open for extensions, but closed for modification.
+>
 > As we also said before, it meets the requirements of the Single Responsability Principle: each module has only one reason to change. In our opinion, separating the View into two parts (one that draws, one that reads user input) contributes even more to the following of this principle.
 
 ### 2. Joining the Different View Components
@@ -76,6 +76,7 @@
      
 #### 2.2 The Pattern
 > For this, we decided to implement the Factory Method design pattern. In the game class, that will have a drawing interface associated, a method will be called to decide the specific way of drawing the elements. In the concrete classes that extend the game class (and are in charge of reading input), we can instanciate the concrete drawing interface that we want for that specific type of game. (We can actually also consider this to be sort of a Strategy pattern too, because the way game class "draws" is to delegate the task to the drawing interface. The different interfaces are the different strategies).
+>
 > NOTE: if needed, this design pattern can later be changed to an Abstract Factory pattern; for now, we do not feel the need to do that, so we kept it has a regular Factory Method pattern.
      
 #### 2.3 Implementation  
@@ -94,6 +95,7 @@
         
 #### 2.4 Consequences
 > The main Game class doesn't need to anticipate what implementation of DrawingMethod it needs to create; it just delegates that decision to the subclasses.
+>
 > In order to change the View component, we only need to change what Game subclass we use, because doing so changes what drawing interface we use, because of the Factory Method pattern.
 
 ## Known Code Smells and Refactoring Suggestions
