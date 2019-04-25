@@ -52,6 +52,7 @@
 (image)
 
 > The classes can be found in the following files:
+>
 > [Game](../GhostRumble/src/main/java/com/aor/ghostrumble/Game.java)
 >
 > [GameLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
@@ -82,6 +83,7 @@
 ![Alt text](images/UML_FactoryMethod_1/UML_FactoryMethod_1.png)
 
 > The classes can be found in the following files:
+>
 >[Game](../GhostRumble/src/main/java/com/aor/ghostrumble/Game.java)
 >
 >[GameLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
