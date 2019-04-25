@@ -17,10 +17,10 @@
 ### HP Bar
 > The player HP bar is shown in the top of the screen; it is green when the HP is medium/high, and it is red and flickering when the HP is low.
 
-## Planned Features
-
 ### Player Movement
-> The player will be able to move using the WASD keys.
+> The player is able to move using the WASD keys.
+
+## Planned Features
 
 ### Shooting/Attacking
 > The player will also be able to shoot the monsters from a distance, launching a projectile/bullet in a certain direction, as well as performing a melee attack (short distance). The concept of limited ammo may also be added to the game.
@@ -40,8 +40,31 @@
 ### ... and maybe some more.
 
 ## Design
-### 1. Separating the Game´s Logic and the Drawing Module
-     
+### 1. Separating the Game's Modules
+#### 1.1 Problem in Context
+> The first problem that we came across was to find a way to separate, in a correct way, the different aspects of our game: the logic module, that would be in charge of the mechanics of the game (the inner workings of the game, such as the player and enemies movement, when the game ends, etc); the drawing module, that would be in charge of transmiting the game´s logic and current state onto the screen, for the user to understand/interact; and others. Performing a correct separation of the game's modules would avoid the violation of the Single Responsability Principle; furthermore, doing so would make it a lot easier if we were to change just on component of the game, such as the drawing method, because we wouldn't need to change the other modules, as they are separated and not dependent.
+
+#### 1.2 The Pattern
+> In order to do this, we decided to implement a slightly different version of the MVC (Model - View - Controller) architectural pattern. The Model functions only has a data "warehouse", containing all the information about the game and its current state, but not knowing how to change it; the Controller receives the Model and the current Event, and updates the Model accordingly; the View (contrary to the standard MVC pattern) is split in two parts, one that receives the user input and generates the Event that is going to be processed by the Controller, and another one that receives the Model, and is in charge of drawing the current state of the game onto the screen. Finally, we have a Game class that connects all these modules, and contains the main game cycle.
+
+#### 1.3 The Implementation
+> Here's how we decided to implement the pattern:
+(image)
+
+> The classes can be found in the following files:
+> [Game](../GhostRumble/src/main/java/com/aor/ghostrumble/Game.java)
+> [GameLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
+> [DrawingMethod](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
+> [DrawLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
+> [HauntedHouse](../GhostRumble/src/main/java/com/aor/ghostrumble/model/HauntedHouse.java)
+> [Updater](../GhostRumble/src/main/java/com/aor/ghostrumble/controller/Updater.java)
+
+#### 1.4 Consequences
+> As said before, using the MVC design (or similar, like we did) helps divide the game in modules. Doing so makes it easier to change only one component of the game, and to keep all the others (for example, deciding to use another way of drawing and reading inputs, other than Lanterna), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that uses a new way of read inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen).
+
+> As we also said before, it meets the requirements of the Single Responsability Principle: each module has only one reason to change. In our opinion, separating the View into two parts (one that draws, one that reads user input) contributes even more to the following of this principle.
+
+### 2. Separating the Game´s Logic and the Drawing Module
 #### 1.1 Problem in Context
      
 > One of the first decisions/problems that we had was to find a way to separate the code for the game's logic (that is, the inner workings of the game, such as the player and enemies movement, when the game ends, etc) from the drawing module, that is in charge of transmiting the game´s logic and current state onto the screen, for the user to understand/interact. Seperating the two modules would help us in the future, if we wanted to change only the drawing module, for example: we wouldn't need to change anything in the logic module, because they are seperated and not dependent.
@@ -53,17 +76,12 @@
 #### 1.3 Implementation
      
 > Here's how we decided to implement the design pattern:
-
 ![Alt text](images/UML_FactoryMethod_1/UML_FactoryMethod_1.png)
 
 > The classes can be found in the following files:
-
 >[Game](../GhostRumble/src/main/java/com/aor/ghostrumble/Game.java)
->
 >[GameLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
->
 >[DrawingMethod](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
->
 >[DrawLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
      
     
