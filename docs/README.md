@@ -11,31 +11,31 @@
 ### Player, Walls, and Enemies Representation
 > The player character is shown inside a haunted house, delimited by walls, that the player cannot trespass; some monsters, like zombies and ghosts, will appear in the haunted house too.
 
+### Player Movement
+> The player is able to move using the WASD keys.
+
 ### Movement of the Monsters
 > The different types os monsters and creatures each have their own way of travelling arround the map; they also have different speeds.
+
+### Monsters Chase the Player
+> The monsters, instead of roaming around the haunted house, will actually pursue the player and try to chase him down.
 
 ### HP Bar
 > The player HP bar is shown in the top of the screen; it is green when the HP is medium/high, and it is red and flickering when the HP is low.
 
-### Player Movement
-> The player is able to move using the WASD keys.
+### Monsters Causing Damage
+> If a monster touches the player, it will die, but it will inflict damage on the player, lowering his HP.
 
 ## Planned Features
 
 ### Shooting/Attacking
 > The player will also be able to shoot the monsters from a distance, launching a projectile/bullet in a certain direction, as well as performing a melee attack (short distance). The concept of limited ammo may also be added to the game.
 
-### Monsters Chase the Player
-> The monsters, instead of roaming around the haunted house, will actually pursue the player and try to chase him down.
+### Upgrade Spawning in the Haunted House
+> From time to time, an upgrade would spawn on a random location of the house; if the player picks it up, it can restore his health, increase his max health, speed or damage, depending on the type of the upgrade.
 
-### Monsters Causing Damage
-> If a monster touches the player, it will die, but it will inflict damage on the player, lowering his HP.
-
-### Coin Collecting
+### Coin Collecting (?)
 > In the future there may be coins scattered arround the house, for the player to collect.
-
-### Upgrade Store
-> The player would be able to use those coins in an upgrade store, that would open in the end of a wave, in order to purchase things like health regeneration, damage boost, etc.
 
 ### ... and maybe some more.
 
@@ -97,6 +97,64 @@
 > The main Game class doesn't need to anticipate what implementation of DrawingMethod it needs to create; it just delegates that decision to the subclasses.
 >
 > In order to change the View component, we only need to change what Game subclass we use, because doing so changes what drawing interface we use, because of the Factory Method pattern.
+
+### 3. Diferent Ways and Movements for Different Monsters
+#### 3.1 Problem in Context
+> In order to make the game less "boring" and monotonous, instead of making every enemy move in the same way, we decided to associate each type of enemy to a movement strategy: we wanted Zombies to only be able to move in a straight line, that is, to the left, right, up or down; Ghosts, however, should be able to also move diagonally, so they have free movement around the house. Poltergeists could have either one of the two strategies. So, we needed to find a way to design and structure our code in order to implemement these features. 
+
+#### 3.2 The Pattern
+> For this problem, we opted to use a combination of two design patterns, the Factory Method pattern and the Strategy pattern. While we have subclasses representing the different types of enemies, we would also have subclasses representing the different types of movement strategies. Each enemy would have a movement strategy associated to it, and when that enemy would need to move to a different position in the house, it would just delegate that action to the movement strategy (ence the Strategy pattern). Because we decided that all Ghosts and all Zombies would have the same strategy, we came to the conclusion that implementing the Factory Method pattern would also be a good choice.
+
+#### 3.3 Implementation
+> Here's how we decided to implement the design patterns:
+>
+> (FALTA IMAGEM)
+
+> The classes can be found in the following files:
+>
+> [Enemy](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Enemy.java)
+>
+> [Ghost](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Ghost.java)
+>
+> [Zombie](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Zombie.java)
+>
+> [Poltergeist](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Poltergeist.java)
+>
+> [MovementStrategy](../GhostRumble/src/main/java/com/aor/ghostrumble/model/MovementStrategy.java)
+>
+> [LinearMovement](../GhostRumble/src/main/java/com/aor/ghostrumble/model/LinearMovement.java)
+>
+> [FreeMovemement](../GhostRumble/src/main/java/com/aor/ghostrumble/model/FreeMovemement.java)
+
+#### 3.4 Consequences
+> The Enemy class and its subclasses do not need to know anything about the processing of the movement (how its done). As said before, it simply delegates that action to the implementation of MovementStrategy, for that enemy.
+>
+> Conditional logic (if and elses, switch statements) are avoided by using different subclasses and polymorphism.
+>
+> It would be very easy to add another type of enemy or add another movement strategy, ence respecting the Open-Closed Principle.
+
+### 4. Monsters Chase the Player
+#### 4.1 Problem in Context
+> A very important part of our game is the fact that enemies will chase the player around the house, in order to get to him and damage him. We needed to find a way for the enemies to know in which direction they should move, based on the current player position, so the monsters would get closer to the player.
+
+#### 4.2 The Pattern
+> For this, we decided to implement the Observer pattern. The player would have various observers (all the active/current enemies), and each type the player moved, it would notify all of the enemies, "telling them" about his new position: the enemies would then update the direction in with they should move. (Each time an enemy moves, its direction is also updated).
+
+#### 4.3 Implementation
+> Here's how we decided to implement the design pattern:
+>
+> (FALTA IMAGEM)
+
+> The classes can be found in the following files:
+>
+> [Enemy](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Enemy.java)
+>
+> [PlayerObserver](../GhostRumble/src/main/java/com/aor/ghostrumble/model/PlayerObserver.java)
+>
+> [Player](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Player.java)
+
+#### 4.4 Consequences
+> Encapsulation and seperation of the code is promoted: the Player class does not know anything about the Enemy class; in fact, it only knows about PlayerObservers and that it needs to notify them, but does not know what they do or how they do it when that occurs.
 
 ## Known Code Smells and Refactoring Suggestions
 
