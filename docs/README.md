@@ -124,7 +124,7 @@
 >
 > [LinearMovement](../GhostRumble/src/main/java/com/aor/ghostrumble/model/LinearMovement.java)
 >
-> [FreeMovemement](../GhostRumble/src/main/java/com/aor/ghostrumble/model/FreeMovemement.java)
+> [FreeMovement](../GhostRumble/src/main/java/com/aor/ghostrumble/model/FreeMovement.java)
 
 #### 3.4 Consequences
 > The Enemy class and its subclasses do not need to know anything about the processing of the movement (how its done). As said before, it simply delegates that action to the implementation of MovementStrategy, for that enemy.
