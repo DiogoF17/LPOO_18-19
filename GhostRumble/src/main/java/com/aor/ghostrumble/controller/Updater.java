@@ -2,7 +2,7 @@ package com.aor.ghostrumble.controller;
 
 import com.aor.ghostrumble.model.*;
 
-import java.util.Iterator;
+import java.util.ListIterator;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -10,10 +10,11 @@ public class Updater {
 
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);
-        moveEnemies(house);
-
 
         checkEnemyCollisions(house);
+        moveEnemies(house);
+        checkEnemyCollisions(house);
+
         removeFlagged(house);
 
         //resets the event
@@ -23,7 +24,7 @@ public class Updater {
     private void moveEnemies(HauntedHouse house) {
         for (Enemy enemy : house.getEnemies()) {
             if (currentTimeMillis() - enemy.getLastMoved() > enemy.getSpeed()) {
-                moveElement(enemy, enemy.move(), house);
+                moveEnemy(enemy, enemy.move(), house);
                 enemy.setLastMoved(currentTimeMillis());
             }
         }
@@ -36,19 +37,19 @@ public class Updater {
         switch(event.getType()) {
 
             case PLAYER_UP:
-                moveElement(player, player.moveUp(), house);
+                movePlayer(player, player.moveUp(), house);
                 break;
 
             case PLAYER_LEFT:
-                moveElement(player, player.moveLeft(), house);
+                movePlayer(player, player.moveLeft(), house);
                 break;
 
             case PLAYER_DOWN:
-                moveElement(player, player.moveDown(), house);
+                movePlayer(player, player.moveDown(), house);
                 break;
 
             case PLAYER_RIGHT:
-                moveElement(player, player.moveRight(), house);
+                movePlayer(player, player.moveRight(), house);
                 break;
 
             default:
@@ -58,23 +59,57 @@ public class Updater {
 
     }
 
-    private void moveElement(Movable movable, Position position, HauntedHouse house) {
-        if (canMoveTo(position, house))
-            movable.setPosition(position);
+    private void movePlayer(Player player, Position position, HauntedHouse house) {
+        if (canPlayerMoveTo(position, house)) {
+            player.setPosition(position);
+            player.notifyObservers();
+        }
     }
 
-    private boolean canMoveTo(Position position, HauntedHouse house) {
+    private boolean canPlayerMoveTo(Position position, HauntedHouse house) {
         for (Element wall : house.getWalls()) {
-            if (position.equals(wall.getPosition())) return false;
+            if (position.equals(wall.getPosition()))
+                return false;
         }
 
         return true;
     }
 
+    private void moveEnemy(Enemy enemy, Position position, HauntedHouse house) {
+        if (canEnemyMoveTo(position, house)) {
+            enemy.setPosition(position);
+            enemy.updateDirection(house.getPlayer().getPosition());
+        }
+    }
+
+    private boolean canEnemyMoveTo(Position position, HauntedHouse house) {
+        for (Element wall : house.getWalls()) {
+            if (position.equals(wall.getPosition()))
+                return false;
+        }
+
+        for (Enemy enemy : house.getEnemies()) {
+            if(position.equals(enemy.getPosition()))
+                return false;
+        }
+
+        return true;
+    }
+
+
     private void removeFlagged(HauntedHouse house) {
 
         house.getWalls().removeIf( w -> w.flaggedForRemoval());
-        house.getEnemies().removeIf( e -> e.flaggedForRemoval());
+
+        ListIterator<Enemy> enemyItr = house.getEnemies().listIterator();
+        while(enemyItr.hasNext()) {
+            Enemy currentEnemy = enemyItr.next();
+
+            if(currentEnemy.flaggedForRemoval()) {
+                house.getPlayer().getObservers().remove(currentEnemy);
+                enemyItr.remove();
+            }
+        }
     }
 
 

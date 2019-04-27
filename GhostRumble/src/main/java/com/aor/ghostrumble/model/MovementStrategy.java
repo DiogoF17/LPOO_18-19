@@ -5,20 +5,11 @@ public abstract class MovementStrategy {
     protected int deltaY;
 
     public MovementStrategy() {
-        deltaX = 0;
-        deltaY = 0;
+        this.deltaX = 0;
+        this.deltaY = 0;
     }
 
-    public abstract void update(Enemy enemy);
+    public abstract void updateDirection(Position position1, Position position2);
 
-    public Position move(Enemy enemy) {
-
-        //--
-        //so para teste
-        enemy.setPosition(enemy.moveRight());
-        //--
-
-        //deve estar aqui
-        return enemy.moveCustom(deltaX, deltaY);
-    }
+    public Position move(Enemy enemy) { return enemy.moveCustom(deltaX, deltaY); }
 }

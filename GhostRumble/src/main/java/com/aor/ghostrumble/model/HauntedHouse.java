@@ -15,7 +15,7 @@ public class HauntedHouse {
         this.height = height;
         this.player = new Player();
         this.walls = createWalls();
-        this.enemies = createEnemies();
+        this.enemies = new ArrayList<>(); createEnemies();
     }
 
     public int getWidth() { return width; }
@@ -40,14 +40,20 @@ public class HauntedHouse {
         return walls;
     }
 
-    private List<Enemy> createEnemies() {
-        List<Enemy> enemies = new ArrayList<>();
+    private void createEnemies() {
+        addEnemy(new Ghost(60, 8));
+        addEnemy(new Zombie(50, 20));
+        addEnemy(new Poltergeist(6, 6));
+    }
 
-        enemies.add(new Ghost(60, 8));
-        enemies.add(new Zombie(50, 20));
-        enemies.add(new Poltergeist(6, 6));
+    private void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+        player.addObserver(enemy);
+    }
 
-        return enemies;
+    private void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+        player.removeObserver(enemy);
     }
 
 

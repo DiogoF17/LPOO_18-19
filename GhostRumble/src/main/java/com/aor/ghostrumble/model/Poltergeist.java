@@ -1,5 +1,7 @@
 package com.aor.ghostrumble.model;
 
+import java.util.Random;
+
 public class Poltergeist extends Enemy {
 
     private final static int POLTERGEIST_SPEED = 400;
@@ -11,6 +13,13 @@ public class Poltergeist extends Enemy {
 
     @Override
     protected MovementStrategy createMovStrategy() {
-        return new DVDMovement();
+
+        // poltergueists can have either strategy
+
+        Random random = new Random();
+
+        if(random.nextBoolean())
+            return new LinearMovement();
+        else return new FreeMovement();
     }
 }

@@ -2,9 +2,9 @@ package com.aor.ghostrumble.model;
 
 import static java.lang.Math.abs;
 
-public class LinearMovement extends MovementStrategy {
+public class FreeMovement extends MovementStrategy {
 
-    public LinearMovement() { super(); }
+    public FreeMovement() {super();}
 
     @Override
     public void updateDirection(Position position1, Position position2) {
@@ -15,8 +15,7 @@ public class LinearMovement extends MovementStrategy {
             deltaX = 0;
         else deltaX = horOffset / abs(horOffset);
 
-        // prioritizes horizontal movement
-        if(deltaX != 0 || vertOffset == 0)
+        if(vertOffset == 0)
             deltaY = 0;
         else deltaY = vertOffset / abs(vertOffset);
     }

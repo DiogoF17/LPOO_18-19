@@ -11,7 +11,7 @@ public class Ghost extends Enemy {
 
     @Override
     protected MovementStrategy createMovStrategy() {
-        return new DiagonalMovement();
+        return new FreeMovement();
     }
 
 }
