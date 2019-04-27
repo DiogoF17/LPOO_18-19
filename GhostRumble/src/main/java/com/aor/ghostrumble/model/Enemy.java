@@ -2,7 +2,7 @@ package com.aor.ghostrumble.model;
 
 import static java.lang.System.currentTimeMillis;
 
-public abstract class Enemy extends Movable {
+public abstract class Enemy extends AutoMovable {
 
     // tem aqui um atributo de uma classe MovementStrategy, que dizia
     // como e que um determinado inimigo se moveria; ia ser instanciado
@@ -12,22 +12,32 @@ public abstract class Enemy extends Movable {
     // Factory Method e Strategy?
 
     private MovementStrategy movStrategy;
-    private int speed; // numero de frames que e preciso para ele se mover
-    private long lastMoved;
+    private int damage;
 
-    public Enemy(int x, int y, int speed) {
-        super(x, y);
+    public Enemy(int x, int y, int speed, int damage) {
+        super(x, y, speed);
+        this.damage = damage;
         this.movStrategy = createMovStrategy();
-        this.speed = speed;
     }
 
     protected abstract MovementStrategy createMovStrategy();
 
-    public void move() {
+    public Position move() {
+        return movStrategy.move(this);
+
+        /*
         if (currentTimeMillis() - lastMoved > speed) {
-            movStrategy.move(this);
             lastMoved = currentTimeMillis();
+            return movStrategy.move(this);
         }
+        */
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
 }

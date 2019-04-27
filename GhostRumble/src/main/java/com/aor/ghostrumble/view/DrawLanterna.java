@@ -79,14 +79,14 @@ public class DrawLanterna implements DrawingMethod {
     }
 
 
-    private void drawWalls(List<Position> walls, TextGraphics graphics) {
+    private void drawWalls(List<Element> walls, TextGraphics graphics) {
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#323232"));
         graphics.setForegroundColor(TextColor.Factory.fromString("#9A3324"));
         graphics.enableModifiers(SGR.BOLD);
 
-        for(Position wall : walls) {
-            graphics.putString(new TerminalPosition(wall.getX(), wall.getY()), "#");
+        for(Element wall : walls) {
+            graphics.putString(new TerminalPosition(wall.getPosition().getX(), wall.getPosition().getY()), "#");
         }
     }
 

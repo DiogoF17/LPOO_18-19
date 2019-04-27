@@ -2,11 +2,19 @@ package com.aor.ghostrumble.controller;
 
 import com.aor.ghostrumble.model.*;
 
+import java.util.Iterator;
+
+import static java.lang.System.currentTimeMillis;
+
 public class Updater {
 
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);
         moveEnemies(house);
+
+
+        checkEnemyCollisions(house);
+        removeFlagged(house);
 
         //resets the event
         event.setType(Event.TYPE.NO_EVENT);
@@ -14,7 +22,10 @@ public class Updater {
 
     private void moveEnemies(HauntedHouse house) {
         for (Enemy enemy : house.getEnemies()) {
-            enemy.move();
+            if (currentTimeMillis() - enemy.getLastMoved() > enemy.getSpeed()) {
+                moveElement(enemy, enemy.move(), house);
+                enemy.setLastMoved(currentTimeMillis());
+            }
         }
     }
 
@@ -53,14 +64,33 @@ public class Updater {
     }
 
     private boolean canMoveTo(Position position, HauntedHouse house) {
-        for (Position wall : house.getWalls()) {
-            if (position.equals(wall)) return false;
+        for (Element wall : house.getWalls()) {
+            if (position.equals(wall.getPosition())) return false;
         }
 
-        for (Enemy enemy : house.getEnemies()) {
-            if (position.equals(enemy.getPosition())) return false;
-        }
         return true;
+    }
+
+    private void removeFlagged(HauntedHouse house) {
+
+        house.getWalls().removeIf( w -> w.flaggedForRemoval());
+        house.getEnemies().removeIf( e -> e.flaggedForRemoval());
+    }
+
+
+    /*
+    private boolean checkForGameOver(HauntedHouse house) {
+        return house.getPlayer().getCurrentHealth() <= 0;
+    }
+    */
+
+    private void checkEnemyCollisions(HauntedHouse house) {
+        for(Enemy enemy : house.getEnemies()) {
+            if(enemy.getPosition().equals(house.getPlayer().getPosition())) {
+                house.getPlayer().damagePlayer(enemy.getDamage());
+                enemy.setRemoveFlag(true);
+            }
+        }
     }
 
 }
