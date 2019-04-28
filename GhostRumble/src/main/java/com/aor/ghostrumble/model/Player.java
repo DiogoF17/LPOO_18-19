@@ -33,7 +33,7 @@ public class Player extends Movable {
 
     public void notifyObservers() {
         for(PlayerObserver observer : observers)
-            observer.updateDirection(position);
+            observer.update(this);
     }
 
 }

@@ -78,7 +78,7 @@ public class Updater {
     private void moveEnemy(Enemy enemy, Position position, HauntedHouse house) {
         if (canEnemyMoveTo(position, house)) {
             enemy.setPosition(position);
-            enemy.updateDirection(house.getPlayer().getPosition());
+            enemy.update(house.getPlayer());
         }
     }
 

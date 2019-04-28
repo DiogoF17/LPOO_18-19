@@ -20,5 +20,5 @@ public abstract class Enemy extends AutoMovable implements PlayerObserver {
     public void setDamage(int damage) { this.damage = damage; }
 
     @Override
-    public void updateDirection(Position position) { movStrategy.updateDirection(position, this.position); }
+    public void update(Player player) { movStrategy.updateDirection(player.getPosition(), position); }
 }

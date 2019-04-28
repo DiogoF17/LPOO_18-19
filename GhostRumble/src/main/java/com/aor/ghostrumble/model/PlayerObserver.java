@@ -2,5 +2,5 @@ package com.aor.ghostrumble.model;
 
 public interface PlayerObserver {
 
-    void updateDirection(Position position);
+    void update(Player player);
 }
