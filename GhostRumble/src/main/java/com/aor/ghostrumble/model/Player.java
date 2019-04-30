@@ -24,6 +24,7 @@ public class Player extends Movable {
     public int getCurrentHealth() { return currentHealth; }
     public int getMaxHealth() { return maxHealth; }
     public List<PlayerObserver> getObservers() { return observers; }
+    public final static int getMaxHealthConstant() { return MAX_HEALTH; }
 
     public void damagePlayer(int damage) { currentHealth -= damage; }
 
