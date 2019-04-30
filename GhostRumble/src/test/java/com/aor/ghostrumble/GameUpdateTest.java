@@ -12,7 +12,7 @@ import java.util.List;
 import static java.lang.System.currentTimeMillis;
 import static junit.framework.TestCase.assertEquals;
 
-public class UpdaterTest {
+public class GameUpdateTest {
 
     @Test
     public void testEnemyMovement() {
