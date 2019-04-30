@@ -46,7 +46,7 @@ public class DrawLanterna implements DrawingMethod {
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
 
-        if (player.getCurrentHealth() > 2) {
+        if (player.getCurrentHealth() > 5) {
             graphics.setForegroundColor(TextColor.Factory.fromString("#77FF77"));
         }
         else {
@@ -56,8 +56,7 @@ public class DrawLanterna implements DrawingMethod {
 
         graphics.fillRectangle(
                 new TerminalPosition(9, 2),
-                new TerminalSize(player.getCurrentHealth(), 1),
-                'X');
+                new TerminalSize(player.getCurrentHealth(), 1), (char) 0x2588);
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
 
