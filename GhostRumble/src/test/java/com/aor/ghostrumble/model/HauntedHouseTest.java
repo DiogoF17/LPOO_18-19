@@ -1,4 +1,4 @@
-package com.aor.ghostrumble;
+package com.aor.ghostrumble.model;
 
 import com.aor.ghostrumble.model.HauntedHouse;
 import com.aor.ghostrumble.model.Player;

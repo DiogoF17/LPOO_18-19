@@ -19,6 +19,8 @@ public abstract class Enemy extends AutoMovable implements PlayerObserver {
 
     public int getDamage() { return damage; }
 
+    public void setDamage(int damage) { this.damage = damage; }
+
     public void setHitPlayer(boolean hitPlayer) {
         this.hitPlayer = hitPlayer;
     }
@@ -26,6 +28,10 @@ public abstract class Enemy extends AutoMovable implements PlayerObserver {
     public boolean hasHitPlayer() {
         return hitPlayer;
     }
+
+    public MovementStrategy getMovStrategy() { return movStrategy; }
+
+    public void setMovStrategy(MovementStrategy movStrategy) { this.movStrategy = movStrategy; }
 
     @Override
     public void update(Player player) { movStrategy.updateDirection(player.getPosition(), position); }

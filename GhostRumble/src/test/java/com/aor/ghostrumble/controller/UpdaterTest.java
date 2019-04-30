@@ -1,7 +1,5 @@
-package com.aor.ghostrumble;
+package com.aor.ghostrumble.controller;
 
-import com.aor.ghostrumble.controller.Event;
-import com.aor.ghostrumble.controller.Updater;
 import com.aor.ghostrumble.model.*;
 import org.junit.Test;
 import org.mockito.Mockito;

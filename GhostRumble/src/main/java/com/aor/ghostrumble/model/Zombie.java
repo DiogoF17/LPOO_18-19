@@ -9,9 +9,10 @@ public class Zombie extends Enemy {
         super(x, y, ZOMBIE_SPEED, ZOMBIE_DAMAGE);
     }
 
+    public final static int getZombieSpeed() { return ZOMBIE_SPEED; }
+    public final static int getZombieDamage() { return ZOMBIE_DAMAGE; }
+
     @Override
-    protected MovementStrategy createMovStrategy() {
-        return new LinearMovement();
-    }
+    protected MovementStrategy createMovStrategy() { return new LinearMovement(); }
 
 }

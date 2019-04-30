@@ -11,10 +11,13 @@ public class Poltergeist extends Enemy {
         super(x, y, POLTERGEIST_SPEED, POLTERGEIST_DAMAGE);
     }
 
+    public static int getPoltergeistDamage() { return POLTERGEIST_DAMAGE; }
+    public static int getPoltergeistSpeed() { return POLTERGEIST_SPEED; }
+
     @Override
     protected MovementStrategy createMovStrategy() {
 
-        // poltergueists can have either strategy
+        // poltergeists can have either strategy
 
         Random random = new Random();
 
