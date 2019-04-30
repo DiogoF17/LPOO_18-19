@@ -49,7 +49,7 @@
 
 #### 1.3 The Implementation
 > Here's how we decided to implement the pattern:
-![Alt text](images/UML_MVC/UML_MVC.png)
+![Alt text](diagrams/UML_MVC/UML_MVC.png)
 
 > The classes can be found in the following files:
 >
@@ -81,7 +81,7 @@
      
 #### 2.3 Implementation  
 > Here's how we decided to implement the design pattern:
-![Alt text](images/UML_FactoryMethod_1/UML_FactoryMethod_1.png)
+![Alt text](diagrams/UML_FactoryMethod_1/UML_FactoryMethod_1.png)
 
 > The classes can be found in the following files:
 >
@@ -108,7 +108,7 @@
 #### 3.3 Implementation
 > Here's how we decided to implement the design patterns:
 >
-> (FALTA IMAGEM)
+> ![Alt text](diagrams/UML_FacMethod&Strategy_1/UML_FacMethod&Strategy_1.png)
 
 > The classes can be found in the following files:
 >
@@ -138,12 +138,12 @@
 > A very important part of our game is the fact that enemies will chase the player around the house, in order to get to him and damage him. We needed to find a way for the enemies to know in which direction they should move, based on the current player position, so the monsters would get closer to the player.
 
 #### 4.2 The Pattern
-> For this, we decided to implement the Observer pattern. The player would have various observers (all the active/current enemies), and each type the player moved, it would notify all of the enemies, "telling them" about his new position: the enemies would then update the direction in with they should move. (Each time an enemy moves, its direction is also updated).
+> For this, we decided to implement the Observer pattern. The player would have various observers (all the active/current enemies), and each time the player moved, it would notify all of the enemies, "telling them" about his new position: the enemies would then update the direction in with they should move. (Each time an enemy moves, its direction is also updated).
 
 #### 4.3 Implementation
 > Here's how we decided to implement the design pattern:
 >
-> (FALTA IMAGEM)
+> ![Alt text](diagrams/UML_Observer_1/UML_Observer_1.png)
 
 > The classes can be found in the following files:
 >
@@ -152,6 +152,8 @@
 > [PlayerObserver](../GhostRumble/src/main/java/com/aor/ghostrumble/model/PlayerObserver.java)
 >
 > [Player](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Player.java)
+>
+> [Updater](../GhostRumble/src/main/java/com/aor/ghostrumble/controller/Updater.java)
 
 #### 4.4 Consequences
 > Encapsulation and seperation of the code is promoted: the Player class does not know anything about the Enemy class; in fact, it only knows about PlayerObservers and that it needs to notify them, but does not know what they do or how they do it when that occurs.
