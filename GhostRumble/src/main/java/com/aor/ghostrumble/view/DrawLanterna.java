@@ -57,7 +57,7 @@ public class DrawLanterna implements DrawingMethod {
         graphics.fillRectangle(
                 new TerminalPosition(9, 2),
                 new TerminalSize(player.getCurrentHealth(), 1),
-                '█');
+                'X');
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
 

@@ -15,7 +15,8 @@ public class HauntedHouse {
         this.height = height;
         this.player = new Player();
         this.walls = createWalls();
-        this.enemies = new ArrayList<>(); createEnemies();
+        this.enemies = new ArrayList<>();
+        createEnemies();
     }
 
     public int getWidth() { return width; }
@@ -51,10 +52,12 @@ public class HauntedHouse {
         player.addObserver(enemy);
     }
 
+/*
     private void removeEnemy(Enemy enemy) {
         enemies.remove(enemy);
         player.removeObserver(enemy);
     }
+*/
 
 
 }

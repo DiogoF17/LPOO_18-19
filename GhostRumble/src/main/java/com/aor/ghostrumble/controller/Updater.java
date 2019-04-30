@@ -15,6 +15,8 @@ public class Updater {
         moveEnemies(house);
         checkEnemyCollisions(house);
 
+        damagePlayer(house);
+
         removeFlagged(house);
 
         //resets the event
@@ -83,10 +85,12 @@ public class Updater {
     }
 
     private boolean canEnemyMoveTo(Position position, HauntedHouse house) {
+/*
         for (Element wall : house.getWalls()) {
             if (position.equals(wall.getPosition()))
                 return false;
         }
+*/
 
         for (Enemy enemy : house.getEnemies()) {
             if(position.equals(enemy.getPosition()))
@@ -106,7 +110,7 @@ public class Updater {
             Enemy currentEnemy = enemyItr.next();
 
             if(currentEnemy.flaggedForRemoval()) {
-                house.getPlayer().getObservers().remove(currentEnemy);
+                house.getPlayer().removeObserver(currentEnemy);
                 enemyItr.remove();
             }
         }
@@ -122,8 +126,17 @@ public class Updater {
     private void checkEnemyCollisions(HauntedHouse house) {
         for(Enemy enemy : house.getEnemies()) {
             if(enemy.getPosition().equals(house.getPlayer().getPosition())) {
-                house.getPlayer().damagePlayer(enemy.getDamage());
+                enemy.setHitPlayer(true);
                 enemy.setRemoveFlag(true);
+            }
+        }
+    }
+
+    private void damagePlayer(HauntedHouse house) {
+        for (Enemy enemy : house.getEnemies()) {
+            if (enemy.hasHitPlayer()) {
+                house.getPlayer().damagePlayer(enemy.getDamage());
+                enemy.setHitPlayer(false);
             }
         }
     }
