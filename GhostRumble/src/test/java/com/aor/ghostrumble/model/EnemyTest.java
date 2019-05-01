@@ -19,13 +19,13 @@ public class EnemyTest {
     Enemy initZombie() { return new Zombie(10, 20); }
 
     @Test
-    public void EnemyTestHitPlayerFalse() {
+    public void testHitPlayerFalse() {
         Enemy enemy = initZombie();
         assertEquals(false, enemy.hasHitPlayer());
     }
 
     @Test
-    public void EnemyTestHitPlayerTrue() {
+    public void testHitPlayerTrue() {
         Enemy enemy = initZombie();
         enemy.setHitPlayer(true);
 
@@ -33,7 +33,7 @@ public class EnemyTest {
     }
 
     @Test
-    public void EnemyGetDamage() {
+    public void testGetDamage() {
         Enemy enemy = initZombie();
         enemy.setDamage(5);
 
@@ -41,7 +41,7 @@ public class EnemyTest {
     }
 
     @Test
-    public void EnemyGetStrat() {
+    public void testGetStrat() {
         Enemy enemy = initZombie();
         MovementStrategy moveStrat = Mockito.mock(MovementStrategy.class);
         enemy.setMovStrategy(moveStrat);
@@ -50,7 +50,7 @@ public class EnemyTest {
     }
 
     @Test
-    public void EnemyTestMove() {
+    public void testMove() {
         Enemy enemy = initZombie();
         Position pos = Mockito.mock(Position.class);
         MovementStrategy moveStrat = Mockito.mock(MovementStrategy.class);
@@ -61,7 +61,7 @@ public class EnemyTest {
     }
 
     @Test
-    public void EnemyTestUpdate() {
+    public void testUpdate() {
         Player player = Mockito.mock(Player.class);
         Enemy enemy = initZombie();
         MovementStrategy moveStrat = Mockito.mock(MovementStrategy.class);

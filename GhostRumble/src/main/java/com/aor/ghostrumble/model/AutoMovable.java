@@ -17,11 +17,9 @@ public abstract class AutoMovable extends Movable {
         return speed;
     }
 
-/*
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-*/
 
     public long getLastMoved() {
         return lastMoved;

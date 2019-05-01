@@ -30,6 +30,10 @@ public class GameLanterna extends Game {
         init(width, height);
     }
 
+    protected void setScreen(Screen screen) {
+        this.screen = screen;
+    }
+
     @Override
     protected DrawingMethod createDrawingMethod() {
         return new DrawLanterna(screen);
