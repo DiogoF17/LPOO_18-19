@@ -24,5 +24,5 @@ application {
 }
 
 pitest {
-    targetClasses = ['com.EduRibeiro00.GhostRumble.com.aor.ghostrumble.*']
+    targetClasses = ['com.aor.ghostrumble.*']
 }
