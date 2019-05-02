@@ -154,6 +154,8 @@
 > [Player](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Player.java)
 >
 > [Updater](../GhostRumble/src/main/java/com/aor/ghostrumble/controller/Updater.java)
+>
+> NOTE: when a PlayerObserver is added has an observer, the update function is also called. This is done so that an enemy will pursue the player as soon as it is spawned, and does not have to wait for the player to move.
 
 #### 4.4 Consequences
 > Encapsulation and seperation of the code is promoted: the Player class does not know anything about the Enemy class; in fact, it only knows about PlayerObservers and that it needs to notify them, but does not know what they do or how they do it when that occurs.

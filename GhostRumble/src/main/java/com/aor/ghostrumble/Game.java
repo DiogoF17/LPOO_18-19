@@ -51,8 +51,8 @@ public abstract class Game {
 
         while (loop) {
 
-            updater.update(event, house);
             drawingMethod.drawAll(house);
+            updater.update(event, house);
         }
     }
 

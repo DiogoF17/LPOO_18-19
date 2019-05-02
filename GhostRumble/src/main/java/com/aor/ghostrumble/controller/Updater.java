@@ -3,10 +3,13 @@ package com.aor.ghostrumble.controller;
 import com.aor.ghostrumble.model.*;
 
 import java.util.ListIterator;
+import java.util.Random;
 
 import static java.lang.System.currentTimeMillis;
 
 public class Updater {
+
+    private final static long ENEMY_SPAWN_RATE = 5000;
 
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);
@@ -16,14 +19,82 @@ public class Updater {
         checkEnemyCollisions(house);
 
         damagePlayer(house);
-
         removeFlagged(house);
+
+        spawnEnemy(house);
 
         //resets the event
         event.setType(Event.TYPE.NO_EVENT);
+
+        // checkForGameOver(event, house);
     }
 
-    private void moveEnemies(HauntedHouse house) {
+    /*public void checkForGameOver(Event event, HauntedHouse house) {
+        if(house.getPlayer().getCurrentHealth() > 0)
+            return;
+        else {
+            System.out.println("You died! Better luck next time!");
+            return;
+        }
+    }*/
+
+    public void spawnEnemy(HauntedHouse house) {
+
+        if(HauntedHouse.getMaxNumberEnemies() > house.getEnemies().size())
+
+            if(currentTimeMillis() - house.getLastSpawned() > ENEMY_SPAWN_RATE) {
+                addEnemy(house);
+                house.setLastSpawned(currentTimeMillis());
+            }
+    }
+
+    private void addEnemy(HauntedHouse house) {
+        Random random = new Random();
+        int valueMonster = random.nextInt(3);
+        int valueX;
+        int valueY;
+
+        do {
+            if (random.nextBoolean()) {
+                if (random.nextBoolean())
+                    valueX = 1;
+                else valueX = house.getWidth() - 2;
+
+                valueY = random.nextInt(house.getHeight() - 7) + 6;
+            } else {
+                if (random.nextBoolean())
+                    valueY = 6;
+                else valueY = house.getHeight() - 2;
+
+                valueX = random.nextInt(house.getWidth() - 2) + 1;
+            }
+
+        } while (house.checkMonsterInPosition(valueX, valueY));
+
+        Enemy newEnemy = null;
+
+        switch(valueMonster) {
+            case 0:
+                newEnemy = new Zombie(valueX, valueY);
+                break;
+
+            case 1:
+                newEnemy = new Ghost(valueX, valueY);
+                break;
+
+            case 2:
+                newEnemy = new Poltergeist(valueX, valueY);
+                break;
+
+            default:
+                break;
+        }
+
+        if(newEnemy != null)
+            house.addEnemy(newEnemy);
+    }
+
+    public void moveEnemies(HauntedHouse house) {
         for (Enemy enemy : house.getEnemies()) {
             if (currentTimeMillis() - enemy.getLastMoved() > enemy.getSpeed()) {
                 moveEnemy(enemy, enemy.move(), house);
@@ -101,7 +172,7 @@ public class Updater {
     }
 
 
-    private void removeFlagged(HauntedHouse house) {
+    public void removeFlagged(HauntedHouse house) {
 
         house.getWalls().removeIf( w -> w.flaggedForRemoval());
 
@@ -117,13 +188,7 @@ public class Updater {
     }
 
 
-    /*
-    private boolean checkForGameOver(HauntedHouse house) {
-        return house.getPlayer().getCurrentHealth() <= 0;
-    }
-    */
-
-    private void checkEnemyCollisions(HauntedHouse house) {
+    public void checkEnemyCollisions(HauntedHouse house) {
         for(Enemy enemy : house.getEnemies()) {
             if(enemy.getPosition().equals(house.getPlayer().getPosition())) {
                 enemy.setHitPlayer(true);
@@ -132,7 +197,7 @@ public class Updater {
         }
     }
 
-    private void damagePlayer(HauntedHouse house) {
+    public void damagePlayer(HauntedHouse house) {
         for (Enemy enemy : house.getEnemies()) {
             if (enemy.hasHitPlayer()) {
                 house.getPlayer().damagePlayer(enemy.getDamage());

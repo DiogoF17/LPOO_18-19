@@ -28,7 +28,10 @@ public class Player extends Movable {
 
     public void damagePlayer(int damage) { currentHealth -= damage; }
 
-    public void addObserver(PlayerObserver observer) { observers.add(observer); }
+    public void addObserver(PlayerObserver observer) {
+        observers.add(observer);
+        observer.update(this);
+    }
 
     public void removeObserver(PlayerObserver observer) { observers.remove(observer); }
 

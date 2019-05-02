@@ -65,6 +65,6 @@ public class PlayerTest {
 
         player.notifyObservers();
 
-        Mockito.verify(observer, times(3)).update(any(Player.class));
+        Mockito.verify(observer, times(6)).update(any(Player.class));
     }
 }
