@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'info.solidsoft.pitest' version '1.4.0'
 }
 
 group 'com.EduRibeiro00.GhostRumble'
@@ -20,4 +21,8 @@ dependencies {
 
 application {
     mainClassName = 'com.aor.ghostrumble/Application'
+}
+
+pitest {
+    targetClasses = ['com.aor.ghosrumble.*']
 }
