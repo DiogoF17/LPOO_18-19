@@ -20,6 +20,9 @@
 ### Monsters Chase the Player
 > The monsters, instead of roaming around the haunted house, will actually pursue the player and try to chase him down.
 
+### Monster Spawning
+> From time to time, monsters spawn in the border of the house, and begin to immediatly chase the player down.
+
 ### HP Bar
 > The player HP bar is shown in the top of the screen; it is green when the HP is medium/high, and it is red and flickering when the HP is low.
 
