@@ -15,6 +15,7 @@ public abstract class Enemy extends AutoMovable implements PlayerObserver {
 
     protected abstract MovementStrategy createMovStrategy();
 
+    @Override
     public Position move() { return movStrategy.move(this); }
 
     public int getDamage() { return damage; }

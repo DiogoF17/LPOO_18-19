@@ -9,10 +9,13 @@ import static java.lang.System.currentTimeMillis;
 
 public class Updater {
 
-    private final static long ENEMY_SPAWN_RATE = 5000;
+    private final static int ENEMY_SPAWN_RATE = 5000;
+    private final static int FIRE_REFRESH_RATE = 500;
 
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);
+
+        checkBulletCollisions(house);
 
         checkEnemyCollisions(house);
         moveEnemies(house);
@@ -28,6 +31,7 @@ public class Updater {
 
         // checkForGameOver(event, house);
     }
+
 
     /*public void checkForGameOver(Event event, HauntedHouse house) {
         if(house.getPlayer().getCurrentHealth() > 0)
@@ -94,6 +98,34 @@ public class Updater {
             house.addEnemy(newEnemy);
     }
 
+
+    public void launchHorizontalBullet(HauntedHouse house, int delta) {
+
+        if(HauntedHouse.getMaxNumberBullets() > house.getBullets().size()) {
+
+            Player player = house.getPlayer();
+
+            if (currentTimeMillis() - player.getLastFired() > FIRE_REFRESH_RATE) {
+                house.addBullet(new HorizontalBullet(player.getPosition().getX() + delta, player.getPosition().getY(), delta));
+                player.setLastFired(currentTimeMillis());
+            }
+        }
+    }
+
+    public void launchVerticalBullet(HauntedHouse house, int delta) {
+
+        if(HauntedHouse.getMaxNumberBullets() > house.getBullets().size()) {
+
+            Player player = house.getPlayer();
+
+            if (currentTimeMillis() - player.getLastFired() > FIRE_REFRESH_RATE) {
+                house.addBullet(new VerticalBullet(player.getPosition().getX() , player.getPosition().getY() + delta, delta));
+                player.setLastFired(currentTimeMillis());
+            }
+        }
+    }
+
+
     public void moveEnemies(HauntedHouse house) {
         for (Enemy enemy : house.getEnemies()) {
             if (currentTimeMillis() - enemy.getLastMoved() > enemy.getSpeed()) {
@@ -125,6 +157,21 @@ public class Updater {
                 movePlayer(player, player.moveRight(), house);
                 break;
 
+            case BULLET_UP:
+                launchVerticalBullet(house, -1);
+                break;
+
+            case BULLET_LEFT:
+                launchHorizontalBullet(house, -1);
+                break;
+
+            case BULLET_DOWN:
+                launchVerticalBullet(house, 1);
+                break;
+
+            case BULLET_RIGHT:
+                launchHorizontalBullet(house, 1);
+
             default:
                 break;
 
@@ -133,13 +180,13 @@ public class Updater {
     }
 
     private void movePlayer(Player player, Position position, HauntedHouse house) {
-        if (canPlayerMoveTo(position, house)) {
+        if (hitsWall(position, house)) {
             player.setPosition(position);
             player.notifyObservers();
         }
     }
 
-    private boolean canPlayerMoveTo(Position position, HauntedHouse house) {
+    private boolean hitsWall(Position position, HauntedHouse house) {
         for (Element wall : house.getWalls()) {
             if (position.equals(wall.getPosition()))
                 return false;
@@ -149,19 +196,15 @@ public class Updater {
     }
 
     private void moveEnemy(Enemy enemy, Position position, HauntedHouse house) {
-        if (canEnemyMoveTo(position, house)) {
+        // the way the game is made, the enemies will never go through walls
+
+        if (hitsEnemies(position, house)) {
             enemy.setPosition(position);
             enemy.update(house.getPlayer());
         }
     }
 
-    private boolean canEnemyMoveTo(Position position, HauntedHouse house) {
-/*
-        for (Element wall : house.getWalls()) {
-            if (position.equals(wall.getPosition()))
-                return false;
-        }
-*/
+    private boolean hitsEnemies(Position position, HauntedHouse house) {
 
         for (Enemy enemy : house.getEnemies()) {
             if(position.equals(enemy.getPosition()))
@@ -175,6 +218,7 @@ public class Updater {
     public void removeFlagged(HauntedHouse house) {
 
         house.getWalls().removeIf( w -> w.flaggedForRemoval());
+        house.getBullets().removeIf( b -> b.flaggedForRemoval());
 
         ListIterator<Enemy> enemyItr = house.getEnemies().listIterator();
         while(enemyItr.hasNext()) {
@@ -193,6 +237,21 @@ public class Updater {
             if(enemy.getPosition().equals(house.getPlayer().getPosition())) {
                 enemy.setHitPlayer(true);
                 enemy.setRemoveFlag(true);
+            }
+        }
+    }
+
+    public void checkBulletCollisions(HauntedHouse house) {
+        for(Bullet bullet : house.getBullets()) {
+
+            if(hitsWall(bullet.getPosition(), house))
+                bullet.setRemoveFlag(true);
+
+            for(Enemy enemy : house.getEnemies()) {
+                if(bullet.getPosition().equals(enemy.getPosition())) {
+                    bullet.setRemoveFlag(true);
+                    enemy.setRemoveFlag(true);
+                }
             }
         }
     }

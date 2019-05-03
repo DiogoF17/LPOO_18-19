@@ -1,8 +1,17 @@
 package com.aor.ghostrumble.model;
 
-public class Bullet extends AutoMovable {
+public abstract class Bullet extends AutoMovable {
 
-    public Bullet(int x, int y, int speed) {
-        super(x, y, speed);
+    private final static int BULLET_SPEED = 100;
+    protected int delta;
+
+
+    public Bullet(int x, int y, int delta) {
+        super(x, y, BULLET_SPEED);
+        this.delta = delta;
     }
+
+    public final static int getBulletSpeed() { return BULLET_SPEED; }
+
+    public int getDelta() { return delta; }
 }

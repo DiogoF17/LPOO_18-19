@@ -11,9 +11,11 @@ public class HauntedHouse {
     private Player player;
     private List<Element> walls;
     private List<Enemy> enemies;
+    private List<Bullet> bullets;
     private long lastSpawned;
 
     private final static int MAX_NUMBER_ENEMIES = 10;
+    private final static int MAX_NUMBER_BULLETS = 5;
 
     public HauntedHouse(int width, int height) {
         this.width = width;
@@ -21,6 +23,7 @@ public class HauntedHouse {
         this.player = new Player();
         this.walls = createWalls();
         this.enemies = new ArrayList<>();
+        this.bullets = new ArrayList<>();
         this.lastSpawned = currentTimeMillis();
     }
 
@@ -29,8 +32,10 @@ public class HauntedHouse {
     public Player getPlayer() { return player; }
     public List<Element> getWalls() { return walls; }
     public List<Enemy> getEnemies() { return enemies; }
+    public List<Bullet> getBullets() { return bullets; }
     public long getLastSpawned() { return lastSpawned; }
     public final static int getMaxNumberEnemies() { return MAX_NUMBER_ENEMIES; }
+    public final static int getMaxNumberBullets() { return MAX_NUMBER_BULLETS; }
 
     public void setLastSpawned(long lastSpawned) { this.lastSpawned = lastSpawned; }
 
@@ -62,6 +67,11 @@ public class HauntedHouse {
         player.removeObserver(enemy);
     }
 */
+
+    public void addBullet(Bullet bullet) {
+        bullets.add(bullet);
+    }
+
 
     public boolean checkMonsterInPosition(int x, int y) {
         for(Enemy enemy : enemies)

@@ -29,6 +29,7 @@ public class DrawLanterna implements DrawingMethod {
         this.drawPlayer(house.getPlayer(), graphics);
         this.drawWalls(house.getWalls(), graphics);
         this.drawEnemies(house.getEnemies(), graphics);
+        this.drawBullets(house.getBullets(), graphics);
 
         this.screen.refresh();
     }
@@ -112,6 +113,30 @@ public class DrawLanterna implements DrawingMethod {
             }
         }
 
+    }
+
+    private void drawBullets(List<Bullet> bullets, TextGraphics graphics) {
+
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#32204E"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#D52209"));
+
+        for(Bullet bullet : bullets) {
+
+            if(bullet instanceof HorizontalBullet) {
+
+
+                if(bullet.getDelta() > 0)
+                    graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), "►");
+                else graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), "◄");
+            }
+            else if(bullet instanceof VerticalBullet) {
+
+                if(bullet.getDelta() > 0)
+                    graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), "▼");
+                else graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), "▲");
+            }
+
+        }
     }
 
 }

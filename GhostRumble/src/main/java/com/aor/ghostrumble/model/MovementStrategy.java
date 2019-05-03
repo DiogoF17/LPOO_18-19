@@ -27,5 +27,5 @@ public abstract class MovementStrategy {
 
     public abstract void updateDirection(Position position1, Position position2);
 
-    public Position move(Enemy enemy) { return enemy.moveCustom(deltaX, deltaY); }
+    public Position move(Movable movable) { return movable.moveCustom(deltaX, deltaY); }
 }

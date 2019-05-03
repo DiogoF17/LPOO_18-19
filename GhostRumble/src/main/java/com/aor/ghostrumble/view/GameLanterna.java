@@ -70,6 +70,23 @@ public class GameLanterna extends Game {
                 }
                 break;
 
+            case ArrowUp:
+                event.setType(Event.TYPE.BULLET_UP);
+                break;
+
+            case ArrowDown:
+                event.setType(Event.TYPE.BULLET_DOWN);
+                break;
+
+            case ArrowLeft:
+                event.setType(Event.TYPE.BULLET_LEFT);
+                break;
+
+            case ArrowRight:
+                event.setType(Event.TYPE.BULLET_RIGHT);
+                break;
+
+
             case Escape:
                 event.setType(Event.TYPE.CLOSE);
                 break;

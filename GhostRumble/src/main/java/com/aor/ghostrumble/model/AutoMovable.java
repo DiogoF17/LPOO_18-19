@@ -28,4 +28,6 @@ public abstract class AutoMovable extends Movable {
     public void setLastMoved(long lastMoved) {
         this.lastMoved = lastMoved;
     }
+
+    public abstract Position move();
 }
