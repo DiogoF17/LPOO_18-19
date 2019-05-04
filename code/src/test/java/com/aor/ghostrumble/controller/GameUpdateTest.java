@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.currentTimeMillis;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
@@ -169,7 +170,6 @@ public class GameUpdateTest {
         updater.processEvent(event, house);
         assertEquals(position, player.getPosition());
     }
-
 
     @Test
     public void testSpawnEnemy() {
@@ -420,7 +420,6 @@ public class GameUpdateTest {
         );
     }
 
-
     @Test
     public void testIncreaseScoreWithKills() {
         Updater updater = new Updater();
@@ -440,7 +439,6 @@ public class GameUpdateTest {
 
         Mockito.verify(house, times(2)).increaseScore(Updater.getScoreKillIncrease());
     }
-
 
     @Test
     public void testCheckForGameOver() {
@@ -462,4 +460,14 @@ public class GameUpdateTest {
         Mockito.verify(house, times(1)).init();
     }
 
+    @Test
+    public void testIncreaseScoreTime() {
+        Updater updater = new Updater();
+        HauntedHouse house = new HauntedHouse(50, 50);
+
+        house.setLastIncrementedScore(currentTimeMillis() - 3001);
+        updater.increaseScoreWithTime(house);
+
+        assertEquals(Updater.getScoreTimeIncrease(), house.getScore());
+    }
 }

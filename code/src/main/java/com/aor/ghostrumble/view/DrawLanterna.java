@@ -125,16 +125,18 @@ public class DrawLanterna implements DrawingMethod {
 
             if(bullet instanceof HorizontalBullet) {
 
-
                 if(bullet.getDelta() > 0)
-                    graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), "►");
-                else graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), "◄");
+                    graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), Character.toString((char) 0x25BA));
+                else graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), Character.toString((char) 0x25C4));
+
             }
+
             else if(bullet instanceof VerticalBullet) {
 
                 if(bullet.getDelta() > 0)
-                    graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), "▼");
-                else graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), "▲");
+                    graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), Character.toString((char) 0x25BC));
+                else graphics.putString(new TerminalPosition(bullet.getPosition().getX(), bullet.getPosition().getY()), Character.toString((char) 0x25B2));
+
             }
 
         }

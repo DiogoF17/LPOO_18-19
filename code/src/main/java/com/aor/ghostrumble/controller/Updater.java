@@ -19,7 +19,6 @@ public class Updater {
     public final static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
     public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
 
-
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);
 
@@ -57,14 +56,13 @@ public class Updater {
                 house.increaseScore(SCORE_KILL_INCREASE);
     }
 
-    public  void increaseScoreWithTime(HauntedHouse house) {
+    public void increaseScoreWithTime(HauntedHouse house) {
 
         if(currentTimeMillis() - house.getLastIncrementedScore() > SCORE_INCREASE_RATE) {
             house.increaseScore(SCORE_TIME_INCREASE);
             house.setLastIncrementedScore(currentTimeMillis());
         }
     }
-
 
     public void checkForGameOver(HauntedHouse house) {
         if(house.getPlayer().getCurrentHealth() <= 0) {
