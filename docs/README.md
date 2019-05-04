@@ -66,17 +66,17 @@
 
 > The classes can be found in the following files:
 >
-> [Game](../GhostRumble/src/main/java/com/aor/ghostrumble/Game.java)
+> [Game](../code/src/main/java/com/aor/ghostrumble/Game.java)
 >
-> [GameLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
+> [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
 >
-> [DrawingMethod](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
+> [DrawingMethod](../code/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
 >
-> [DrawLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
+> [DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
 >
-> [HauntedHouse](../GhostRumble/src/main/java/com/aor/ghostrumble/model/HauntedHouse.java)
+> [HauntedHouse](../code/src/main/java/com/aor/ghostrumble/model/HauntedHouse.java)
 >
-> [Updater](../GhostRumble/src/main/java/com/aor/ghostrumble/controller/Updater.java)
+> [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java)
 
 #### 1.4 Consequences
 > As said before, using the MVC design (or similar, like we did) increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, deciding to use another way of drawing and reading inputs, other than Lanterna), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that uses a new way of read inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen). This shows that our code structure respects the Open-Closed Principle: modules are open for extensions, but closed for modification.
@@ -98,13 +98,13 @@
 
 > The classes can be found in the following files:
 >
->[Game](../GhostRumble/src/main/java/com/aor/ghostrumble/Game.java)
+>[Game](../code/src/main/java/com/aor/ghostrumble/Game.java)
 >
->[GameLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
+>[GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
 >
->[DrawingMethod](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
+>[DrawingMethod](../code/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
 >
->[DrawLanterna](../GhostRumble/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
+>[DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
         
 #### 2.4 Consequences
 > The main Game class doesn't need to anticipate what implementation of DrawingMethod it needs to create; it just delegates that decision to the subclasses.
@@ -125,19 +125,19 @@
 
 > The classes can be found in the following files:
 >
-> [Enemy](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Enemy.java)
+> [Enemy](../code/src/main/java/com/aor/ghostrumble/model/Enemy.java)
 >
-> [Ghost](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Ghost.java)
+> [Ghost](../code/src/main/java/com/aor/ghostrumble/model/Ghost.java)
 >
-> [Zombie](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Zombie.java)
+> [Zombie](../code/src/main/java/com/aor/ghostrumble/model/Zombie.java)
 >
-> [Poltergeist](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Poltergeist.java)
+> [Poltergeist](../code/src/main/java/com/aor/ghostrumble/model/Poltergeist.java)
 >
-> [MovementStrategy](../GhostRumble/src/main/java/com/aor/ghostrumble/model/MovementStrategy.java)
+> [MovementStrategy](../code/src/main/java/com/aor/ghostrumble/model/MovementStrategy.java)
 >
-> [LinearMovement](../GhostRumble/src/main/java/com/aor/ghostrumble/model/LinearMovement.java)
+> [LinearMovement](../code/src/main/java/com/aor/ghostrumble/model/LinearMovement.java)
 >
-> [FreeMovement](../GhostRumble/src/main/java/com/aor/ghostrumble/model/FreeMovement.java)
+> [FreeMovement](../code/src/main/java/com/aor/ghostrumble/model/FreeMovement.java)
 
 #### 3.4 Consequences
 > The Enemy class and its subclasses do not need to know anything about the processing of the movement (how its done). As said before, it simply delegates that action to the implementation of MovementStrategy, for that enemy.
@@ -160,13 +160,13 @@
 
 > The classes can be found in the following files:
 >
-> [Enemy](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Enemy.java)
+> [Enemy](../code/src/main/java/com/aor/ghostrumble/model/Enemy.java)
 >
-> [PlayerObserver](../GhostRumble/src/main/java/com/aor/ghostrumble/model/PlayerObserver.java)
+> [PlayerObserver](../code/src/main/java/com/aor/ghostrumble/model/PlayerObserver.java)
 >
-> [Player](../GhostRumble/src/main/java/com/aor/ghostrumble/model/Player.java)
+> [Player](../code/src/main/java/com/aor/ghostrumble/model/Player.java)
 >
-> [Updater](../GhostRumble/src/main/java/com/aor/ghostrumble/controller/Updater.java)
+> [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java)
 >
 > NOTE: when a PlayerObserver is added as an observer, the update function is also called. This is done so that an enemy will pursue the player as soon as it is spawned, and does not have to wait for the player to move.
 
