@@ -31,7 +31,15 @@ public class Player extends Movable {
 
     public void setLastFired(long lastFired) { this.lastFired = lastFired; }
 
-    public void damagePlayer(int damage) { currentHealth -= damage; }
+    public void damagePlayer(int damage) {
+        currentHealth -= damage;
+        assertCurrentHealth();
+    }
+
+    private void assertCurrentHealth() {
+        if (currentHealth < 0)
+            currentHealth = 0;
+    }
 
     public void addObserver(PlayerObserver observer) {
         observers.add(observer);

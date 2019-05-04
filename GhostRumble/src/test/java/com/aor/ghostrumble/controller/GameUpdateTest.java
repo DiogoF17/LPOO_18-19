@@ -1,14 +1,15 @@
 package com.aor.ghostrumble.controller;
 
 import com.aor.ghostrumble.model.*;
+import org.graalvm.compiler.hotspot.lir.HotSpotZapRegistersPhase;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.System.currentTimeMillis;
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 
@@ -33,7 +34,6 @@ public class GameUpdateTest {
         enemies.add(new Ghost(10, 10));
 
         for (Enemy enemy : enemies) {
-            enemy.setLastMoved(currentTimeMillis() - enemy.getSpeed());
             player.addObserver(enemy);
         }
         player.notifyObservers();
@@ -207,4 +207,161 @@ public class GameUpdateTest {
 
         Mockito.verify(house, times(1)).addEnemy(any(Enemy.class));
     }
+
+    @Test
+    public void testLaunchHorizontalBullet() {
+        Updater updater = new Updater();
+        HauntedHouse house = new HauntedHouse(50, 30);
+
+        int before = house.getBullets().size();
+
+        updater.launchHorizontalBullet(house, 1);
+
+        assertEquals(before + 1, house.getBullets().size());
+    }
+
+    @Test
+    public void testLaunchVerticalBullet() {
+        Updater updater = new Updater();
+        HauntedHouse house = new HauntedHouse(50, 30);
+
+        int before = house.getBullets().size();
+
+        updater.launchVerticalBullet(house, 1);
+
+        assertEquals(before + 1, house.getBullets().size());
+    }
+
+    @Test
+    public void testBulletMovement() {
+        Updater updater = new Updater();
+
+        List<Bullet> bullets = new ArrayList<>();
+        bullets.add(new HorizontalBullet(10, 10, 1));
+        bullets.add(new HorizontalBullet(20, 20, -1));
+        bullets.add(new VerticalBullet(10, 10, 1));
+        bullets.add(new VerticalBullet(20, 20, -1));
+
+        List<Bullet> expected = new ArrayList<>();
+        expected.add(new HorizontalBullet(11, 10, 1));
+        expected.add(new HorizontalBullet(19, 20, -1));
+        expected.add(new VerticalBullet(10, 11, 1));
+        expected.add(new VerticalBullet(20, 19, -1));
+
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+
+        Mockito.when(house.getBullets()).thenReturn(bullets);
+
+        updater.moveBullets(house);
+
+        for (int i = 0; i < bullets.size(); i++) {
+            assertEquals(expected.get(i).getPosition(), bullets.get(i).getPosition());
+        }
+    }
+
+    @Test
+    public void testRemoveFlagged() {
+        Updater updater = new Updater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        Player player = Mockito.mock(Player.class);
+
+        List<Element> walls = new ArrayList<>();
+        Element wall = new Element(12, 12);
+        wall.setRemoveFlag(true);
+        walls.add(wall);
+        walls.add(wall);
+
+        List<Bullet> bullets = new ArrayList<>();
+        Bullet bullet = new HorizontalBullet(12, 12, 1);
+        bullet.setRemoveFlag(true);
+        bullets.add(bullet);
+        bullets.add(bullet);
+
+        List<Enemy> enemies = new ArrayList<>();
+        Enemy enemy = new Zombie(12, 12);
+        enemy.setRemoveFlag(true);
+        enemies.add(enemy);
+        enemies.add(enemy);
+
+        Mockito.when(house.getWalls()).thenReturn(walls);
+        Mockito.when(house.getBullets()).thenReturn(bullets);
+        Mockito.when(house.getEnemies()).thenReturn(enemies);
+        Mockito.when(house.getPlayer()).thenReturn(player);
+
+        Mockito.doNothing().when(player).removeObserver(any(PlayerObserver.class));
+
+        updater.removeFlagged(house);
+
+        int finalCount = house.getWalls().size() +
+                        house.getBullets().size() +
+                        house.getEnemies().size();
+
+        assertEquals(0, finalCount);
+    }
+
+    @Test
+    public void testCheckEnemyCollisions() {
+        Updater updater = new Updater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        Player player = Mockito.mock(Player.class);
+        Position position = new Position(15, 15);
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(new Zombie(15, 15));
+
+        Mockito.when(player.getPosition()).thenReturn(position);
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(house.getEnemies()).thenReturn(enemies);
+
+        updater.checkEnemyCollisions(house);
+
+        assertTrue(enemies.get(0).flaggedForRemoval());
+    }
+
+    @Test
+    public void testBulletWallCollision() {
+        Updater updater = new Updater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+
+        List<Element> walls = new ArrayList<>();
+        walls.add(new Element(15, 15));
+
+        List<Bullet> bullets = new ArrayList<>();
+        bullets.add(new HorizontalBullet(15, 15, 0));
+
+        List<Enemy> enemies = new ArrayList<>();
+
+        Mockito.when(house.getWalls()).thenReturn(walls);
+        Mockito.when(house.getBullets()).thenReturn(bullets);
+        Mockito.when(house.getEnemies()).thenReturn(enemies);
+
+        updater.checkBulletCollisions(house);
+
+        assertTrue(bullets.get(0).flaggedForRemoval());
+    }
+
+    @Test
+    public void testBulletEnemyCollision() {
+        Updater updater = new Updater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+
+        List<Element> walls = new ArrayList<>();
+
+        List<Bullet> bullets = new ArrayList<>();
+        bullets.add(new HorizontalBullet(15, 15, 0));
+
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(new Zombie(15, 15));
+
+        Mockito.when(house.getWalls()).thenReturn(walls);
+        Mockito.when(house.getBullets()).thenReturn(bullets);
+        Mockito.when(house.getEnemies()).thenReturn(enemies);
+
+        updater.checkBulletCollisions(house);
+
+        assertTrue(
+                bullets.get(0).flaggedForRemoval()
+                && enemies.get(0).flaggedForRemoval()
+        );
+    }
+
 }
