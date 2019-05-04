@@ -48,7 +48,7 @@ public class Updater {
         //resets the event
         event.setType(Event.TYPE.NO_EVENT);
 
-        // checkForGameOver(event, house);
+        checkForGameOver(house);
     }
 
     public void increaseScoreWithKills(HauntedHouse house) {
@@ -65,16 +65,13 @@ public class Updater {
         }
     }
 
-    /*
-    public void checkForGameOver(Event event, HauntedHouse house) {
-        if(house.getPlayer().getCurrentHealth() > 0)
-            return;
-        else {
-            System.out.println("You died! Better luck next time!");
-            return;
+
+    public void checkForGameOver(HauntedHouse house) {
+        if(house.getPlayer().getCurrentHealth() <= 0) {
+            System.out.println("You died! Your final score was " + house.getScore());
+            house.init();
         }
     }
-    */
 
     public void spawnEnemy(HauntedHouse house) {
 

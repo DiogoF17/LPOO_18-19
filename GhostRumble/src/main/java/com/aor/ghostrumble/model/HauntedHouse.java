@@ -16,12 +16,16 @@ public class HauntedHouse {
     private long lastIncrementedScore;
     private long lastSpawned;
 
-    private final static int MAX_NUMBER_ENEMIES = 10;
+    private final static int MAX_NUMBER_ENEMIES = 15;
     private final static int MAX_NUMBER_BULLETS = 5;
 
     public HauntedHouse(int width, int height) {
         this.width = width;
         this.height = height;
+        init();
+    }
+
+    public void init() {
         this.player = new Player();
         this.walls = createWalls();
         this.enemies = new ArrayList<>();

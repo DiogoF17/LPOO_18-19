@@ -2,6 +2,7 @@ package com.aor.ghostrumble.controller;
 
 import com.aor.ghostrumble.model.*;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -195,6 +196,12 @@ public class GameUpdateTest {
 
         Mockito.verify(house, times(1)).addEnemy(any(Enemy.class));
 
+        enemies.add(new Ghost(15, 15));
+        enemies.add(new Ghost(30, 30));
+        enemies.add(new Ghost(21, 22));
+        enemies.add(new Ghost(2, 2));
+        enemies.add(new Ghost(5, 2));
+        enemies.add(new Ghost(0, 10));
         enemies.add(new Ghost(15, 15));
         enemies.add(new Ghost(30, 30));
         enemies.add(new Ghost(21, 22));
@@ -432,6 +439,27 @@ public class GameUpdateTest {
         updater.increaseScoreWithKills(house);
 
         Mockito.verify(house, times(2)).increaseScore(Updater.getScoreKillIncrease());
+    }
+
+
+    @Test
+    public void testCheckForGameOver() {
+        Updater updater = new Updater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+
+        Player player = Mockito.mock(Player.class);
+        Mockito.when(player.getCurrentHealth()).thenReturn(2);
+        Mockito.when(house.getPlayer()).thenReturn(player);
+
+        updater.checkForGameOver(house);
+
+        Mockito.verify(house, times(0)).init();
+
+        Mockito.when(player.getCurrentHealth()).thenReturn(0);
+
+        updater.checkForGameOver(house);
+
+        Mockito.verify(house, times(1)).init();
     }
 
 }
