@@ -1,8 +1,8 @@
 # LPOO_25 Ghost Rumble (GR)
 
-> Ghost Rumble (or GR for short) is a survival arena combat game, in which the player must defeat waves of ghosts and other mysterious enemies, in order to survive.
+> Ghost Rumble (or GR for short) is a survival arena combat game, in which the player must survive as long as he can inside a mysterious haunted house, filled with ghosts and other spooky creatures that may harm you. :skull: :ghost: 
 
-> The game lasts as long as the player is able to overcome all enemies, which grow in number and power with each passing wave. (Some have claimed to have seen Bosses every 5 waves 👀👀)
+> The game lasts as long as the player is able to survive and overcome the monsters, by dodging and shooting them. If he lets the enemies get too close and touch him, his health will be lowered; the game ends when the player's HP drops to 0.
 
 > The game is being developed by Eduardo Ribeiro (up201705421@fe.up.pt) and Diogo Machado (up201706832@fe.up.pt).
 
@@ -29,16 +29,26 @@
 ### Monsters Causing Damage
 > If a monster touches the player, it will die, but it will inflict damage on the player, lowering his HP.
 
-## Planned Features
-
 ### Shooting/Attacking
-> The player will also be able to shoot the monsters from a distance, launching a projectile/bullet in a certain direction, as well as performing a melee attack (short distance). The concept of limited ammo may also be added to the game.
+> The player will also be able to shoot the monsters from a distance, launching a projectile/bullet in a certain direction. If a bullet hits a monster, it will die. The player's gun has a refresh rate, so the player can't be shooting at all times.
 
-### Upgrade Spawning in the Haunted House
-> From time to time, an upgrade would spawn on a random location of the house; if the player picks it up, it can restore his health, increase his max health, speed or damage, depending on the type of the upgrade.
+### Score
+> The current score is displayed at the top right of the screen. It will slowly increment from time to time, if the player manages to keep surviving. It will also increase, by a bigger amount, is an enemy is killed.
+
+### Game Over
+> If the player's health goes down to 0, the game resets (the score is set to 0, all the enemies and bullets disappear, etc) and a new game starts. In the console, a message is printed showing the user what was the final score.
+
+## Planned Features
+> Some features in this module may never be added to the game; we're still deciding what we should implement or not.
+
+### Main Menu and Game Over Screen
+> The game could also have a main menu screen, and a game over screen, for when the player loses.
+
+### Upgrade Spawning in the Haunted House (?)
+> From time to time, an upgrade would spawn on a random location of the house; if the player picks it up, it can restore his health, increase his max health, speed, etc, depending on the type of the upgrade.
 
 ### Coin Collecting (?)
-> In the future there may be coins scattered arround the house, for the player to collect.
+> In the future there may be coins scattered arround the house, for the player to collect (it could increase the score).
 
 ### ... and maybe some more.
 
