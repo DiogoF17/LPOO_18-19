@@ -13,4 +13,11 @@ public class VerticalBulletTest {
         assertEquals(position, bullet.move());
     }
 
+    @Test
+    public void testHorBulletSpeed() {
+
+        Bullet bullet = new VerticalBullet(10, 10, 1);
+        assertEquals(VerticalBullet.getVertBulletSpeed(), bullet.getSpeed());
+    }
+
 }

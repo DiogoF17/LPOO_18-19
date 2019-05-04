@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Poltergeist extends Enemy {
 
-    private final static int POLTERGEIST_SPEED = 400;
+    private final static int POLTERGEIST_SPEED = 100;
     private final static int POLTERGEIST_DAMAGE = 5;
 
     public Poltergeist(int x, int y) {

@@ -18,15 +18,4 @@ public class BulletTest {
         assertEquals(1, bullet.getDelta());
     }
 
-    @Test
-    public void testGetBulletSpeed() {
-
-        /**
-         * NA DÚVIDA EM RELAÇÃO AO USO DA FUNÇÃO
-         * GETSPEED(), DA CLASS AUTOMOVABLE
-         */
-
-        Bullet bullet = new VerticalBullet(10, 10, 1);
-        assertEquals(Bullet.getBulletSpeed(), bullet.getSpeed());
-    }
 }

@@ -67,4 +67,23 @@ public class PlayerTest {
 
         Mockito.verify(observer, times(6)).update(any(Player.class));
     }
+
+    @Test
+    public void testPartlyDamagePlayer() {
+        Player player = new Player();
+        int damage = player.getMaxHealth() - 10;
+
+        player.damagePlayer(damage);
+
+        assertEquals(player.getMaxHealth() - damage, player.getCurrentHealth());
+    }
+
+    @Test
+    public void testFullyDamagePlayer() {
+        Player player = new Player();
+
+        player.damagePlayer(player.getMaxHealth() + 20);
+
+        assertEquals(0, player.getCurrentHealth());
+    }
 }

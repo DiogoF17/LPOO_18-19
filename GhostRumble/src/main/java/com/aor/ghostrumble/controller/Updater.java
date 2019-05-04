@@ -131,7 +131,7 @@ public class Updater {
 
     public void moveBullets(HauntedHouse house) {
         for (Bullet bullet : house.getBullets()) {
-            if (currentTimeMillis() - bullet.getLastMoved() > Bullet.getBulletSpeed()) {
+            if (currentTimeMillis() - bullet.getLastMoved() > bullet.getSpeed()) {
                 bullet.setPosition(bullet.move());
                 bullet.setLastMoved(currentTimeMillis());
             }
