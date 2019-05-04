@@ -12,6 +12,8 @@ public class HauntedHouse {
     private List<Element> walls;
     private List<Enemy> enemies;
     private List<Bullet> bullets;
+    private int score;
+    private long lastIncrementedScore;
     private long lastSpawned;
 
     private final static int MAX_NUMBER_ENEMIES = 10;
@@ -25,6 +27,8 @@ public class HauntedHouse {
         this.enemies = new ArrayList<>();
         this.bullets = new ArrayList<>();
         this.lastSpawned = currentTimeMillis();
+        this.lastIncrementedScore = currentTimeMillis();
+        this.score = 0;
     }
 
     public int getWidth() { return width; }
@@ -33,11 +37,14 @@ public class HauntedHouse {
     public List<Element> getWalls() { return walls; }
     public List<Enemy> getEnemies() { return enemies; }
     public List<Bullet> getBullets() { return bullets; }
+    public int getScore() { return score; }
+    public long getLastIncrementedScore() { return lastIncrementedScore; }
     public long getLastSpawned() { return lastSpawned; }
     public final static int getMaxNumberEnemies() { return MAX_NUMBER_ENEMIES; }
     public final static int getMaxNumberBullets() { return MAX_NUMBER_BULLETS; }
 
     public void setLastSpawned(long lastSpawned) { this.lastSpawned = lastSpawned; }
+    public void setLastIncrementedScore(long lastIncrementedScore) { this.lastIncrementedScore = lastIncrementedScore; }
 
     private List<Element> createWalls() {
         List<Element> walls = new ArrayList<>();
@@ -81,5 +88,7 @@ public class HauntedHouse {
         return false;
     }
 
+
+    public void increaseScore(int amount) { score += amount; }
 
 }

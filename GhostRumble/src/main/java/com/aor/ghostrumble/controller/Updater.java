@@ -9,11 +9,21 @@ import static java.lang.System.currentTimeMillis;
 
 public class Updater {
 
-    private final static int ENEMY_SPAWN_RATE = 3000;
+    private final static int ENEMY_SPAWN_RATE = 2000;
     private final static int FIRE_REFRESH_RATE = 500;
+    private final static int SCORE_INCREASE_RATE = 3000;
+
+    private final static int SCORE_TIME_INCREASE = 10;
+    private final static int SCORE_KILL_INCREASE = 50;
+
+    public final static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
+    public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
+
 
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);
+
+        checkBulletCollisions(house);
 
         moveBullets(house);
 
@@ -25,15 +35,34 @@ public class Updater {
         checkBulletCollisions(house);
         checkEnemyCollisions(house);
 
+        increaseScoreWithKills(house);
+
         damagePlayer(house);
+
         removeFlagged(house);
 
         spawnEnemy(house);
+
+        increaseScoreWithTime(house);
 
         //resets the event
         event.setType(Event.TYPE.NO_EVENT);
 
         // checkForGameOver(event, house);
+    }
+
+    public void increaseScoreWithKills(HauntedHouse house) {
+        for(Bullet bullet : house.getBullets())
+            if(bullet.getKillFlag())
+                house.increaseScore(SCORE_KILL_INCREASE);
+    }
+
+    public  void increaseScoreWithTime(HauntedHouse house) {
+
+        if(currentTimeMillis() - house.getLastIncrementedScore() > SCORE_INCREASE_RATE) {
+            house.increaseScore(SCORE_TIME_INCREASE);
+            house.setLastIncrementedScore(currentTimeMillis());
+        }
     }
 
     /*
@@ -45,7 +74,7 @@ public class Updater {
             return;
         }
     }
-*/
+    */
 
     public void spawnEnemy(HauntedHouse house) {
 
@@ -210,7 +239,7 @@ public class Updater {
     private void moveEnemy(Enemy enemy, Position position, HauntedHouse house) {
         // the way the game is made, the enemies will never go through walls
 
-        if (hitsEnemies(position, house)) {
+        if (!hitsEnemies(position, house)) {
             enemy.setPosition(position);
             enemy.update(house.getPlayer());
         }
@@ -220,10 +249,10 @@ public class Updater {
 
         for (Enemy enemy : house.getEnemies()) {
             if(position.equals(enemy.getPosition()))
-                return false;
+                return true;
         }
 
-        return true;
+        return false;
     }
 
     public void removeFlagged(HauntedHouse house) {
@@ -260,6 +289,7 @@ public class Updater {
             for(Enemy enemy : house.getEnemies()) {
                 if(bullet.getPosition().equals(enemy.getPosition())) {
                     bullet.setRemoveFlag(true);
+                    bullet.setKillFlag(true);
                     enemy.setRemoveFlag(true);
                 }
             }

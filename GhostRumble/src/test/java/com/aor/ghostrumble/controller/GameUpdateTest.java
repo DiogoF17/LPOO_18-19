@@ -169,6 +169,7 @@ public class GameUpdateTest {
         assertEquals(position, player.getPosition());
     }
 
+
     @Test
     public void testSpawnEnemy() {
         Updater updater = new Updater();
@@ -209,6 +210,7 @@ public class GameUpdateTest {
     @Test
     public void testLaunchHorizontalBullet() {
         Updater updater = new Updater();
+
         HauntedHouse house = new HauntedHouse(50, 30);
 
         int before = house.getBullets().size();
@@ -216,6 +218,9 @@ public class GameUpdateTest {
         updater.launchHorizontalBullet(house, 1);
 
         assertEquals(before + 1, house.getBullets().size());
+        assertEquals(house.getPlayer().getPosition().getX() + 1, house.getBullets().get(0).getPosition().getX());
+        assertEquals(house.getPlayer().getPosition().getY(), house.getBullets().get(0).getPosition().getY());
+        assertEquals(1, house.getBullets().get(0).getDelta());
     }
 
     @Test
@@ -228,6 +233,52 @@ public class GameUpdateTest {
         updater.launchVerticalBullet(house, 1);
 
         assertEquals(before + 1, house.getBullets().size());
+        assertEquals(house.getPlayer().getPosition().getX(), house.getBullets().get(0).getPosition().getX());
+        assertEquals(house.getPlayer().getPosition().getY() + 1, house.getBullets().get(0).getPosition().getY());
+        assertEquals(1, house.getBullets().get(0).getDelta());
+    }
+
+    @Test
+    public void testBulletEvent() {
+        Updater updater = new Updater();
+        Event event = new Event(Event.TYPE.NO_EVENT);
+        HauntedHouse house = new HauntedHouse(50, 30);
+
+        int before = house.getBullets().size();
+
+        event.setType(Event.TYPE.BULLET_UP);
+        updater.processEvent(event, house);
+        assertEquals(before + 1, house.getBullets().size());
+        assertEquals(house.getPlayer().getPosition().getX(), house.getBullets().get(0).getPosition().getX());
+        assertEquals(house.getPlayer().getPosition().getY() - 1, house.getBullets().get(0).getPosition().getY());
+        assertEquals(-1, house.getBullets().get(0).getDelta());
+
+        house.getPlayer().setLastFired(0);
+
+        event.setType(Event.TYPE.BULLET_DOWN);
+        updater.processEvent(event, house);
+        assertEquals(before + 2, house.getBullets().size());
+        assertEquals(house.getPlayer().getPosition().getX(), house.getBullets().get(1).getPosition().getX());
+        assertEquals(house.getPlayer().getPosition().getY() + 1, house.getBullets().get(1).getPosition().getY());
+        assertEquals(1, house.getBullets().get(1).getDelta());
+
+        house.getPlayer().setLastFired(0);
+
+        event.setType(Event.TYPE.BULLET_LEFT);
+        updater.processEvent(event, house);
+        assertEquals(before + 3, house.getBullets().size());
+        assertEquals(house.getPlayer().getPosition().getX() - 1, house.getBullets().get(2).getPosition().getX());
+        assertEquals(house.getPlayer().getPosition().getY(), house.getBullets().get(2).getPosition().getY());
+        assertEquals(-1, house.getBullets().get(2).getDelta());
+
+        house.getPlayer().setLastFired(0);
+
+        event.setType(Event.TYPE.BULLET_RIGHT);
+        updater.processEvent(event, house);
+        assertEquals(before + 4, house.getBullets().size());
+        assertEquals(house.getPlayer().getPosition().getX() + 1, house.getBullets().get(3).getPosition().getX());
+        assertEquals(house.getPlayer().getPosition().getY(), house.getBullets().get(3).getPosition().getY());
+        assertEquals(1, house.getBullets().get(3).getDelta());
     }
 
     @Test
@@ -356,10 +407,31 @@ public class GameUpdateTest {
 
         updater.checkBulletCollisions(house);
 
-        assertTrue(
-                bullets.get(0).flaggedForRemoval()
-                && enemies.get(0).flaggedForRemoval()
+        assertTrue(bullets.get(0).flaggedForRemoval()
+                            && bullets.get(0).getKillFlag()
+                            && enemies.get(0).flaggedForRemoval()
         );
+    }
+
+
+    @Test
+    public void testIncreaseScoreWithKills() {
+        Updater updater = new Updater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+
+        List<Bullet> bullets = new ArrayList<>();
+        bullets.add(new HorizontalBullet(15, 15, 0));
+        bullets.add(new HorizontalBullet(13, 13, 0));
+        bullets.add(new HorizontalBullet(11, 11, 0));
+        bullets.add(new HorizontalBullet(6, 9, 0));
+        bullets.get(0).setKillFlag(true);
+        bullets.get(3).setKillFlag(true);
+
+        Mockito.when(house.getBullets()).thenReturn(bullets);
+
+        updater.increaseScoreWithKills(house);
+
+        Mockito.verify(house, times(2)).increaseScore(Updater.getScoreKillIncrease());
     }
 
 }

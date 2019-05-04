@@ -71,4 +71,25 @@ public class HauntedHouseTest {
         assertEquals(value, house.getLastSpawned());
     }
 
+    @Test
+    public void testLastIncrementedScore() {
+        long value = 1000;
+        house.setLastIncrementedScore(value);
+
+        assertEquals(value, house.getLastIncrementedScore());
+    }
+
+    @Test
+    public void testScore() {
+        assertEquals(0, house.getScore());
+    }
+
+    @Test
+    public void testIncreaseScore() {
+        house.increaseScore(20);
+        house.increaseScore(30);
+
+        assertEquals(50, house.getScore());
+    }
+
 }

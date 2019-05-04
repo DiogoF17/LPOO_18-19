@@ -30,6 +30,7 @@ public class DrawLanterna implements DrawingMethod {
         this.drawWalls(house.getWalls(), graphics);
         this.drawEnemies(house.getEnemies(), graphics);
         this.drawBullets(house.getBullets(), graphics);
+        this.drawScore(house.getScore(), graphics);
 
         this.screen.refresh();
     }
@@ -137,6 +138,14 @@ public class DrawLanterna implements DrawingMethod {
             }
 
         }
+    }
+
+    private void drawScore(int score, TextGraphics graphics) {
+
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#32204E"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#F6F0EF"));
+
+        graphics.putString(new TerminalPosition(80, 2), "Score: " + score);
     }
 
 }

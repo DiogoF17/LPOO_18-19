@@ -2,7 +2,7 @@ package com.aor.ghostrumble.model;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class BulletTest {
 
@@ -16,6 +16,19 @@ public class BulletTest {
     public void testGetDelta() {
         Bullet bullet = new HorizontalBullet(10, 10, 1);
         assertEquals(1, bullet.getDelta());
+    }
+
+    @Test
+    public void testKillFlagBeginning() {
+        Bullet bullet = new VerticalBullet(10, 10, 1);
+        assertFalse(bullet.getKillFlag());
+    }
+
+    @Test
+    public void testSetKillFlag() {
+        Bullet bullet = new HorizontalBullet(10, 10, 1);
+        bullet.setKillFlag(true);
+        assertTrue(bullet.getKillFlag());
     }
 
 }
