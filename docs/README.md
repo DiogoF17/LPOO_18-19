@@ -207,7 +207,7 @@
 > [Link to the reports in HTML format](testResults/html)
 
 #### Some notes about the testing results:
-> ### Concerning coverage
+> ### Concerning coverage and mutations
 > As can be seen, a coverage of 100% was not achieved on the testing of our project. This can be attributed to a number of factors:
 >> #### Classes and Methods that only call other methods:
 >>
@@ -222,6 +222,8 @@
 >> Concerning the [DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java) class, all of its methods are meant only to visually represent the data contained in the classes belonging to the **model** module. Therefore, it wouldn't be the best use of development time to unit test these methods, as the important part is that the model and controller properly process that data, based on user input.
 >>
 >> Adding to this, the [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) class calls, in its constructor, methods to initialize the screen. These methods are not tested for on the unit tests that were developed, even though they are covered, for the reasons stated on the paragraph above.
+>
+>> There is also one surviving mutation due to the presence of a System.out.println() call.
 
 > ### Concerning the individuality of the tests
 > Due to the structure of our code, there are classes which have the function of calling the proper methods from other classes, while not directly manipulating the data of the game, these classes being the [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java) class and the [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) class. For this reason, those methods cannot be properly **unit** tested, as they don't contain any of the data they manipulate. Therefore, we developed tests to see the effect of these methods on the data stored on the model classes, using that data to verify the correct operation of [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java) and [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java).
