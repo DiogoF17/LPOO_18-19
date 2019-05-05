@@ -179,7 +179,12 @@
 
 ## Testing Results
 
-> This section should contain screenshots of the main results of both the test coverage and mutation testing reports. It should also contain links to those reports in HTML format (you can copy the reports to the docs folder).
+> Screenshot of test coverage and mutation testing reports:
+>
+> ![Alt text](testResults/Screenshot.png)
+>
+> [Link to the reports in HTML format](testResults/html)
+
 
 ## Self-evaluation
 
