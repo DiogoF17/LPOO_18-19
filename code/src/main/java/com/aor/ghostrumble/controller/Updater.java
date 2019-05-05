@@ -105,27 +105,23 @@ public class Updater {
 
         } while (house.checkMonsterInPosition(valueX, valueY));
 
-        Enemy newEnemy = null;
-
         switch(valueMonster) {
             case 0:
-                newEnemy = new Zombie(valueX, valueY);
+                house.addEnemy(new Zombie(valueX, valueY));
                 break;
 
             case 1:
-                newEnemy = new Ghost(valueX, valueY);
+                house.addEnemy(new Ghost(valueX, valueY));
                 break;
 
             case 2:
-                newEnemy = new Poltergeist(valueX, valueY);
+                house.addEnemy(new Poltergeist(valueX, valueY));
                 break;
 
             default:
                 break;
         }
 
-        if(newEnemy != null)
-            house.addEnemy(newEnemy);
     }
 
     public void launchHorizontalBullet(HauntedHouse house, int delta) {
