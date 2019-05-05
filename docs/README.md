@@ -184,7 +184,7 @@
 
 ### 2. ProcessEvent() Switch Statement in Updater Class
 #### 2.1 Code Smell
-> In the Updater class, a method called processEvent() is called in order to, given a specific event, do the operation (call the method) that corresponds to that action/event. For example, if the event type if BULLET_UP, the Updater class will call the methods necessary in order to create a bullet and launch it upwards. This originated a big switch statement, based on type code, in processEvent().
+> In the Updater class, a method called processEvent() is called in order to, given a specific event, do the operation (call the method) that corresponds to that action/event. For example, if the event type is BULLET_UP, the Updater class will call the methods necessary in order to create a bullet and launch it upwards. This originated a big switch statement, based on type code, in processEvent().
 
 #### 2.2 Refactoring
 > Probably one of the best ways to solve this problem is to apply the Replace Type Code with Subclasses refactoring tecnique. Instead of the Event class having an attribute that indicates the current event type, it could have various subclasses, each one for a specific event type (ex: PlayerLeftEvent, BulletUpEvent, etc). Each subclass could have its own implementation of a process() method, that received the Updater and the HauntedHouse (model), and called the right method of the Updater in order to satisfy that event. So, instead of being the Updater class that evaluates the event type and calls the right method, it would be the event itself that called them.
