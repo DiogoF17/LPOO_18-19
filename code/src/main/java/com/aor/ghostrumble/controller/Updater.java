@@ -68,7 +68,7 @@ public class Updater {
 
     public void checkForGameOver(HauntedHouse house) {
         if(house.getPlayer().getCurrentHealth() <= 0) {
-            // System.out.println("You died! Your final score was " + house.getScore());
+            System.out.println("You died! Your final score was " + house.getScore());
             house.init();
         }
     }
