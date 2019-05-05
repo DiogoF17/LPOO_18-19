@@ -202,7 +202,9 @@
 
 > Screenshot of test coverage and mutation testing reports:
 >
-> ![Alt text](testResults/Screenshot.png)
+> ![Alt text](testResults/Screenshot_IntelliJ_Coverage.png)
+>
+> ![Alt text](testResults/Screenshot_Pitest.png)
 >
 > [Link to the reports in HTML format](testResults/html)
 
@@ -227,6 +229,8 @@
 >> There is also one surviving mutation due to the presence of a System.out.println() call.
 >>
 >> The number of mutations killed on the class [Poltergeist](../code/src/main/java/com/aor/ghostrumble/model/Poltergeist.java) depends on the results from random number generation, in any given test run.
+>>
+>> There is a difference between the coverage stats provided by the unit tests on IntelliJ, and those provided by running _pitest_. However, both were run with the exact same code.
 
 > ### Concerning the individuality of the tests
 > Due to the structure of our code, there are classes which have the function of calling the proper methods from other classes, while not directly manipulating the data of the game, these classes being the [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java) class and the [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) class. For this reason, those methods cannot be properly **unit** tested, as they don't contain any of the data they manipulate. Therefore, we developed tests to see the effect of these methods on the data stored on the model classes, using that data to verify the correct operation of [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java) and [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java).
