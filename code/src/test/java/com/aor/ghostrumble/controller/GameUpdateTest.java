@@ -14,6 +14,10 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 
+// a bit different from the other unit test modules. It tests if it changes well
+// the state of other classes, like HauntedHouse and Player, because that's what
+// it is supposed to do.
+
 public class GameUpdateTest {
 
     @Test
@@ -44,7 +48,6 @@ public class GameUpdateTest {
         for (Enemy enemy : enemies) {
             player.addObserver(enemy);
         }
-        player.notifyObservers();
 
         List<Enemy> expected = new ArrayList<>();
         expected.add(new Zombie(19, 10));
@@ -91,7 +94,22 @@ public class GameUpdateTest {
         expected.add(new Zombie(10, 10));
         expected.add(new Zombie(12, 10));
 
+        Player player = new Player();
+        Position standard = new Position(15, 10);
+        player.setPosition(standard);
+
+        for (Enemy enemy : enemies) {
+            player.addObserver(enemy);
+        }
+
         Mockito.when(house.getEnemies()).thenReturn(enemies);
+        Mockito.when(house.getPlayer()).thenReturn(player);
+
+        updater.moveEnemies(house);
+
+        for (int i = 0; i < 2; i++) {
+            assertEquals(expected.get(i).getPosition(), enemies.get(i).getPosition());
+        }
     }
 
     @Test
@@ -101,7 +119,6 @@ public class GameUpdateTest {
         Position position = new Position(0, 30);
 
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
-        // Player player = Mockito.mock(Player.class);
         Player player = new Player();
         player.setPosition(position);
 
