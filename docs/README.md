@@ -182,8 +182,21 @@
 #### 1.2 Refactoring
 > One refactoring tecnique that can be applied to eliminate this code smell is the Extract Class tecnique: the Updater class can be split into various classes, like for example PlayerUpdater, EnemiesUpdater, etc, and each one of these classes would be in charge of the logic concerning the player, the enemies, and so on. The main Updater class would have methods that involves the various components, like for example, collision detection between the enemies and the player.
 
-### 2.
+### 2. ProcessEvent() Switch Statement in Updater Class
+#### 2.1 Code Smell
+> In the Updater class, a method called processEvent() is called in order to, given a specific event, do the operation (call the method) that corresponds to that action/event. For example, if the event type if BULLET_UP, the Updater class will call the methods necessary in order to create a bullet and launch it upwards. This originated a big switch statement, based on type code, in processEvent().
 
+#### 2.2 Refactoring
+> Probably one of the best ways to solve this problem is to apply the Replace Type Code with Subclasses refactoring tecnique. Instead of the Event class having an attribute that indicates the current event type, it could have various subclasses, each one for a specific event type (ex: PlayerLeftEvent, BulletUpEvent, etc). Each subclass could have its own implementation of a process() method, that received the Updater and the HauntedHouse (model), and called the right method of the Updater in order to satisfy that event. So, instead of being the Updater class that evaluates the event type and calls the right method, it would be the event itself that called them.
+>
+> This would eliminate the switch statement in processEvent(), making the code much more readable, as well as ensure that the Open-Closed Principle of SOLID would be followed: if we wanted to add another event type, we wouldn't need to change any existing code, but to create a new subclass that represented the new event type. (Another possible solution would be Replace Type Code with State/Strategy).
+
+### 3. Collision Detection in Updater and HauntedHouse
+#### 3.1 Code Smell
+> In the Updater class, we have a function hitsEnemies(), that tells if the position given to the method hits any enemy that is in the haunted house. There is a similar function in the HauntedHouse class, checkMonsterInPosition(), that does the same thing. There is no need for these two functions to coexist, as they have the same functionality. This can be viewed as a small version of the Alternative Classes with Different Interfaces code smell.
+
+#### 3.2 Refactoring
+> The collision detection methods, like hitsWall() and hitsEnemies(), can be put in the HauntedHouse class, deleting these functions in the Updater class, in order to avoid repetition.
 
 ## Testing Results
 
@@ -196,4 +209,8 @@
 
 ## Self-evaluation
 
-> In this section describe how the work regarding the project was divided between the students. In the event that members of the group do not agree on a work distribution, the group should send an email to the teacher explaining the disagreement.
+> For the intermediate delivery:
+>
+> Eduardo Ribeiro (up201705421@fe.up.pt): 50%
+>
+> Diogo Machado (up201706832@fe.up.pt): 50%
