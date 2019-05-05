@@ -223,7 +223,10 @@
 >>
 >> Adding to this, the [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) class calls, in its constructor, methods to initialize the screen. These methods are not tested for on the unit tests that were developed, even though they are covered, for the reasons stated on the paragraph above.
 >
+>> #### Additional Notes
 >> There is also one surviving mutation due to the presence of a System.out.println() call.
+>>
+>> The number of mutations killed on the class [Poltergeist](../code/src/main/java/com/aor/ghostrumble/model/Poltergeist.java) depends on the results from random number generation, in any given test run.
 
 > ### Concerning the individuality of the tests
 > Due to the structure of our code, there are classes which have the function of calling the proper methods from other classes, while not directly manipulating the data of the game, these classes being the [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java) class and the [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) class. For this reason, those methods cannot be properly **unit** tested, as they don't contain any of the data they manipulate. Therefore, we developed tests to see the effect of these methods on the data stored on the model classes, using that data to verify the correct operation of [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java) and [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java).
