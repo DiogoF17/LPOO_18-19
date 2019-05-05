@@ -33,7 +33,7 @@
 > The player will also be able to shoot the monsters from a distance, using the arrow keys, launching a projectile/bullet in a certain direction. If a bullet hits a monster, it will die. The player's gun has a refresh rate, so the player can't be shooting at all times.
 
 ### Score
-> The current score is displayed at the top right of the screen. It will slowly increment from time to time, if the player manages to keep surviving. It will also increase, by a bigger amount, is an enemy is killed.
+> The current score is displayed at the top right of the screen. It will slowly increment from time to time, if the player manages to keep surviving. It will also increase, by a bigger amount, if an enemy is killed.
 
 ### Game Over
 > If the player's health goes down to 0, the game resets (the score is set to 0, all the enemies and bullets disappear, etc) and a new game starts. In the console, a message is printed showing the user what was the final score.
