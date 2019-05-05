@@ -30,7 +30,7 @@
 > If a monster touches the player, it will die, but it will inflict damage on the player, lowering his HP.
 
 ### Shooting/Attacking
-> The player will also be able to shoot the monsters from a distance, launching a projectile/bullet in a certain direction. If a bullet hits a monster, it will die. The player's gun has a refresh rate, so the player can't be shooting at all times.
+> The player will also be able to shoot the monsters from a distance, using the arrow keys, launching a projectile/bullet in a certain direction. If a bullet hits a monster, it will die. The player's gun has a refresh rate, so the player can't be shooting at all times.
 
 ### Score
 > The current score is displayed at the top right of the screen. It will slowly increment from time to time, if the player manages to keep surviving. It will also increase, by a bigger amount, is an enemy is killed.
@@ -175,7 +175,15 @@
 
 ## Known Code Smells and Refactoring Suggestions
 
-> This section should describe 3 to 5 different code smells that you have identified in your current implementation, and suggest ways in which the code could be refactored to eliminate them. Each smell and refactoring suggestions should be described in its own subsection.
+### 1. Controller Module Centered In Only One Class
+#### 1.1 Code Smell
+> In the Controller module of our game, all the game's logic and operations are centered in only one class, the Updater class. This class can be considered as a Large Class, containing too many methods and lines of code.
+
+#### 1.2 Refactoring
+> One refactoring tecnique that can be applied to eliminate this code smell is the Extract Class tecnique: the Updater class can be split into various classes, like for example PlayerUpdater, EnemiesUpdater, etc, and each one of these classes would be in charge of the logic concerning the player, the enemies, and so on. The main Updater class would have methods that involves the various components, like for example, collision detection between the enemies and the player.
+
+### 2.
+
 
 ## Testing Results
 
