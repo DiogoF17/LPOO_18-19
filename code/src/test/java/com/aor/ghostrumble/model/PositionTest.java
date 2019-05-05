@@ -34,6 +34,8 @@ public class PositionTest {
         int y = random.nextInt(50 - 10) + 10;
         Position first  = new Position(x, y);
         Position second = new Position(x, y);
+        assertEquals(first, first);
+        assertFalse(first.equals(null));
         assertEquals(first, second);
     }
 }

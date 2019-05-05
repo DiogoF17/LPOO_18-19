@@ -18,6 +18,7 @@ public class Updater {
 
     public final static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
     public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
+    public final static int getEnemySpawnRate() { return ENEMY_SPAWN_RATE; }
 
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);
@@ -163,10 +164,13 @@ public class Updater {
     }
 
     public void moveEnemies(HauntedHouse house) {
+
+        house.getPlayer().notifyObservers();
+
         for (Enemy enemy : house.getEnemies()) {
             if (currentTimeMillis() - enemy.getLastMoved() > enemy.getSpeed()) {
                 moveEnemy(enemy, enemy.move(), house);
-                enemy.setLastMoved(currentTimeMillis());
+                // enemy.setLastMoved(currentTimeMillis());
             }
         }
     }
@@ -236,7 +240,8 @@ public class Updater {
 
         if (!hitsEnemies(position, house)) {
             enemy.setPosition(position);
-            enemy.update(house.getPlayer());
+            enemy.setLastMoved(currentTimeMillis());
+            // enemy.update(house.getPlayer());
         }
     }
 

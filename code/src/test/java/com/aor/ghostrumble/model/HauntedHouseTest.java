@@ -33,6 +33,8 @@ public class HauntedHouseTest {
     @Test
     public void testInitWalls() {
         assertEquals(2 * randomWidth + 2 * (randomHeight - 7), house.getWalls().size());
+        assertEquals(randomHeight - 1, house.getWalls().get(1).getPosition().getY());
+        assertEquals(randomWidth - 1, house.getWalls().get(2 * randomWidth + 1).getPosition().getX());
     }
 
     @Test
@@ -47,6 +49,7 @@ public class HauntedHouseTest {
         house.addEnemy(new Ghost(40, 30));
 
         assertEquals(3, house.getEnemies().size());
+        assertEquals(3, house.getPlayer().getObservers().size());
     }
 
     @Test

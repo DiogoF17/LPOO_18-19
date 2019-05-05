@@ -2,8 +2,9 @@ package com.aor.ghostrumble.controller;
 
 import com.aor.ghostrumble.model.*;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,13 @@ public class GameUpdateTest {
     @Test
     public void testEnemyMovement() {
         Updater updater = new Updater();
+        Enemy zombie1 = Mockito.spy(new Zombie(20, 10));
+        Enemy zombie2 = Mockito.spy(new Zombie(16, 18));
+        Enemy zombie3 = Mockito.spy(new Zombie(15, 14));
+        Enemy ghost1 = Mockito.spy(new Ghost(12, 12));
+        Enemy ghost2 = Mockito.spy(new Ghost(15, 12));
+        Enemy ghost3 = Mockito.spy(new Ghost(10, 10));
+
 
         Player player = new Player();
         Position standard = new Position(15, 10);
@@ -26,12 +34,12 @@ public class GameUpdateTest {
         List<Element> walls = new ArrayList<>();
 
         List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Zombie(20, 10));
-        enemies.add(new Zombie(16, 18));
-        enemies.add(new Zombie(15, 14));
-        enemies.add(new Ghost(12, 12));
-        enemies.add(new Ghost(15, 12));
-        enemies.add(new Ghost(10, 10));
+        enemies.add(zombie1);
+        enemies.add(zombie2);
+        enemies.add(zombie3);
+        enemies.add(ghost1);
+        enemies.add(ghost2);
+        enemies.add(ghost3);
 
         for (Enemy enemy : enemies) {
             player.addObserver(enemy);
@@ -53,11 +61,37 @@ public class GameUpdateTest {
         Mockito.when(house.getWalls()).thenReturn(walls);
         Mockito.when(house.getEnemies()).thenReturn(enemies);
 
+        for (Enemy enemy : enemies) {
+            Mockito.doAnswer(invocation -> currentTimeMillis() - enemy.getSpeed()).when(enemy).getLastMoved();
+        }
+
+        updater.moveEnemies(house);
+
+        for (Enemy enemy : enemies) {
+            Mockito.doAnswer(invocation -> enemy.getSpeed() - currentTimeMillis()).when(enemy).getLastMoved();
+        }
+
         updater.moveEnemies(house);
 
         for (int i = 0; i < 6; i++) {
             assertEquals(expected.get(i).getPosition(), enemies.get(i).getPosition());
         }
+    }
+
+    @Test
+    public void testEnemyCollisions() {
+        Updater updater = new Updater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(new Zombie(10, 10));
+        enemies.add(new Zombie(11, 10));
+
+        List<Enemy> expected = new ArrayList<>();
+        expected.add(new Zombie(10, 10));
+        expected.add(new Zombie(12, 10));
+
+        Mockito.when(house.getEnemies()).thenReturn(enemies);
     }
 
     @Test
@@ -67,17 +101,22 @@ public class GameUpdateTest {
         Position position = new Position(0, 30);
 
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
-        Player player = Mockito.mock(Player.class);
+        // Player player = Mockito.mock(Player.class);
+        Player player = new Player();
+        player.setPosition(position);
 
         List<Enemy> enemies = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            enemies.add(new Zombie(i, 10));
-            enemies.add(new Ghost(i, 20));
+            Enemy first = new Zombie(i, 10);
+            Enemy second = new Zombie(i, 20);
+            player.addObserver(first);
+            player.addObserver(second);
+            enemies.add(first);
+            enemies.add(second);
         }
 
         Mockito.when(house.getEnemies()).thenReturn(enemies);
         Mockito.when(house.getPlayer()).thenReturn(player);
-        Mockito.when(player.getPosition()).thenReturn(position);
 
         updater.removeFlagged(house);
         assertEquals(20, enemies.size());
@@ -88,6 +127,7 @@ public class GameUpdateTest {
 
         updater.removeFlagged(house);
         assertEquals(0, enemies.size());
+        assertEquals(0, player.getObservers().size());
     }
 
     @Test
@@ -109,6 +149,7 @@ public class GameUpdateTest {
         assertEquals(20, player.getCurrentHealth());
 
         updater.checkEnemyCollisions(house);
+        updater.damagePlayer(house);
         updater.damagePlayer(house);
         updater.removeFlagged(house);
 
@@ -194,40 +235,72 @@ public class GameUpdateTest {
 
         updater.spawnEnemy(house);
 
-        Mockito.verify(house, times(1)).addEnemy(any(Enemy.class));
+        value = currentTimeMillis();
+        Mockito.when(house.getLastSpawned()).thenReturn(value);
+        updater.spawnEnemy(house);
 
-        enemies.add(new Ghost(15, 15));
-        enemies.add(new Ghost(30, 30));
-        enemies.add(new Ghost(21, 22));
-        enemies.add(new Ghost(2, 2));
-        enemies.add(new Ghost(5, 2));
-        enemies.add(new Ghost(0, 10));
-        enemies.add(new Ghost(15, 15));
-        enemies.add(new Ghost(30, 30));
-        enemies.add(new Ghost(21, 22));
-        enemies.add(new Ghost(2, 2));
-        enemies.add(new Ghost(5, 2));
-        enemies.add(new Ghost(0, 10));
+        Answer<Long> answer = new Answer<Long>() {
+            public Long answer(InvocationOnMock invocation) throws Throwable {
+                return currentTimeMillis() - Updater.getEnemySpawnRate();
+            }
+        };
+        Mockito.when(house.getLastSpawned()).thenAnswer(answer);
 
         updater.spawnEnemy(house);
 
         Mockito.verify(house, times(1)).addEnemy(any(Enemy.class));
+
+        enemies.add(new Ghost(15, 15));
+        enemies.add(new Ghost(30, 30));
+        enemies.add(new Ghost(21, 22));
+        enemies.add(new Ghost(2, 2));
+        enemies.add(new Ghost(5, 2));
+        enemies.add(new Ghost(0, 10));
+        enemies.add(new Ghost(15, 15));
+        enemies.add(new Ghost(30, 30));
+        enemies.add(new Ghost(21, 22));
+
+        updater.spawnEnemy(house);
+
+        Mockito.verify(house, times(1)).addEnemy(any(Enemy.class));
+        Mockito.verify(house, times(1)).setLastSpawned(any(long.class));
     }
 
     @Test
     public void testLaunchHorizontalBullet() {
         Updater updater = new Updater();
-
         HauntedHouse house = new HauntedHouse(50, 30);
 
-        int before = house.getBullets().size();
+        long canShootTime = currentTimeMillis() - 501;
 
         updater.launchHorizontalBullet(house, 1);
 
-        assertEquals(before + 1, house.getBullets().size());
+
+        assertEquals(1, house.getBullets().size());
         assertEquals(house.getPlayer().getPosition().getX() + 1, house.getBullets().get(0).getPosition().getX());
         assertEquals(house.getPlayer().getPosition().getY(), house.getBullets().get(0).getPosition().getY());
         assertEquals(1, house.getBullets().get(0).getDelta());
+
+        house.getPlayer().setLastFired(canShootTime);
+        updater.launchHorizontalBullet(house, 1);
+        updater.launchHorizontalBullet(house, 1);        // won't fire because of player.setLastFired()
+        house.getPlayer().setLastFired(canShootTime);
+        updater.launchHorizontalBullet(house, 1);
+        house.getPlayer().setLastFired(canShootTime + 1);     // won't fire because > and not >=
+        updater.launchHorizontalBullet(house, 1);
+        house.getPlayer().setLastFired(-(canShootTime + 1));  // will fire but kill a mutation
+        updater.launchHorizontalBullet(house, 1);
+        house.getPlayer().setLastFired(canShootTime);
+        updater.launchHorizontalBullet(house, 1);
+
+        assertEquals(5, house.getBullets().size());
+
+        house.getPlayer().setLastFired(canShootTime);         // won't fire from here on out because limit of 5
+        updater.launchHorizontalBullet(house, 1);
+        house.getPlayer().setLastFired(canShootTime);
+        updater.launchHorizontalBullet(house, 1);
+
+        assertEquals(5, house.getBullets().size());
     }
 
     @Test
@@ -235,14 +308,36 @@ public class GameUpdateTest {
         Updater updater = new Updater();
         HauntedHouse house = new HauntedHouse(50, 30);
 
-        int before = house.getBullets().size();
+        long canShootTime = currentTimeMillis() - 501;
 
         updater.launchVerticalBullet(house, 1);
 
-        assertEquals(before + 1, house.getBullets().size());
+
+        assertEquals(1, house.getBullets().size());
         assertEquals(house.getPlayer().getPosition().getX(), house.getBullets().get(0).getPosition().getX());
         assertEquals(house.getPlayer().getPosition().getY() + 1, house.getBullets().get(0).getPosition().getY());
         assertEquals(1, house.getBullets().get(0).getDelta());
+
+        house.getPlayer().setLastFired(canShootTime);
+        updater.launchVerticalBullet(house, 1);
+        updater.launchVerticalBullet(house, 1);        // won't fire because of player.setLastFired()
+        house.getPlayer().setLastFired(canShootTime);
+        updater.launchVerticalBullet(house, 1);
+        house.getPlayer().setLastFired(canShootTime + 1);     // won't fire because > and not >=
+        updater.launchVerticalBullet(house, 1);
+        house.getPlayer().setLastFired(-(canShootTime + 1));  // will fire but kill a mutation
+        updater.launchVerticalBullet(house, 1);
+        house.getPlayer().setLastFired(canShootTime);
+        updater.launchVerticalBullet(house, 1);
+
+        assertEquals(5, house.getBullets().size());
+
+        house.getPlayer().setLastFired(canShootTime);         // won't fire from here on out because limit of 5
+        updater.launchVerticalBullet(house, 1);
+        house.getPlayer().setLastFired(canShootTime);
+        updater.launchVerticalBullet(house, 1);
+
+        assertEquals(5, house.getBullets().size());
     }
 
     @Test
@@ -291,12 +386,16 @@ public class GameUpdateTest {
     @Test
     public void testBulletMovement() {
         Updater updater = new Updater();
+        Bullet horizontalBulletFront = Mockito.spy(new HorizontalBullet(10, 10, 1));
+        Bullet horizontalBulletBack = Mockito.spy(new HorizontalBullet(20, 20, -1));
+        Bullet verticalBulletFront = Mockito.spy(new VerticalBullet(10, 10, 1));
+        Bullet verticalBulletBack = Mockito.spy(new VerticalBullet(20, 20, -1));
 
         List<Bullet> bullets = new ArrayList<>();
-        bullets.add(new HorizontalBullet(10, 10, 1));
-        bullets.add(new HorizontalBullet(20, 20, -1));
-        bullets.add(new VerticalBullet(10, 10, 1));
-        bullets.add(new VerticalBullet(20, 20, -1));
+        bullets.add(horizontalBulletFront);
+        bullets.add(horizontalBulletBack);
+        bullets.add(verticalBulletFront);
+        bullets.add(verticalBulletBack);
 
         List<Bullet> expected = new ArrayList<>();
         expected.add(new HorizontalBullet(11, 10, 1));
@@ -307,6 +406,16 @@ public class GameUpdateTest {
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
 
         Mockito.when(house.getBullets()).thenReturn(bullets);
+
+        for (Bullet bullet : bullets) {
+            Mockito.doAnswer(invocation -> currentTimeMillis() - bullet.getSpeed()).when(bullet).getLastMoved();
+        }
+
+        updater.moveBullets(house);
+
+        for (Bullet bullet : bullets) {
+            Mockito.doAnswer(invocation -> bullet.getSpeed() - currentTimeMillis()).when(bullet).getLastMoved();
+        }
 
         updater.moveBullets(house);
 
@@ -430,6 +539,7 @@ public class GameUpdateTest {
         bullets.add(new HorizontalBullet(13, 13, 0));
         bullets.add(new HorizontalBullet(11, 11, 0));
         bullets.add(new HorizontalBullet(6, 9, 0));
+        bullets.add(new HorizontalBullet(7, 9, 0));
         bullets.get(0).setKillFlag(true);
         bullets.get(3).setKillFlag(true);
 
@@ -465,9 +575,16 @@ public class GameUpdateTest {
         Updater updater = new Updater();
         HauntedHouse house = new HauntedHouse(50, 50);
 
-        house.setLastIncrementedScore(currentTimeMillis() - 3001);
+        house.setLastIncrementedScore(3000 - currentTimeMillis());
         updater.increaseScoreWithTime(house);
 
-        assertEquals(Updater.getScoreTimeIncrease(), house.getScore());
+        house.setLastIncrementedScore(currentTimeMillis() - 3000);
+        updater.increaseScoreWithTime(house);
+
+        house.setLastIncrementedScore(currentTimeMillis() - 3001);
+        updater.increaseScoreWithTime(house);
+        updater.increaseScoreWithTime(house);
+
+        assertEquals(2 * Updater.getScoreTimeIncrease(), house.getScore());
     }
 }
