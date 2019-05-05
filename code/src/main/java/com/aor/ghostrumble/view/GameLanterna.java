@@ -34,6 +34,8 @@ public class GameLanterna extends Game {
         this.screen = screen;
     }
 
+    protected Screen getScreen() { return this.screen; }
+
     @Override
     protected DrawingMethod createDrawingMethod() {
         return new DrawLanterna(screen);
@@ -86,7 +88,6 @@ public class GameLanterna extends Game {
                 event.setType(Event.TYPE.BULLET_RIGHT);
                 break;
 
-
             case Escape:
                 event.setType(Event.TYPE.CLOSE);
                 break;
@@ -105,7 +106,7 @@ public class GameLanterna extends Game {
     @Override
     protected boolean handleInput(Event event) throws IOException {
 
-        KeyStroke key = this.screen.readInput();
+        KeyStroke key = screen.readInput();
 
         createEvent(key, event);
 

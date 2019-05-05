@@ -30,15 +30,34 @@ public class PositionTest {
     }
 
     @Test
-    public void testEquals() {
+    public void testEqualsDifferentObjects() {
         Random random = new Random();
         int x = random.nextInt(100 - 10) + 10;
         int y = random.nextInt(50 - 10) + 10;
         Position first  = new Position(x, y);
         Position second = new Position(x, y);
 
-        // assertEquals(first, first);
-        // assertFalse(first.equals(null));
         assertEquals(first, second);
+    }
+
+    @Test
+    public void testEqualsSameObject() {
+        Random random = new Random();
+        int x = random.nextInt(100 - 10) + 10;
+        int y = random.nextInt(50 - 10) + 10;
+        Position first = new Position(x, y);
+
+        assertEquals(first, first);
+    }
+
+    @Test
+    public void testEqualsNullObject() {
+        Random random = new Random();
+        int x = random.nextInt(100 - 10) + 10;
+        int y = random.nextInt(50 - 10) + 10;
+        Position first = new Position(x, y);
+        Position second = null;
+
+        assertNotEquals(first, second);
     }
 }

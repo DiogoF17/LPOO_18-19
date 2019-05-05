@@ -19,6 +19,7 @@ public class Updater {
     public final static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
     public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
     public final static int getEnemySpawnRate() { return ENEMY_SPAWN_RATE; }
+    public final static int getFireRefreshRate() { return FIRE_REFRESH_RATE; }
 
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);
@@ -67,7 +68,7 @@ public class Updater {
 
     public void checkForGameOver(HauntedHouse house) {
         if(house.getPlayer().getCurrentHealth() <= 0) {
-            System.out.println("You died! Your final score was " + house.getScore());
+            // System.out.println("You died! Your final score was " + house.getScore());
             house.init();
         }
     }

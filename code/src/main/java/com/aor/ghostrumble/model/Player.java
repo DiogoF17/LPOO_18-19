@@ -37,7 +37,7 @@ public class Player extends Movable {
     }
 
     private void assertCurrentHealth() {
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
             currentHealth = 0;
     }
 

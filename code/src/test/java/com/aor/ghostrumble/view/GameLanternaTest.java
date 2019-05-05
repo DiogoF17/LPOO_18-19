@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import java.io.IOException;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.times;
 
 public class GameLanternaTest {
 
@@ -38,7 +39,9 @@ public class GameLanternaTest {
 
         Event event = new Event(Event.TYPE.NO_EVENT);
 
-        assertTrue(game.handleInput(event));
+        game.handleInput(event);
+
+        Mockito.verify(screen, times(1)).close();
         assertEquals(Event.TYPE.CLOSE, event.getType());
     }
 
@@ -76,6 +79,121 @@ public class GameLanternaTest {
     }
 
     @Test
+    public void testCreateEventA() throws IOException {
+        Screen screen = Mockito.mock(Screen.class);
+        game.setScreen(screen);
+
+        KeyStroke key = Mockito.mock(KeyStroke.class);
+        Mockito.when(key.getKeyType()).thenReturn(KeyType.Character);
+        Mockito.when(key.getCharacter()).thenReturn('a');
+
+        Mockito.when(screen.readInput()).thenReturn(key);
+
+        Event event = new Event(Event.TYPE.NO_EVENT);
+
+        assertTrue(game.handleInput(event));
+        assertEquals(Event.TYPE.PLAYER_LEFT, event.getType());
+    }
+
+    @Test
+    public void testCreateEventS() throws IOException {
+        Screen screen = Mockito.mock(Screen.class);
+        game.setScreen(screen);
+
+        KeyStroke key = Mockito.mock(KeyStroke.class);
+        Mockito.when(key.getKeyType()).thenReturn(KeyType.Character);
+        Mockito.when(key.getCharacter()).thenReturn('s');
+
+        Mockito.when(screen.readInput()).thenReturn(key);
+
+        Event event = new Event(Event.TYPE.NO_EVENT);
+
+        assertTrue(game.handleInput(event));
+        assertEquals(Event.TYPE.PLAYER_DOWN, event.getType());
+    }
+
+    @Test
+    public void testCreateEventD() throws IOException {
+        Screen screen = Mockito.mock(Screen.class);
+        game.setScreen(screen);
+
+        KeyStroke key = Mockito.mock(KeyStroke.class);
+        Mockito.when(key.getKeyType()).thenReturn(KeyType.Character);
+        Mockito.when(key.getCharacter()).thenReturn('d');
+
+        Mockito.when(screen.readInput()).thenReturn(key);
+
+        Event event = new Event(Event.TYPE.NO_EVENT);
+
+        assertTrue(game.handleInput(event));
+        assertEquals(Event.TYPE.PLAYER_RIGHT, event.getType());
+    }
+
+    @Test
+    public void testCreateEventUP() throws IOException {
+        Screen screen = Mockito.mock(Screen.class);
+        game.setScreen(screen);
+
+        KeyStroke key = Mockito.mock(KeyStroke.class);
+        Mockito.when(key.getKeyType()).thenReturn(KeyType.ArrowUp);
+
+        Mockito.when(screen.readInput()).thenReturn(key);
+
+        Event event = new Event(Event.TYPE.NO_EVENT);
+
+        assertTrue(game.handleInput(event));
+        assertEquals(Event.TYPE.BULLET_UP, event.getType());
+    }
+
+    @Test
+    public void testCreateEventDOWN() throws IOException {
+        Screen screen = Mockito.mock(Screen.class);
+        game.setScreen(screen);
+
+        KeyStroke key = Mockito.mock(KeyStroke.class);
+        Mockito.when(key.getKeyType()).thenReturn(KeyType.ArrowDown);
+
+        Mockito.when(screen.readInput()).thenReturn(key);
+
+        Event event = new Event(Event.TYPE.NO_EVENT);
+
+        assertTrue(game.handleInput(event));
+        assertEquals(Event.TYPE.BULLET_DOWN, event.getType());
+    }
+
+    @Test
+    public void testCreateEventLEFT() throws IOException {
+        Screen screen = Mockito.mock(Screen.class);
+        game.setScreen(screen);
+
+        KeyStroke key = Mockito.mock(KeyStroke.class);
+        Mockito.when(key.getKeyType()).thenReturn(KeyType.ArrowLeft);
+
+        Mockito.when(screen.readInput()).thenReturn(key);
+
+        Event event = new Event(Event.TYPE.NO_EVENT);
+
+        assertTrue(game.handleInput(event));
+        assertEquals(Event.TYPE.BULLET_LEFT, event.getType());
+    }
+
+    @Test
+    public void testCreateEventRIGHT() throws IOException {
+        Screen screen = Mockito.mock(Screen.class);
+        game.setScreen(screen);
+
+        KeyStroke key = Mockito.mock(KeyStroke.class);
+        Mockito.when(key.getKeyType()).thenReturn(KeyType.ArrowRight);
+
+        Mockito.when(screen.readInput()).thenReturn(key);
+
+        Event event = new Event(Event.TYPE.NO_EVENT);
+
+        assertTrue(game.handleInput(event));
+        assertEquals(Event.TYPE.BULLET_RIGHT, event.getType());
+    }
+
+    @Test
     public void testEventIrrelevantCharacter() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
@@ -86,7 +204,7 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        Event event = new Event(Event.TYPE.CLOSE);
 
         assertTrue(game.handleInput(event));
         assertEquals(Event.TYPE.NO_EVENT, event.getType());
@@ -102,7 +220,7 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        Event event = new Event(Event.TYPE.CLOSE);
 
         assertTrue(game.handleInput(event));
         assertEquals(Event.TYPE.NO_EVENT, event.getType());
