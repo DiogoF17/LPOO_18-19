@@ -375,7 +375,7 @@ public class GameUpdateTest {
                 return currentTimeMillis() - Updater.getEnemySpawnRate();
             }
         };
-        Mockito.when(house.getLastSpawned()).thenAnswer(noSpawnAnswer);
+        Mockito.doAnswer(noSpawnAnswer).when(house).getLastSpawned();
 
         updater.spawnEnemy(house);
 
@@ -383,10 +383,10 @@ public class GameUpdateTest {
 
         Answer<Long> spawnAnswer = new Answer<Long>() {
             public Long answer(InvocationOnMock invocation) throws Throwable {
-                return currentTimeMillis() - Updater.getEnemySpawnRate() - 1;
+                return currentTimeMillis() - 2 * Updater.getEnemySpawnRate();
             }
         };
-        Mockito.when(house.getLastSpawned()).thenAnswer(spawnAnswer);
+        Mockito.doAnswer(spawnAnswer).when(house).getLastSpawned();
 
         updater.spawnEnemy(house);
 
