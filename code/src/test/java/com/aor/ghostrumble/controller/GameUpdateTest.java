@@ -14,142 +14,8 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 
-// a bit different from the other unit test modules. It tests if it changes well
-// the state of other classes, like HauntedHouse and Player, because that's what
-// it is supposed to do.
-
 public class GameUpdateTest {
 
-    @Test
-    public void testEnemyMovement() {
-        Updater updater = new Updater();
-        Enemy zombie1 = Mockito.spy(new Zombie(20, 10));
-        Enemy zombie2 = Mockito.spy(new Zombie(16, 18));
-        Enemy zombie3 = Mockito.spy(new Zombie(15, 14));
-        Enemy ghost1 = Mockito.spy(new Ghost(12, 12));
-        Enemy ghost2 = Mockito.spy(new Ghost(15, 12));
-        Enemy ghost3 = Mockito.spy(new Ghost(10, 10));
-
-
-        Player player = new Player();
-        Position standard = new Position(15, 10);
-        player.setPosition(standard);
-
-        List<Element> walls = new ArrayList<>();
-
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(zombie1);
-        enemies.add(zombie2);
-        enemies.add(zombie3);
-        enemies.add(ghost1);
-        enemies.add(ghost2);
-        enemies.add(ghost3);
-
-        for (Enemy enemy : enemies) {
-            player.addObserver(enemy);
-        }
-
-        List<Enemy> expected = new ArrayList<>();
-        expected.add(new Zombie(19, 10));
-        expected.add(new Zombie(15, 18));
-        expected.add(new Zombie(15, 13));
-        expected.add(new Ghost(13, 11));
-        expected.add(new Ghost(15, 11));
-        expected.add(new Ghost(11, 10));
-
-
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-
-        Mockito.when(house.getPlayer()).thenReturn(player);
-        Mockito.when(house.getWalls()).thenReturn(walls);
-        Mockito.when(house.getEnemies()).thenReturn(enemies);
-
-        for (Enemy enemy : enemies) {
-            Mockito.doAnswer(invocation -> currentTimeMillis() - enemy.getSpeed()).when(enemy).getLastMoved();
-        }
-
-        updater.moveEnemies(house);
-
-        for (Enemy enemy : enemies) {
-            Mockito.doAnswer(invocation -> enemy.getSpeed() - currentTimeMillis()).when(enemy).getLastMoved();
-        }
-
-        updater.moveEnemies(house);
-
-        for (int i = 0; i < 6; i++) {
-            assertEquals(expected.get(i).getPosition(), enemies.get(i).getPosition());
-        }
-    }
-
-    @Test
-    public void testEnemySpeed() {
-        Updater updater = new Updater();
-        Enemy zombie = Mockito.spy(new Zombie(10, 10));
-        Player player = new Player();
-        Position prePosition = new Position(10, 15);
-        Position postPosition = new Position(15, 10);
-
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(zombie);
-        player.setPosition(prePosition);
-        player.addObserver(zombie);
-        player.setPosition(postPosition);
-
-        Position expected = new Position(12, 10);
-
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-        Mockito.when(house.getEnemies()).thenReturn(enemies);
-        Mockito.when(house.getPlayer()).thenReturn(player);
-
-        updater.moveEnemies(house);
-        updater.moveEnemies(house);
-
-        Mockito.doAnswer(
-                invocation -> currentTimeMillis() - zombie.getSpeed()
-        ).when(zombie).getLastMoved();
-
-        updater.moveEnemies(house);
-
-        Mockito.doAnswer(
-                invocation -> zombie.getSpeed() - currentTimeMillis()
-        ).when(zombie).getLastMoved();
-
-        updater.moveEnemies(house);
-
-        assertEquals(enemies.get(0).getPosition().getX(), expected.getX());
-        assertEquals(enemies.get(0).getPosition().getY(), expected.getY());
-    }
-
-    @Test
-    public void testEnemyCollisions() {
-        Updater updater = new Updater();
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Zombie(10, 10));
-        enemies.add(new Zombie(11, 10));
-
-        List<Enemy> expected = new ArrayList<>();
-        expected.add(new Zombie(10, 10));
-        expected.add(new Zombie(12, 10));
-
-        Player player = new Player();
-        Position standard = new Position(15, 10);
-        player.setPosition(standard);
-
-        for (Enemy enemy : enemies) {
-            player.addObserver(enemy);
-        }
-
-        Mockito.when(house.getEnemies()).thenReturn(enemies);
-        Mockito.when(house.getPlayer()).thenReturn(player);
-
-        updater.moveEnemies(house);
-
-        for (int i = 0; i < 2; i++) {
-            assertEquals(expected.get(i).getPosition(), enemies.get(i).getPosition());
-        }
-    }
 
     @Test
     public void testDeleteEnemies() {
@@ -184,33 +50,6 @@ public class GameUpdateTest {
         updater.removeFlagged(house);
         assertEquals(0, enemies.size());
         assertEquals(0, player.getObservers().size());
-    }
-
-    @Test
-    public void testPlayerDamage() {
-        Updater updater = new Updater();
-        Player player = new Player();
-        Position position = new Position(0, 30);
-
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Poltergeist(0, 30));
-
-        player.setPosition(position);
-
-        Mockito.when(house.getEnemies()).thenReturn(enemies);
-        Mockito.when(house.getPlayer()).thenReturn(player);
-
-        assertEquals(20, player.getCurrentHealth());
-
-        updater.checkEnemyCollisions(house);
-        updater.damagePlayer(house);
-        updater.damagePlayer(house);
-        updater.removeFlagged(house);
-
-        assertEquals(15, player.getCurrentHealth());
-        assertEquals(0, enemies.size());
     }
 
     @Test
@@ -269,6 +108,42 @@ public class GameUpdateTest {
     }
 
     @Test
+    public void testPlayerDamage() {
+        Updater updater = new Updater();
+        PlayerUpdater playerUpdater = Mockito.mock(PlayerUpdater.class);
+        Player player = new Player();
+        Position position = new Position(0, 30);
+
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+
+        Answer<Long> damage = new Answer<Long>() {
+            public Long answer(InvocationOnMock invocation) throws Throwable {
+
+            }
+        };
+        Mockito.doAnswer(damage).when(playerUpdater).damagePlayer(house);
+
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(new Poltergeist(0, 30));
+
+        player.setPosition(position);
+
+        Mockito.when(house.getEnemies()).thenReturn(enemies);
+        Mockito.when(house.getPlayer()).thenReturn(player);
+
+        assertEquals(Player.getMaxHealthConstant(), player.getCurrentHealth());
+
+        updater.checkEnemyCollisions(house);
+        updater.getPlayerUpdater().damagePlayer(house);
+        updater.getPlayerUpdater().damagePlayer(house);
+        updater.removeFlagged(house);
+
+        assertEquals(Player.getMaxHealthConstant() - Poltergeist.getPoltergeistDamage(), player.getCurrentHealth());
+        assertEquals(0, enemies.size());
+    }
+
+
+    @Test
     public void testPlayerNotify() {
         Updater updater = new Updater();
         HauntedHouse house = Mockito.spy(new HauntedHouse(50, 30));
@@ -288,225 +163,6 @@ public class GameUpdateTest {
         assertEquals(expectedRelativePosition, relativePosition);
     }
 
-    @Test
-    public void testSpawnEnemy() {
-        Updater updater = new Updater();
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Zombie(20, 10));
-        enemies.add(new Zombie(16, 18));
-        enemies.add(new Zombie(15, 14));
-        enemies.add(new Ghost(12, 12));
-        enemies.add(new Ghost(15, 12));
-        enemies.add(new Ghost(10, 10));
-
-        long value = 0;
-
-        Mockito.when(house.getLastSpawned()).thenReturn(value);
-        Mockito.when(house.getEnemies()).thenReturn(enemies);
-        Mockito.when(house.getWidth()).thenReturn(100);
-        Mockito.when(house.getHeight()).thenReturn(100);
-        Mockito.when(house.checkMonsterInPosition(any(Integer.class), any(Integer.class))).thenReturn(false);
-
-        updater.spawnEnemy(house);
-
-        value = currentTimeMillis();
-        Mockito.when(house.getLastSpawned()).thenReturn(value);
-        updater.spawnEnemy(house);
-
-        Answer<Long> noSpawnAnswer = new Answer<Long>() {
-            public Long answer(InvocationOnMock invocation) throws Throwable {
-                return currentTimeMillis() - Updater.getEnemySpawnRate();
-            }
-        };
-        Mockito.when(house.getLastSpawned()).thenAnswer(noSpawnAnswer);
-
-        updater.spawnEnemy(house);
-
-        Mockito.verify(house, times(1)).addEnemy(any(Enemy.class));
-
-        Answer<Long> spawnAnswer = new Answer<Long>() {
-            public Long answer(InvocationOnMock invocation) throws Throwable {
-                return currentTimeMillis() - Updater.getEnemySpawnRate() - 1;
-            }
-        };
-        Mockito.when(house.getLastSpawned()).thenAnswer(spawnAnswer);
-
-        enemies.add(new Ghost(15, 15));
-        enemies.add(new Ghost(30, 30));
-        enemies.add(new Ghost(21, 22));
-        enemies.add(new Ghost(2, 2));
-        enemies.add(new Ghost(5, 2));
-        enemies.add(new Ghost(0, 10));
-        enemies.add(new Ghost(15, 15));
-        enemies.add(new Ghost(2, 5));
-        enemies.add(new Ghost(10, 10));
-
-        updater.spawnEnemy(house);
-
-        Mockito.verify(house, times(1)).addEnemy(any(Enemy.class));
-        Mockito.verify(house, times(1)).setLastSpawned(any(long.class));
-    }
-
-    @Test
-    public void testEnemySpawnRate() {
-        Updater updater = new Updater();
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-
-        List<Enemy> enemies = new ArrayList<>();
-
-        Mockito.when(house.getEnemies()).thenReturn(enemies);
-        Mockito.when(house.getWidth()).thenReturn(100);
-        Mockito.when(house.getHeight()).thenReturn(100);
-        Mockito.when(house.checkMonsterInPosition(any(Integer.class), any(Integer.class))).thenReturn(false);
-
-        Mockito.doAnswer(
-                invocation -> {
-                    Enemy enemy = invocation.getArgument(0);
-                    enemies.add(enemy);
-                    return null;
-                }).when(house).addEnemy(any(Enemy.class));
-        // instead of adding enemy to house enemies, since house is a mock,
-        // adds enemy to our list 'enemies'
-
-        Answer<Long> noSpawnAnswer = new Answer<Long>() {
-            public Long answer(InvocationOnMock invocation) throws Throwable {
-                return currentTimeMillis() - Updater.getEnemySpawnRate();
-            }
-        };
-        Mockito.doAnswer(noSpawnAnswer).when(house).getLastSpawned();
-
-        updater.spawnEnemy(house);
-
-        Mockito.verify(house, times(0)).addEnemy(any(Enemy.class));
-
-        Answer<Long> spawnAnswer = new Answer<Long>() {
-            public Long answer(InvocationOnMock invocation) throws Throwable {
-                return currentTimeMillis() - 2 * Updater.getEnemySpawnRate();
-            }
-        };
-        Mockito.doAnswer(spawnAnswer).when(house).getLastSpawned();
-
-        updater.spawnEnemy(house);
-
-        Mockito.verify(house, times(1)).addEnemy(any(Enemy.class));
-
-        assertEquals(1, house.getEnemies().size());
-    }
-
-    @Test
-    public void testLaunchHorizontalBullet() {
-        Updater updater = new Updater();
-        HauntedHouse house = new HauntedHouse(50, 30);
-
-        long canShootTime = currentTimeMillis() - 501;
-
-        updater.launchHorizontalBullet(house, 1);
-
-
-        assertEquals(1, house.getBullets().size());
-        assertEquals(house.getPlayer().getPosition().getX() + 1, house.getBullets().get(0).getPosition().getX());
-        assertEquals(house.getPlayer().getPosition().getY(), house.getBullets().get(0).getPosition().getY());
-        assertEquals(1, house.getBullets().get(0).getDelta());
-
-        house.getPlayer().setLastFired(canShootTime);
-        updater.launchHorizontalBullet(house, 1);
-        updater.launchHorizontalBullet(house, 1);        // won't fire because of player.setLastFired()
-        house.getPlayer().setLastFired(canShootTime);
-        updater.launchHorizontalBullet(house, 1);
-        house.getPlayer().setLastFired(canShootTime + 1);     // won't fire because > and not >=
-        updater.launchHorizontalBullet(house, 1);
-        house.getPlayer().setLastFired(-(canShootTime));      // will fire but kill a mutation
-        updater.launchHorizontalBullet(house, 1);
-        house.getPlayer().setLastFired(canShootTime);
-        updater.launchHorizontalBullet(house, 1);
-
-        assertEquals(5, house.getBullets().size());
-
-        house.getPlayer().setLastFired(canShootTime);         // won't fire from here on out because limit of 5
-        updater.launchHorizontalBullet(house, 1);
-        house.getPlayer().setLastFired(canShootTime);
-        updater.launchHorizontalBullet(house, 1);
-
-        assertEquals(5, house.getBullets().size());
-    }
-
-    @Test
-    public void testLaunchVerticalBullet() {
-        Updater updater = new Updater();
-        HauntedHouse house = new HauntedHouse(50, 30);
-
-        long canShootTime = currentTimeMillis() - 501;
-
-        updater.launchVerticalBullet(house, 1);
-
-
-        assertEquals(1, house.getBullets().size());
-        assertEquals(house.getPlayer().getPosition().getX(), house.getBullets().get(0).getPosition().getX());
-        assertEquals(house.getPlayer().getPosition().getY() + 1, house.getBullets().get(0).getPosition().getY());
-        assertEquals(1, house.getBullets().get(0).getDelta());
-
-        house.getPlayer().setLastFired(canShootTime);
-        updater.launchVerticalBullet(house, 1);
-        updater.launchVerticalBullet(house, 1);        // won't fire because of player.setLastFired()
-        house.getPlayer().setLastFired(canShootTime);
-        updater.launchVerticalBullet(house, 1);
-        house.getPlayer().setLastFired(canShootTime + 1);   // won't fire because > and not >=
-        updater.launchVerticalBullet(house, 1);
-        house.getPlayer().setLastFired(-(canShootTime));    // will fire but kill a mutation
-        updater.launchVerticalBullet(house, 1);
-        house.getPlayer().setLastFired(canShootTime);
-        updater.launchVerticalBullet(house, 1);
-
-        assertEquals(5, house.getBullets().size());
-
-        house.getPlayer().setLastFired(canShootTime);         // won't fire from here on out because limit of 5
-        updater.launchVerticalBullet(house, 1);
-        house.getPlayer().setLastFired(canShootTime);
-        updater.launchVerticalBullet(house, 1);
-
-        assertEquals(5, house.getBullets().size());
-    }
-
-    @Test
-    public void testFireRefreshRate() {
-        Updater updater = new Updater();
-        HauntedHouse house = Mockito.spy(new HauntedHouse(50, 30));
-        Player player = Mockito.spy(new Player());
-
-        Mockito.when(house.getPlayer()).thenReturn(player);
-
-        long canShootTime = currentTimeMillis() - Updater.getFireRefreshRate() - 1;
-
-        Answer<Long> answer = new Answer<Long>() {
-            @Override
-            public Long answer(InvocationOnMock invocation) throws Throwable {
-                return currentTimeMillis() - Updater.getFireRefreshRate();
-            }
-        };
-
-        player.setLastFired(canShootTime);
-
-        updater.launchVerticalBullet(house, 1);
-        updater.launchVerticalBullet(house, 1);
-
-        Mockito.doAnswer(answer).when(player).getLastFired();
-
-        updater.launchVerticalBullet(house, 1);
-
-        Mockito.when(player.getLastFired()).thenCallRealMethod();
-
-        player.setLastFired(canShootTime);
-
-        updater.launchHorizontalBullet(house, 1);
-        updater.launchHorizontalBullet(house, 1);
-
-        Mockito.doAnswer(answer).when(player).getLastFired();
-        updater.launchHorizontalBullet(house, 1);
-
-        assertEquals(2, house.getBullets().size());
-    }
 
     @Test
     public void testBulletEvent() {
@@ -551,78 +207,6 @@ public class GameUpdateTest {
         assertEquals(1, house.getBullets().get(3).getDelta());
     }
 
-    @Test
-    public void testBulletMovement() {
-        Updater updater = new Updater();
-        Bullet horizontalBulletFront = Mockito.spy(new HorizontalBullet(10, 10, 1));
-        Bullet horizontalBulletBack = Mockito.spy(new HorizontalBullet(20, 20, -1));
-        Bullet verticalBulletFront = Mockito.spy(new VerticalBullet(10, 10, 1));
-        Bullet verticalBulletBack = Mockito.spy(new VerticalBullet(20, 20, -1));
-
-        List<Bullet> bullets = new ArrayList<>();
-        bullets.add(horizontalBulletFront);
-        bullets.add(horizontalBulletBack);
-        bullets.add(verticalBulletFront);
-        bullets.add(verticalBulletBack);
-
-        List<Bullet> expected = new ArrayList<>();
-        expected.add(new HorizontalBullet(11, 10, 1));
-        expected.add(new HorizontalBullet(19, 20, -1));
-        expected.add(new VerticalBullet(10, 11, 1));
-        expected.add(new VerticalBullet(20, 19, -1));
-
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-
-        Mockito.when(house.getBullets()).thenReturn(bullets);
-
-        for (Bullet bullet : bullets) {
-            Mockito.doAnswer(invocation -> currentTimeMillis() - bullet.getSpeed()).when(bullet).getLastMoved();
-        }
-
-        updater.moveBullets(house);
-
-        for (Bullet bullet : bullets) {
-            Mockito.doAnswer(invocation -> bullet.getSpeed() - currentTimeMillis()).when(bullet).getLastMoved();
-        }
-
-        updater.moveBullets(house);
-
-        for (int i = 0; i < bullets.size(); i++) {
-            assertEquals(expected.get(i).getPosition(), bullets.get(i).getPosition());
-        }
-    }
-
-    @Test
-    public void testBulletSpeed() {
-        Updater updater = new Updater();
-        Bullet horizontalBulletFront = Mockito.spy(new HorizontalBullet(10, 10, 1));
-
-        List<Bullet> bullets = new ArrayList<>();
-        bullets.add(horizontalBulletFront);
-
-        List<Bullet> expected = new ArrayList<>();
-        expected.add(new HorizontalBullet(12, 10, 1));
-
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-        Mockito.when(house.getBullets()).thenReturn(bullets);
-
-        updater.moveBullets(house);
-        updater.moveBullets(house);
-
-        Mockito.doAnswer(
-                invocation -> currentTimeMillis() - horizontalBulletFront.getSpeed()
-        ).when(horizontalBulletFront).getLastMoved();
-
-        updater.moveBullets(house);
-
-        Mockito.doAnswer(
-                invocation -> horizontalBulletFront.getSpeed() - currentTimeMillis()
-        ).when(horizontalBulletFront).getLastMoved();
-
-        updater.moveBullets(house);
-
-        assertEquals(bullets.get(0).getPosition(), expected.get(0).getPosition());
-    }
 
     @Test
     public void testRemoveFlagged() {

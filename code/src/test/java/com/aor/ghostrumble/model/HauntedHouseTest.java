@@ -73,15 +73,28 @@ public class HauntedHouseTest {
     public void testMonsterInPositionTrue() {
         house.addEnemy(new Zombie(10, 10));
 
-        assertTrue(house.checkMonsterInPosition(10, 10));
+        assertTrue(house.hitsEnemies(new Position(10, 10)));
     }
 
     @Test
     public void testMonsterInPositionFalse() {
         house.addEnemy(new Zombie(20, 10));
 
-        assertFalse(house.checkMonsterInPosition(10, 10));
+        assertFalse(house.hitsEnemies(new Position(10, 10)));
     }
+
+    @Test
+    public void testWallInPositionTrue() {
+        // always a wall in this position
+        assertTrue(house.hitsWall(new Position(house.getWidth() - 1, 6)));
+    }
+
+    @Test
+    public void testWallInPositionFalse() {
+        // never a wall in this position
+        assertFalse(house.hitsWall(new Position(house.getWidth(), house.getHeight())));
+    }
+
 
     @Test
     public void testLastSpawned() {

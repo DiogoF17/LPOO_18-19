@@ -84,10 +84,22 @@ public class HauntedHouse {
     }
 
 
-    public boolean checkMonsterInPosition(int x, int y) {
-        for(Enemy enemy : enemies)
-            if(enemy.getPosition().getX() == x && enemy.getPosition().getY() == y)
+    public boolean hitsEnemies(Position position) {
+
+        for (Enemy enemy : enemies) {
+            if(position.equals(enemy.getPosition()))
                 return true;
+        }
+
+        return false;
+    }
+
+
+    public boolean hitsWall(Position position) {
+        for (Element wall : walls) {
+            if (position.equals(wall.getPosition()))
+                return true;
+        }
 
         return false;
     }
