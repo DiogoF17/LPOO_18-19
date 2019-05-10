@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 
 public class PlayerUpdaterTest {
 
@@ -35,11 +36,70 @@ public class PlayerUpdaterTest {
         updater.damagePlayer(house);
 
         assertEquals(Player.getMaxHealthConstant() - Poltergeist.getPoltergeistDamage(), player.getCurrentHealth());
+        assertEquals(false, enemies.get(0).hasHitPlayer());
     }
 
     @Test
     public void testMovePlayer() {
+        PlayerUpdater playerUpdater = new PlayerUpdater();
+        Player player = new Player();
+        Position position = new Position(10, 10);
+
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+
+        player.setPosition(position);
+
+        Mockito.when(house.getEnemies()).thenReturn(new ArrayList<>());
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(house.hitsWall(any(Position.class))).thenReturn(false);
+
+        playerUpdater.movePlayer(player, player.moveUp(), house);
+        assertEquals(new Position(10, 9), player.getPosition());
+
+        playerUpdater.movePlayer(player, player.moveDown(), house);
+        assertEquals(position, player.getPosition());
+
+        playerUpdater.movePlayer(player, player.moveLeft(), house);
+        assertEquals(new Position(9, 10), player.getPosition());
+
+        playerUpdater.movePlayer(player, player.moveRight(), house);
+        assertEquals(position, player.getPosition());
 
 
+        Mockito.when(house.hitsWall(any(Position.class))).thenReturn(true);
+
+
+        playerUpdater.movePlayer(player, player.moveUp(), house);
+        assertEquals(position, player.getPosition());
+
+        playerUpdater.movePlayer(player, player.moveDown(), house);
+        assertEquals(position, player.getPosition());
+
+        playerUpdater.movePlayer(player, player.moveLeft(), house);
+        assertEquals(position, player.getPosition());
+
+        playerUpdater.movePlayer(player, player.moveRight(), house);
+        assertEquals(position, player.getPosition());
+    }
+
+
+    @Test
+    public void testPlayerNotify() {
+        PlayerUpdater playerUpdater = new PlayerUpdater();
+        HauntedHouse house = Mockito.spy(new HauntedHouse(50, 30));
+        Player player = Mockito.spy(new Player());
+        player.setPosition(new Position(11, 15));
+
+        Mockito.when(house.getPlayer()).thenReturn(player);
+
+        Enemy enemy = new Zombie(10, 10);
+        player.addObserver(enemy);
+
+        playerUpdater.movePlayer(player, player.moveLeft(), house);
+
+        Position relativePosition = new Position(0, 1);
+        Position expectedRelativePosition = new Position(enemy.getMovStrategy().getDeltaX(), enemy.getMovStrategy().getDeltaY());
+
+        assertEquals(expectedRelativePosition, relativePosition);
     }
 }

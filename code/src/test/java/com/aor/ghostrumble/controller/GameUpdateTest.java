@@ -2,6 +2,7 @@ package com.aor.ghostrumble.controller;
 
 import com.aor.ghostrumble.model.*;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -50,161 +51,6 @@ public class GameUpdateTest {
         updater.removeFlagged(house);
         assertEquals(0, enemies.size());
         assertEquals(0, player.getObservers().size());
-    }
-
-    @Test
-    public void testPlayerMove() {
-        Updater updater = new Updater();
-        Player player = new Player();
-        Position position = new Position(10, 10);
-        Event event = new Event(Event.TYPE.NO_EVENT);
-
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-
-        List<Element> walls = new ArrayList<>();
-
-        player.setPosition(position);
-
-        Mockito.when(house.getEnemies()).thenReturn(new ArrayList<>());
-        Mockito.when(house.getPlayer()).thenReturn(player);
-        Mockito.when(house.getWalls()).thenReturn(walls);
-
-        event.setType(Event.TYPE.PLAYER_UP);
-        updater.processEvent(event, house);
-        assertEquals(new Position(10, 9), player.getPosition());
-
-        event.setType(Event.TYPE.PLAYER_DOWN);
-        updater.processEvent(event, house);
-        assertEquals(position, player.getPosition());
-
-        event.setType(Event.TYPE.PLAYER_LEFT);
-        updater.processEvent(event, house);
-        assertEquals(new Position(9, 10), player.getPosition());
-
-        event.setType(Event.TYPE.PLAYER_RIGHT);
-        updater.processEvent(event, house);
-        assertEquals(position, player.getPosition());
-
-        walls.add(new Element(9, 10));
-        walls.add(new Element(10, 11));
-        walls.add(new Element(11, 10));
-        walls.add(new Element(10, 9));
-
-        event.setType(Event.TYPE.PLAYER_DOWN);
-        updater.processEvent(event, house);
-        assertEquals(position, player.getPosition());
-
-        event.setType(Event.TYPE.PLAYER_UP);
-        updater.processEvent(event, house);
-        assertEquals(position, player.getPosition());
-
-        event.setType(Event.TYPE.PLAYER_LEFT);
-        updater.processEvent(event, house);
-        assertEquals(position, player.getPosition());
-
-        event.setType(Event.TYPE.PLAYER_RIGHT);
-        updater.processEvent(event, house);
-        assertEquals(position, player.getPosition());
-    }
-
-    @Test
-    public void testPlayerDamage() {
-        Updater updater = new Updater();
-        PlayerUpdater playerUpdater = Mockito.mock(PlayerUpdater.class);
-        Player player = new Player();
-        Position position = new Position(0, 30);
-
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-
-        Answer<Long> damage = new Answer<Long>() {
-            public Long answer(InvocationOnMock invocation) throws Throwable {
-
-            }
-        };
-        Mockito.doAnswer(damage).when(playerUpdater).damagePlayer(house);
-
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Poltergeist(0, 30));
-
-        player.setPosition(position);
-
-        Mockito.when(house.getEnemies()).thenReturn(enemies);
-        Mockito.when(house.getPlayer()).thenReturn(player);
-
-        assertEquals(Player.getMaxHealthConstant(), player.getCurrentHealth());
-
-        updater.checkEnemyCollisions(house);
-        updater.getPlayerUpdater().damagePlayer(house);
-        updater.getPlayerUpdater().damagePlayer(house);
-        updater.removeFlagged(house);
-
-        assertEquals(Player.getMaxHealthConstant() - Poltergeist.getPoltergeistDamage(), player.getCurrentHealth());
-        assertEquals(0, enemies.size());
-    }
-
-
-    @Test
-    public void testPlayerNotify() {
-        Updater updater = new Updater();
-        HauntedHouse house = Mockito.spy(new HauntedHouse(50, 30));
-        Player player = Mockito.spy(new Player());
-        player.setPosition(new Position(11, 15));
-
-        Mockito.when(house.getPlayer()).thenReturn(player);
-
-        Enemy enemy = new Zombie(10, 10);
-        player.addObserver(enemy);
-
-        updater.processEvent(new Event(Event.TYPE.PLAYER_LEFT), house);
-
-        Position relativePosition = new Position(0, 1);
-        Position expectedRelativePosition = new Position(enemy.getMovStrategy().getDeltaX(), enemy.getMovStrategy().getDeltaY());
-
-        assertEquals(expectedRelativePosition, relativePosition);
-    }
-
-
-    @Test
-    public void testBulletEvent() {
-        Updater updater = new Updater();
-        Event event = new Event(Event.TYPE.NO_EVENT);
-        HauntedHouse house = new HauntedHouse(50, 30);
-
-        int before = house.getBullets().size();
-
-        event.setType(Event.TYPE.BULLET_UP);
-        updater.processEvent(event, house);
-        assertEquals(before + 1, house.getBullets().size());
-        assertEquals(house.getPlayer().getPosition().getX(), house.getBullets().get(0).getPosition().getX());
-        assertEquals(house.getPlayer().getPosition().getY() - 1, house.getBullets().get(0).getPosition().getY());
-        assertEquals(-1, house.getBullets().get(0).getDelta());
-
-        house.getPlayer().setLastFired(0);
-
-        event.setType(Event.TYPE.BULLET_DOWN);
-        updater.processEvent(event, house);
-        assertEquals(before + 2, house.getBullets().size());
-        assertEquals(house.getPlayer().getPosition().getX(), house.getBullets().get(1).getPosition().getX());
-        assertEquals(house.getPlayer().getPosition().getY() + 1, house.getBullets().get(1).getPosition().getY());
-        assertEquals(1, house.getBullets().get(1).getDelta());
-
-        house.getPlayer().setLastFired(0);
-
-        event.setType(Event.TYPE.BULLET_LEFT);
-        updater.processEvent(event, house);
-        assertEquals(before + 3, house.getBullets().size());
-        assertEquals(house.getPlayer().getPosition().getX() - 1, house.getBullets().get(2).getPosition().getX());
-        assertEquals(house.getPlayer().getPosition().getY(), house.getBullets().get(2).getPosition().getY());
-        assertEquals(-1, house.getBullets().get(2).getDelta());
-
-        house.getPlayer().setLastFired(0);
-
-        event.setType(Event.TYPE.BULLET_RIGHT);
-        updater.processEvent(event, house);
-        assertEquals(before + 4, house.getBullets().size());
-        assertEquals(house.getPlayer().getPosition().getX() + 1, house.getBullets().get(3).getPosition().getX());
-        assertEquals(house.getPlayer().getPosition().getY(), house.getBullets().get(3).getPosition().getY());
-        assertEquals(1, house.getBullets().get(3).getDelta());
     }
 
 
@@ -271,15 +117,13 @@ public class GameUpdateTest {
         Updater updater = new Updater();
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
 
-        List<Element> walls = new ArrayList<>();
-        walls.add(new Element(15, 15));
 
         List<Bullet> bullets = new ArrayList<>();
         bullets.add(new HorizontalBullet(15, 15, 0));
 
         List<Enemy> enemies = new ArrayList<>();
 
-        Mockito.when(house.getWalls()).thenReturn(walls);
+        Mockito.when(house.hitsWall(any(Position.class))).thenReturn(true);
         Mockito.when(house.getBullets()).thenReturn(bullets);
         Mockito.when(house.getEnemies()).thenReturn(enemies);
 
@@ -370,5 +214,49 @@ public class GameUpdateTest {
         updater.increaseScoreWithTime(house);
 
         assertEquals(2 * Updater.getScoreTimeIncrease(), house.getScore());
+    }
+
+    @Test
+    public void testProcessEvent() {
+        Updater updater = new Updater();
+        PlayerUpdater playerUpdater = Mockito.mock(PlayerUpdater.class);
+        BulletsUpdater bulletsUpdater = Mockito.mock(BulletsUpdater.class);
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        Player player = Mockito.mock(Player.class);
+
+        // return random positions; doesn't really matter in this unit test
+        Mockito.when(player.moveUp()).thenReturn(new Position(1, 1));
+        Mockito.when(player.moveDown()).thenReturn(new Position(2, 1));
+        Mockito.when(player.moveLeft()).thenReturn(new Position(3, 1));
+        Mockito.when(player.moveRight()).thenReturn(new Position(4, 1));
+
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        updater.setPlayerUpdater(playerUpdater);
+        updater.setBulletsUpdater(bulletsUpdater);
+
+        updater.processEvent(new Event(Event.TYPE.PLAYER_UP), house);
+        Mockito.verify(playerUpdater, times(1)).movePlayer(player, player.moveUp(), house);
+
+        updater.processEvent(new Event(Event.TYPE.PLAYER_LEFT), house);
+        Mockito.verify(playerUpdater, times(1)).movePlayer(player, player.moveLeft(), house);
+
+        updater.processEvent(new Event(Event.TYPE.PLAYER_RIGHT), house);
+        Mockito.verify(playerUpdater, times(1)).movePlayer(player, player.moveRight(), house);
+
+        updater.processEvent(new Event(Event.TYPE.PLAYER_DOWN), house);
+        Mockito.verify(playerUpdater, times(1)).movePlayer(player, player.moveDown(), house);
+
+        updater.processEvent(new Event(Event.TYPE.BULLET_UP), house);
+        Mockito.verify(bulletsUpdater, times(1)).launchVerticalBullet(house, -1);
+
+        updater.processEvent(new Event(Event.TYPE.BULLET_RIGHT), house);
+        Mockito.verify(bulletsUpdater, times(1)).launchHorizontalBullet(house, 1);
+
+        updater.processEvent(new Event(Event.TYPE.BULLET_LEFT), house);
+        Mockito.verify(bulletsUpdater, times(1)).launchHorizontalBullet(house, -1);
+
+        updater.processEvent(new Event(Event.TYPE.BULLET_DOWN), house);
+        Mockito.verify(bulletsUpdater, times(1)).launchVerticalBullet(house, 1);
+
     }
 }

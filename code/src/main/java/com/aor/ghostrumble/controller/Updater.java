@@ -19,17 +19,6 @@ public class Updater {
         this.bulletsUpdater = new BulletsUpdater();
     }
 
-
-    public PlayerUpdater getPlayerUpdater() {
-        return playerUpdater;
-    }
-    public EnemiesUpdater getEnemiesUpdater() {
-        return enemiesUpdater;
-    }
-    public BulletsUpdater getBulletsUpdater() {
-        return bulletsUpdater;
-    }
-
     public void setPlayerUpdater(PlayerUpdater playerUpdater) {
         this.playerUpdater = playerUpdater;
     }
@@ -48,7 +37,6 @@ public class Updater {
 
     public final static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
     public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
-    public final static int getScoreIncreaseRate() { return SCORE_INCREASE_RATE; }
 
     public void update(Event event, HauntedHouse house) {
         processEvent(event, house);

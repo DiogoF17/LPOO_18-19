@@ -199,4 +199,5 @@ public class BulletUpdaterTest {
 
         assertEquals(bullets.get(0).getPosition(), expected.get(0).getPosition());
     }
+
 }

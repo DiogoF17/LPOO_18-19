@@ -118,37 +118,6 @@ public class EnemiesUpdaterTest {
     }
 
     @Test
-    public void testEnemyCollisions() {
-        EnemiesUpdater updater = new EnemiesUpdater();
-        HauntedHouse house = Mockito.mock(HauntedHouse.class);
-
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Zombie(10, 10));
-        enemies.add(new Zombie(11, 10));
-
-        List<Enemy> expected = new ArrayList<>();
-        expected.add(new Zombie(10, 10));
-        expected.add(new Zombie(12, 10));
-
-        Player player = new Player();
-        Position standard = new Position(15, 10);
-        player.setPosition(standard);
-
-        for (Enemy enemy : enemies) {
-            player.addObserver(enemy);
-        }
-
-        Mockito.when(house.getEnemies()).thenReturn(enemies);
-        Mockito.when(house.getPlayer()).thenReturn(player);
-
-        updater.moveEnemies(house);
-
-        for (int i = 0; i < 2; i++) {
-            assertEquals(expected.get(i).getPosition(), enemies.get(i).getPosition());
-        }
-    }
-
-    @Test
     public void testSpawnEnemy() {
         EnemiesUpdater updater = new EnemiesUpdater();
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
