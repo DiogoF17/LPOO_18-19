@@ -172,7 +172,9 @@
 >
 > [Player](../code/src/main/java/com/aor/ghostrumble/model/Player.java)
 >
-> [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java)
+> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/PlayerUpdater.java)
+>
+> [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/EnemiesUpdater.java)
 >
 > NOTE: when a PlayerObserver is added as an observer, the update function is also called. This is done so that an enemy will pursue the player as soon as it is spawned, and does not have to wait for the player to move.
 
