@@ -183,7 +183,7 @@
 
 ## Known Code Smells and Refactoring Suggestions
 
-### 1. Controller Module Centered In Only One Class
+### 1. Controller Module Centered In Only One Class - SOLVED
 #### 1.1 Code Smell
 > In the Controller module of our game, all the game's logic and operations are centered in only one class, the Updater class. This class can be considered as a Large Class, containing too many methods and lines of code.
 
@@ -199,7 +199,7 @@
 >
 > This would eliminate the switch statement in processEvent(), making the code much more readable, as well as ensure that the Open-Closed Principle of SOLID would be followed: if we wanted to add another event type, we wouldn't need to change any existing code, but to create a new subclass that represented the new event type. (Another possible solution would be Replace Type Code with State/Strategy).
 
-### 3. Collision Detection in Updater and HauntedHouse
+### 3. Collision Detection in Updater and HauntedHouse - SOLVED
 #### 3.1 Code Smell
 > In the Updater class, we have a function hitsEnemies(), that tells if the position given to the method hits any enemy that is in the haunted house. There is a similar function in the HauntedHouse class, checkMonsterInPosition(), that does the same thing. There is no need for these two functions to coexist, as they have the same functionality. This can be viewed as a small version of the Alternative Classes with Different Interfaces code smell.
 
