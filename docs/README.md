@@ -225,7 +225,7 @@
 >
 >> #### Random generation of data: 
 >>
->> Some of the initialization methods in our project, such as [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java).addEnemy(), or the constructor of the class [Poltergeist](../code/src/main/java/com/aor/ghostrumble/model/Poltergeist.java), depend on the generation of random values, to keep the game interesting. The first one chooses randomly what type of enemy to spawn on the map, while the second one randomly chooses one of the Movement Strategies implemented, for the Poltergeist object to use. That being the case, we are unable to kill all mutations that can be originated depending on the outcome of these random values.
+>> Some of the initialization methods in our project, such as [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/EnemiesUpdater.java).addEnemy(), or the constructor of the class [Poltergeist](../code/src/main/java/com/aor/ghostrumble/model/Poltergeist.java), depend on the generation of random values, to keep the game interesting. The first one chooses randomly what type of enemy to spawn on the map, while the second one randomly chooses one of the Movement Strategies implemented, for the Poltergeist object to use. That being the case, we are unable to kill all mutations that can be originated depending on the outcome of these random values.
 >
 >> #### Purely aesthetic Classes and Methods:
 >>
@@ -241,7 +241,7 @@
 >> There is a difference between the coverage stats provided by the unit tests on IntelliJ, and those provided by running _pitest_. However, both were run with the exact same code.
 
 > ### Concerning the individuality of the tests
-> Due to the structure of our code, there are classes which have the function of calling the proper methods from other classes, while not directly manipulating the data of the game, these classes being the [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java) class and the [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) class. For this reason, those methods cannot be properly **unit** tested, as they don't contain any of the data they manipulate. Therefore, we developed tests to see the effect of these methods on the data stored on the model classes, using that data to verify the correct operation of [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java) and [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java).
+> Due to the structure of our code, there are classes which have the function of calling the proper methods from other classes, while not directly manipulating the data of the game, these classes being the classes in the Controller module ([Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java), [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/PlayerUpdater.java), [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/EnemiesUpdater.java) and [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/controller/BulletsUpdater.java)) and the [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) class. For this reason, some of those methods cannot be properly **unit** tested, as they don't contain any of the data they manipulate. Therefore, in those cases, we developed tests to see the effect of the methods on the data stored on the model classes, using that data to verify the correct operation of those methods, in the classes stated above.
 
 ## Self-evaluation
 
