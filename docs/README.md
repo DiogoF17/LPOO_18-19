@@ -77,6 +77,12 @@
 > [HauntedHouse](../code/src/main/java/com/aor/ghostrumble/model/HauntedHouse.java)
 >
 > [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java)
+>
+> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/PlayerUpdater.java)
+>
+> [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/EnemiesUpdater.java)
+>
+> [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/controller/BulletsUpdater.java)
 
 #### 1.4 Consequences
 > As said before, using the MVC design (or similar, like we did) increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, deciding to use another way of drawing and reading inputs, other than Lanterna), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that has a new way of reading inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen). This shows that our code structure respects the Open-Closed Principle: modules are open for extensions, but closed for modification.
