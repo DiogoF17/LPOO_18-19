@@ -1,7 +1,6 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.controller.Event.Event;
-import com.aor.ghostrumble.controller.Event.NoEvent;
+import com.aor.ghostrumble.controller.Event.EventQueue;
 import com.aor.ghostrumble.controller.Updater;
 import com.aor.ghostrumble.view.DrawingMethod;
 import com.aor.ghostrumble.model.HauntedHouse;
@@ -24,17 +23,17 @@ public abstract class Game {
 
     protected abstract DrawingMethod createDrawingMethod();
 
-    protected abstract boolean handleInput(Event event) throws IOException;
+    protected abstract boolean handleInput(EventQueue eventQueue) throws IOException;
 
     public void run() throws IOException {
 
         /**
          * 1 - INPUT
-         * 2 - LOGIC
-         * 3 - DRAW
+         * 2 - DRAW
+         * 3 - LOGIC
          */
 
-        Event event = new Event(new NoEvent());
+        EventQueue eventQueue = new EventQueue();
 
         new Thread() {
 
@@ -42,7 +41,7 @@ public abstract class Game {
             public void run() {
                 while (loop) {
                     try{
-                        loop = handleInput(event);
+                        loop = handleInput(eventQueue);
                     }catch(IOException e) {
                         e.printStackTrace();
                     }
@@ -53,7 +52,7 @@ public abstract class Game {
         while (loop) {
 
             drawingMethod.drawAll(house);
-            updater.update(event, house);
+            updater.update(eventQueue, house);
         }
     }
 

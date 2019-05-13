@@ -41,7 +41,7 @@ public class GameLanterna extends Game {
         return new DrawLanterna(screen);
     }
 
-    private void createEvent(KeyStroke key, Event event) {
+    private void createEvent(KeyStroke key, EventQueue eventQueue) {
 
         switch(key.getKeyType()) {
 
@@ -50,71 +50,69 @@ public class GameLanterna extends Game {
                 switch(key.getCharacter()) {
 
                     case 'w':
-                        event.setEventType(new EventPlayerUp());
+                        eventQueue.addEventToQueue(new EventPlayerUp());
                         break;
 
                     case 'a':
-                        event.setEventType(new EventPlayerLeft());
+                        eventQueue.addEventToQueue(new EventPlayerLeft());
                         break;
 
                     case 's':
-                        event.setEventType(new EventPlayerDown());
+                        eventQueue.addEventToQueue(new EventPlayerDown());
                         break;
 
                     case 'd':
-                        event.setEventType(new EventPlayerRight());
+                        eventQueue.addEventToQueue(new EventPlayerRight());
                         break;
 
                     default:
-                        event.setEventType(new NoEvent());
                         break;
 
                 }
                 break;
 
             case ArrowUp:
-                event.setEventType(new EventBulletUp());
+                eventQueue.addEventToQueue(new EventBulletUp());
                 break;
 
             case ArrowDown:
-                event.setEventType(new EventBulletDown());
+                eventQueue.addEventToQueue(new EventBulletDown());
                 break;
 
             case ArrowLeft:
-                event.setEventType(new EventBulletLeft());
+                eventQueue.addEventToQueue(new EventBulletLeft());
                 break;
 
             case ArrowRight:
-                event.setEventType(new EventBulletRight());
+                eventQueue.addEventToQueue(new EventBulletRight());
                 break;
 
             case Escape:
-                event.setClose(true);
+                eventQueue.setClose(true);
                 break;
 
             case EOF:
-                event.setExit(true);
+                eventQueue.setExit(true);
                 break;
 
             default:
-                event.setEventType(new NoEvent());
                 break;
 
         }
     }
 
     @Override
-    protected boolean handleInput(Event event) throws IOException {
+    protected boolean handleInput(EventQueue eventQueue) throws IOException {
 
         KeyStroke key = screen.readInput();
 
-        createEvent(key, event);
+        createEvent(key, eventQueue);
 
-        if (event.eventClose())
-            screen.close();
-
-        if (event.eventExit())
+        if (eventQueue.exit())
             return false;
+
+        if (eventQueue.close())
+            screen.close();
 
         return true;
     }

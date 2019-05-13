@@ -4,7 +4,7 @@ import com.aor.ghostrumble.controller.Updater;
 import com.aor.ghostrumble.model.HauntedHouse;
 import com.aor.ghostrumble.model.Player;
 
-public class EventPlayerRight implements EventType {
+public class EventPlayerRight implements Event {
 
     @Override
     public void process(Updater updater, HauntedHouse house) {

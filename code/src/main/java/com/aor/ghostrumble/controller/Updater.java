@@ -1,7 +1,6 @@
 package com.aor.ghostrumble.controller;
 
-import com.aor.ghostrumble.controller.Event.Event;
-import com.aor.ghostrumble.controller.Event.NoEvent;
+import com.aor.ghostrumble.controller.Event.EventQueue;
 import com.aor.ghostrumble.model.*;
 
 import java.util.ListIterator;
@@ -44,8 +43,8 @@ public class Updater {
     public final static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
     public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
 
-    public void update(Event event, HauntedHouse house) {
-        event.processEvent(this, house);
+    public void update(EventQueue eventQueue, HauntedHouse house) {
+        eventQueue.executeEvents(this, house);
 
         checkBulletCollisions(house);
 
@@ -68,9 +67,6 @@ public class Updater {
         enemiesUpdater.spawnEnemy(house);
 
         increaseScoreWithTime(house);
-
-        //resets the event
-        event.setEventType(new NoEvent());
 
         checkForGameOver(house);
     }
