@@ -1,7 +1,7 @@
 package com.aor.ghostrumble.view;
 
 import com.aor.ghostrumble.Game;
-import com.aor.ghostrumble.controller.Event;
+import com.aor.ghostrumble.controller.Event.*;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
@@ -50,54 +50,54 @@ public class GameLanterna extends Game {
                 switch(key.getCharacter()) {
 
                     case 'w':
-                        event.setType(Event.TYPE.PLAYER_UP);
+                        event.setEventType(new EventPlayerUp());
                         break;
 
                     case 'a':
-                        event.setType(Event.TYPE.PLAYER_LEFT);
+                        event.setEventType(new EventPlayerLeft());
                         break;
 
                     case 's':
-                        event.setType(Event.TYPE.PLAYER_DOWN);
+                        event.setEventType(new EventPlayerDown());
                         break;
 
                     case 'd':
-                        event.setType(Event.TYPE.PLAYER_RIGHT);
+                        event.setEventType(new EventPlayerRight());
                         break;
 
                     default:
-                        event.setType(Event.TYPE.NO_EVENT);
+                        event.setEventType(new NoEvent());
                         break;
 
                 }
                 break;
 
             case ArrowUp:
-                event.setType(Event.TYPE.BULLET_UP);
+                event.setEventType(new EventBulletUp());
                 break;
 
             case ArrowDown:
-                event.setType(Event.TYPE.BULLET_DOWN);
+                event.setEventType(new EventBulletDown());
                 break;
 
             case ArrowLeft:
-                event.setType(Event.TYPE.BULLET_LEFT);
+                event.setEventType(new EventBulletLeft());
                 break;
 
             case ArrowRight:
-                event.setType(Event.TYPE.BULLET_RIGHT);
+                event.setEventType(new EventBulletRight());
                 break;
 
             case Escape:
-                event.setType(Event.TYPE.CLOSE);
+                event.setClose(true);
                 break;
 
             case EOF:
-                event.setType(Event.TYPE.EXIT);
+                event.setExit(true);
                 break;
 
             default:
-                event.setType(Event.TYPE.NO_EVENT);
+                event.setEventType(new NoEvent());
                 break;
 
         }
@@ -110,10 +110,10 @@ public class GameLanterna extends Game {
 
         createEvent(key, event);
 
-        if (event.getType() == Event.TYPE.CLOSE)
+        if (event.eventClose())
             screen.close();
 
-        if (event.getType() == Event.TYPE.EXIT)
+        if (event.eventExit())
             return false;
 
         return true;

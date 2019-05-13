@@ -1,9 +1,10 @@
 package com.aor.ghostrumble.controller;
 
+import com.aor.ghostrumble.controller.Event.Event;
+import com.aor.ghostrumble.controller.Event.NoEvent;
 import com.aor.ghostrumble.model.*;
 
 import java.util.ListIterator;
-import java.util.Random;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -18,6 +19,11 @@ public class Updater {
         this.enemiesUpdater = new EnemiesUpdater();
         this.bulletsUpdater = new BulletsUpdater();
     }
+
+    public PlayerUpdater getPlayerUpdater() { return playerUpdater; }
+    public EnemiesUpdater getEnemiesUpdater() { return enemiesUpdater; }
+    public BulletsUpdater getBulletsUpdater() { return bulletsUpdater; }
+
 
     public void setPlayerUpdater(PlayerUpdater playerUpdater) {
         this.playerUpdater = playerUpdater;
@@ -39,7 +45,7 @@ public class Updater {
     public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
 
     public void update(Event event, HauntedHouse house) {
-        processEvent(event, house);
+        event.processEvent(this, house);
 
         checkBulletCollisions(house);
 
@@ -64,7 +70,7 @@ public class Updater {
         increaseScoreWithTime(house);
 
         //resets the event
-        event.setType(Event.TYPE.NO_EVENT);
+        event.setEventType(new NoEvent());
 
         checkForGameOver(house);
     }
@@ -88,51 +94,6 @@ public class Updater {
             System.out.println("You died! Your final score was " + house.getScore());
             house.init();
         }
-    }
-
-
-    public void processEvent(Event event, HauntedHouse house) {
-
-        Player player = house.getPlayer();
-
-        switch(event.getType()) {
-
-            case PLAYER_UP:
-                playerUpdater.movePlayer(player, player.moveUp(), house);
-                break;
-
-            case PLAYER_LEFT:
-                playerUpdater.movePlayer(player, player.moveLeft(), house);
-                break;
-
-            case PLAYER_DOWN:
-                playerUpdater.movePlayer(player, player.moveDown(), house);
-                break;
-
-            case PLAYER_RIGHT:
-                playerUpdater.movePlayer(player, player.moveRight(), house);
-                break;
-
-            case BULLET_UP:
-                bulletsUpdater.launchVerticalBullet(house, -1);
-                break;
-
-            case BULLET_LEFT:
-                bulletsUpdater.launchHorizontalBullet(house, -1);
-                break;
-
-            case BULLET_DOWN:
-                bulletsUpdater.launchVerticalBullet(house, 1);
-                break;
-
-            case BULLET_RIGHT:
-                bulletsUpdater.launchHorizontalBullet(house, 1);
-
-            default:
-                break;
-
-        }
-
     }
 
     public void removeFlagged(HauntedHouse house) {

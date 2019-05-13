@@ -1,6 +1,7 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.controller.Event;
+import com.aor.ghostrumble.controller.Event.Event;
+import com.aor.ghostrumble.controller.Event.NoEvent;
 import com.aor.ghostrumble.controller.Updater;
 import com.aor.ghostrumble.view.DrawingMethod;
 import com.aor.ghostrumble.model.HauntedHouse;
@@ -33,7 +34,7 @@ public abstract class Game {
          * 3 - DRAW
          */
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        Event event = new Event(new NoEvent());
 
         new Thread() {
 
