@@ -34,8 +34,6 @@ public class GameLanterna extends Game {
         this.screen = screen;
     }
 
-    protected Screen getScreen() { return this.screen; }
-
     @Override
     protected DrawingMethod createDrawingMethod() {
         return new DrawLanterna(screen);
