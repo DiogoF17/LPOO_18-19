@@ -197,7 +197,21 @@
 >
 > The classes can be found in the following files:
 >
-> (adicionar classes)
+> [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java)
+>
+> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/PlayerUpdater.java)
+>
+> [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/controller/BulletsUpdater.java)
+>
+> [EventQueue](../code/src/main/java/com/aor/ghostrumble/controller/event/EventQueue.java)
+>
+> [Event](../code/src/main/java/com/aor/ghostrumble/controller/event/Event.java)
+>
+> [EventBulletDown](../code/src/main/java/com/aor/ghostrumble/controller/event/EventBulletDown.java)
+>
+> [EventPlayerUp](../code/src/main/java/com/aor/ghostrumble/controller/event/EventPlayerUp.java)
+>
+> ... (all the other Event subclasses)
 
 #### 5.4 Consequences
 > As we said before, using this tecnique eliminates the switch statement that we had previously in the Updater class; all the event logic is done inside the specific Event subclasses.
