@@ -7,7 +7,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 
 public class PlayerUpdaterTest {
@@ -82,7 +82,6 @@ public class PlayerUpdaterTest {
         assertEquals(position, player.getPosition());
     }
 
-
     @Test
     public void testPlayerNotify() {
         PlayerUpdater playerUpdater = new PlayerUpdater();
@@ -102,4 +101,35 @@ public class PlayerUpdaterTest {
 
         assertEquals(expectedRelativePosition, relativePosition);
     }
+
+    @Test
+    public void testMoveFalse() {
+        PlayerUpdater playerUpdater = new PlayerUpdater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        Player player = Mockito.mock(Player.class);
+        List<Element> walls = new ArrayList<>();
+        walls.add(new Element(10, 10));
+
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(house.getWalls()).thenReturn(walls);
+        Mockito.when(house.hitsWall(any(Position.class))).thenReturn(true);
+
+        assertFalse(playerUpdater.movePlayer(player, new Position(10, 10), house));
+    }
+
+    @Test
+    public void testMoveTrue() {
+        PlayerUpdater playerUpdater = new PlayerUpdater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        Player player = Mockito.mock(Player.class);
+        List<Element> walls = new ArrayList<>();
+        walls.add(new Element(10, 10));
+
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(house.getWalls()).thenReturn(walls);
+        Mockito.when(house.hitsWall(any(Position.class))).thenReturn(false);
+
+        assertTrue(playerUpdater.movePlayer(player, new Position(10, 10), house));
+    }
+
 }

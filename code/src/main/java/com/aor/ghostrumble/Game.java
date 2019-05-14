@@ -1,6 +1,6 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.controller.Event.EventQueue;
+import com.aor.ghostrumble.controller.event.EventQueue;
 import com.aor.ghostrumble.controller.Updater;
 import com.aor.ghostrumble.view.DrawingMethod;
 import com.aor.ghostrumble.model.HauntedHouse;

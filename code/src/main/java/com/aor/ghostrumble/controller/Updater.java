@@ -1,6 +1,6 @@
 package com.aor.ghostrumble.controller;
 
-import com.aor.ghostrumble.controller.Event.EventQueue;
+import com.aor.ghostrumble.controller.event.EventQueue;
 import com.aor.ghostrumble.model.*;
 
 import java.util.ListIterator;

@@ -45,7 +45,6 @@ public class HauntedHouseTest {
         assertEquals(randomWidth - 1, house.getWalls().get(2 * randomWidth + 1).getPosition().getX());
     }
 
-
     @Test
     public void testInitEnemies() {
         assertTrue(house.getEnemies().isEmpty());
@@ -94,7 +93,6 @@ public class HauntedHouseTest {
         // never a wall in this position
         assertFalse(house.hitsWall(new Position(house.getWidth(), house.getHeight())));
     }
-
 
     @Test
     public void testLastSpawned() {

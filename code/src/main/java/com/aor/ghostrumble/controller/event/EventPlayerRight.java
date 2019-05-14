@@ -1,15 +1,15 @@
-package com.aor.ghostrumble.controller.Event;
+package com.aor.ghostrumble.controller.event;
 
 import com.aor.ghostrumble.controller.Updater;
 import com.aor.ghostrumble.model.HauntedHouse;
 import com.aor.ghostrumble.model.Player;
 
-public class EventPlayerUp implements Event {
+public class EventPlayerRight implements Event {
 
     @Override
     public void process(Updater updater, HauntedHouse house) {
         Player player = house.getPlayer();
-
-        updater.getPlayerUpdater().movePlayer(player, player.moveUp(), house);
+        if (updater.getPlayerUpdater().movePlayer(player, player.moveRight(), house))
+            updater.checkEnemyCollisions(house);
     }
 }

@@ -7,12 +7,13 @@ import com.aor.ghostrumble.model.Position;
 
 public class PlayerUpdater {
 
-
-    public void movePlayer(Player player, Position position, HauntedHouse house) {
+    public boolean movePlayer(Player player, Position position, HauntedHouse house) {
         if (!house.hitsWall(position)) {
             player.setPosition(position);
             player.notifyObservers();
+            return true;
         }
+        return false;
     }
 
 

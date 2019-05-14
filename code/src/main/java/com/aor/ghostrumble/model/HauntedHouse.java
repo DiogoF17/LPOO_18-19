@@ -87,8 +87,10 @@ public class HauntedHouse {
     public boolean hitsEnemies(Position position) {
 
         for (Enemy enemy : enemies) {
+
             if(position.equals(enemy.getPosition()))
                 return true;
+
         }
 
         return false;
@@ -96,9 +98,12 @@ public class HauntedHouse {
 
 
     public boolean hitsWall(Position position) {
+
         for (Element wall : walls) {
+
             if (position.equals(wall.getPosition()))
                 return true;
+
         }
 
         return false;
