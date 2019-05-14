@@ -18,10 +18,12 @@ public class EventQueue {
 
             Event currentEvent = eventQueue.remove();
             currentEvent.process(updater, house);
+
         }
+
     }
 
-    public void addEventToQueue(Event event) {
+    public void raiseEvent(Event event) {
         eventQueue.add(event);
     }
 
@@ -39,5 +41,9 @@ public class EventQueue {
 
     public void setExit(boolean exit) {
         this.exit = exit;
+    }
+
+    public Queue<Event> getEventQueue() {
+        return eventQueue;
     }
 }

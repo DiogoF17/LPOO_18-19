@@ -1,6 +1,6 @@
 package com.aor.ghostrumble.view;
 
-import com.aor.ghostrumble.controller.Event;
+import com.aor.ghostrumble.controller.Event.*;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -37,12 +37,12 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        game.handleInput(event);
+        game.handleInput(queue);
 
         Mockito.verify(screen, times(1)).close();
-        assertEquals(Event.TYPE.CLOSE, event.getType());
+        assertTrue(queue.close());
     }
 
     @Test
@@ -55,10 +55,9 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        assertFalse(game.handleInput(event));
-        assertEquals(Event.TYPE.EXIT, event.getType());
+        assertFalse(game.handleInput(queue));
     }
 
     @Test
@@ -72,10 +71,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.PLAYER_UP, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().peek() instanceof EventPlayerUp);
     }
 
     @Test
@@ -89,10 +88,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.PLAYER_LEFT, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().peek() instanceof EventPlayerLeft);
     }
 
     @Test
@@ -106,10 +105,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.PLAYER_DOWN, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().peek() instanceof EventPlayerDown);
     }
 
     @Test
@@ -123,10 +122,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.PLAYER_RIGHT, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().peek() instanceof EventPlayerRight);
     }
 
     @Test
@@ -139,10 +138,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.BULLET_UP, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().peek() instanceof EventBulletUp);
     }
 
     @Test
@@ -155,10 +154,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.BULLET_DOWN, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().peek() instanceof EventBulletDown);
     }
 
     @Test
@@ -171,10 +170,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.BULLET_LEFT, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().peek() instanceof EventBulletLeft);
     }
 
     @Test
@@ -187,10 +186,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.NO_EVENT);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.BULLET_RIGHT, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().peek() instanceof EventBulletRight);
     }
 
     @Test
@@ -204,10 +203,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.CLOSE);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.NO_EVENT, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().isEmpty());
     }
 
     @Test
@@ -220,9 +219,10 @@ public class GameLanternaTest {
 
         Mockito.when(screen.readInput()).thenReturn(key);
 
-        Event event = new Event(Event.TYPE.CLOSE);
+        EventQueue queue = new EventQueue();
 
-        assertTrue(game.handleInput(event));
-        assertEquals(Event.TYPE.NO_EVENT, event.getType());
+        assertTrue(game.handleInput(queue));
+        assertTrue(queue.getEventQueue().isEmpty());
     }
+
 }

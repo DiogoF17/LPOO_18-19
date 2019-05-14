@@ -50,19 +50,19 @@ public class GameLanterna extends Game {
                 switch(key.getCharacter()) {
 
                     case 'w':
-                        eventQueue.addEventToQueue(new EventPlayerUp());
+                        eventQueue.raiseEvent(new EventPlayerUp());
                         break;
 
                     case 'a':
-                        eventQueue.addEventToQueue(new EventPlayerLeft());
+                        eventQueue.raiseEvent(new EventPlayerLeft());
                         break;
 
                     case 's':
-                        eventQueue.addEventToQueue(new EventPlayerDown());
+                        eventQueue.raiseEvent(new EventPlayerDown());
                         break;
 
                     case 'd':
-                        eventQueue.addEventToQueue(new EventPlayerRight());
+                        eventQueue.raiseEvent(new EventPlayerRight());
                         break;
 
                     default:
@@ -72,19 +72,19 @@ public class GameLanterna extends Game {
                 break;
 
             case ArrowUp:
-                eventQueue.addEventToQueue(new EventBulletUp());
+                eventQueue.raiseEvent(new EventBulletUp());
                 break;
 
             case ArrowDown:
-                eventQueue.addEventToQueue(new EventBulletDown());
+                eventQueue.raiseEvent(new EventBulletDown());
                 break;
 
             case ArrowLeft:
-                eventQueue.addEventToQueue(new EventBulletLeft());
+                eventQueue.raiseEvent(new EventBulletLeft());
                 break;
 
             case ArrowRight:
-                eventQueue.addEventToQueue(new EventBulletRight());
+                eventQueue.raiseEvent(new EventBulletRight());
                 break;
 
             case Escape:

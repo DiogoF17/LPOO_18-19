@@ -6,4 +6,5 @@ import com.aor.ghostrumble.model.HauntedHouse;
 public interface Event {
 
     void process(Updater updater, HauntedHouse house);
+
 }

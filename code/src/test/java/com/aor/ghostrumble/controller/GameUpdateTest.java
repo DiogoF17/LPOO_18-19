@@ -1,11 +1,9 @@
 package com.aor.ghostrumble.controller;
 
+import com.aor.ghostrumble.controller.Event.*;
 import com.aor.ghostrumble.model.*;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +50,6 @@ public class GameUpdateTest {
         assertEquals(0, enemies.size());
         assertEquals(0, player.getObservers().size());
     }
-
 
     @Test
     public void testRemoveFlagged() {
@@ -234,28 +231,28 @@ public class GameUpdateTest {
         updater.setPlayerUpdater(playerUpdater);
         updater.setBulletsUpdater(bulletsUpdater);
 
-        updater.processEvent(new Event(Event.TYPE.PLAYER_UP), house);
+        new EventPlayerUp().process(updater, house);
         Mockito.verify(playerUpdater, times(1)).movePlayer(player, player.moveUp(), house);
 
-        updater.processEvent(new Event(Event.TYPE.PLAYER_LEFT), house);
+        new EventPlayerLeft().process(updater, house);
         Mockito.verify(playerUpdater, times(1)).movePlayer(player, player.moveLeft(), house);
 
-        updater.processEvent(new Event(Event.TYPE.PLAYER_RIGHT), house);
+        new EventPlayerRight().process(updater, house);
         Mockito.verify(playerUpdater, times(1)).movePlayer(player, player.moveRight(), house);
 
-        updater.processEvent(new Event(Event.TYPE.PLAYER_DOWN), house);
+        new EventPlayerDown().process(updater, house);
         Mockito.verify(playerUpdater, times(1)).movePlayer(player, player.moveDown(), house);
 
-        updater.processEvent(new Event(Event.TYPE.BULLET_UP), house);
+        new EventBulletUp().process(updater, house);
         Mockito.verify(bulletsUpdater, times(1)).launchVerticalBullet(house, -1);
 
-        updater.processEvent(new Event(Event.TYPE.BULLET_RIGHT), house);
+        new EventBulletRight().process(updater, house);
         Mockito.verify(bulletsUpdater, times(1)).launchHorizontalBullet(house, 1);
 
-        updater.processEvent(new Event(Event.TYPE.BULLET_LEFT), house);
+        new EventBulletLeft().process(updater, house);
         Mockito.verify(bulletsUpdater, times(1)).launchHorizontalBullet(house, -1);
 
-        updater.processEvent(new Event(Event.TYPE.BULLET_DOWN), house);
+        new EventBulletDown().process(updater, house);
         Mockito.verify(bulletsUpdater, times(1)).launchVerticalBullet(house, 1);
 
     }
