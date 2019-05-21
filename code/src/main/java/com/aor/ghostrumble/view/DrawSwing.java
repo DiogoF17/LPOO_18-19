@@ -1,6 +1,7 @@
 package com.aor.ghostrumble.view;
 
 import com.aor.ghostrumble.model.HauntedHouse;
+import com.aor.ghostrumble.model.Player;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -30,15 +31,15 @@ public class DrawSwing implements DrawingMethod {
 
 
         try {
-            this.backgroundSprite = loadImage("guy.png");
+            this.playerSprite = loadImage("guy.png");
+            this.bulletUpSprite = loadImage("bulletUp.png");
+            this.bulletLeftSprite = loadImage("bulletLeft.png");
+            this.bulletDownSprite = loadImage("bulletDown.png");
+            this.bulletRightSprite = loadImage("bulletRight.png");
+            this.zombieSprite = loadImage("zombie.png");
+            this.ghostSprite = loadImage("ghost.png");
 /*
-            this.playerSprite = loadImage();
-            this.bulletRightSprite = loadImage();
-            this.bulletDownSprite = loadImage();
-            this.bulletLeftSprite = loadImage();
-            this.bulletUpSprite = loadImage();
-            this.zombieSprite = loadImage();
-            this.ghostSprite = loadImage();
+            this.backgroundSprite = loadImage("bulletUp.png");
             this.poltergeistSprite = loadImage();
             this.wallSprite = loadImage();
 */
@@ -61,11 +62,20 @@ public class DrawSwing implements DrawingMethod {
 
     @Override
     public void drawAll(HauntedHouse house) throws IOException {
-        drawHouse(29, 19);
+        // drawHouse(house.getWidth(), house.getHeight());
+        drawPlayer(house.getPlayer());
     }
 
 
     private void drawHouse(int width, int height) {
-        drawImage(backgroundSprite, width, height);
+        for (int i = 5; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                drawImage(backgroundSprite, j, i);
+            }
+        }
+    }
+
+    private void drawPlayer(Player player) {
+        drawImage(playerSprite, player.getPosition().getX(), player.getPosition().getY());
     }
 }
