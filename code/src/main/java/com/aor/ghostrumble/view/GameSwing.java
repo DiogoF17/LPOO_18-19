@@ -8,22 +8,25 @@ import java.io.IOException;
 
 public class GameSwing extends Game {
 
+    protected final static int TILE_SIZE = 24;
+
     JFrame frame;
     JPanel panel;
 
     public GameSwing() {
-        this(100, 60);
+        this(60, 40);
     }
 
     public GameSwing(int width, int height) {
         frame = new JFrame("Ghost Rumble (GR)");
-        frame.setVisible(true);
         frame.setLocation(50,50);
-        frame.setSize(width * 16, height * 16);
+        frame.setSize(width * TILE_SIZE, height * TILE_SIZE);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         panel = new JPanel();
         frame.add(panel);
+        frame.setVisible(true);
+        // frame.pack();
 
         init(width, height);
     }
@@ -31,12 +34,11 @@ public class GameSwing extends Game {
     @Override
     protected DrawingMethod createDrawingMethod()
     {
-        return new DrawSwing(frame);
+        return new DrawSwing(panel);
     }
 
     @Override
     protected boolean handleInput(EventQueue eventQueue) throws IOException {
         return true;
     }
-
 }
