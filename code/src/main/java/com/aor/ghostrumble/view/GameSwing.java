@@ -4,6 +4,7 @@ import com.aor.ghostrumble.Game;
 import com.aor.ghostrumble.controller.event.EventQueue;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 
 public class GameSwing extends Game {
@@ -20,14 +21,15 @@ public class GameSwing extends Game {
 
     public GameSwing(int width, int height) {
         frame = new JFrame("Ghost Rumble (GR)");
+        frame.setLayout(new GridLayout());
         frame.setLocation(50,50);
         frame.setSize(width * TILE_SIZE + BORDER_OFFSET, height * TILE_SIZE);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         panel = new JPanel();
         frame.add(panel);
-        frame.setVisible(true);
         // frame.pack();
+        frame.setVisible(true);
 
         init(width, height);
     }
