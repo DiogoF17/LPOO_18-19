@@ -5,9 +5,8 @@ import com.aor.ghostrumble.model.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
-import static com.aor.ghostrumble.view.GameSwing.TILE_SIZE;
 
 public class DrawSwing implements DrawingMethod {
 
@@ -25,6 +24,13 @@ public class DrawSwing implements DrawingMethod {
     private ImageComponent poltergeistSprite;
 
     private boolean firstDraw;
+    private List<ImageComponent> zombieBuffer;
+    private List<ImageComponent> ghostBuffer;
+    private List<ImageComponent> poltergeistBuffer;
+    private List<ImageComponent> bulletUpBuffer;
+    private List<ImageComponent> bulletLeftBuffer;
+    private List<ImageComponent> bulletDownBuffer;
+    private List<ImageComponent> bulletRightBuffer;
 
     public DrawSwing(JPanel gamePanel) {
 
@@ -49,16 +55,52 @@ public class DrawSwing implements DrawingMethod {
 
         this.firstDraw = true;
 
-        gamePanel.add(bulletUpSprite);
-        gamePanel.add(bulletLeftSprite);
-        gamePanel.add(bulletDownSprite);
-        gamePanel.add(bulletRightSprite);
         gamePanel.add(playerSprite);
-        gamePanel.add(zombieSprite);
-        gamePanel.add(ghostSprite);
         gamePanel.add(backgroundSprite);
-        gamePanel.add(wallSprite);
-        gamePanel.add(poltergeistSprite);
+
+        zombieBuffer = new ArrayList<>();
+        ghostBuffer = new ArrayList<>();
+        poltergeistBuffer = new ArrayList<>();
+
+        for (int i = 0; i < HauntedHouse.getMaxNumberEnemies(); i++) {
+            ImageComponent zombie = zombieSprite.clone();
+            zombieBuffer.add(zombie);
+            gamePanel.add(zombie);
+
+            ImageComponent ghost = ghostSprite.clone();
+            ghostBuffer.add(ghost);
+            gamePanel.add(ghost);
+
+            ImageComponent poltergeist = poltergeistSprite.clone();
+            poltergeistBuffer.add(poltergeist);
+            gamePanel.add(poltergeist);
+        }
+
+        bulletUpBuffer = new ArrayList<>();
+        bulletLeftBuffer = new ArrayList<>();
+        bulletDownBuffer = new ArrayList<>();
+        bulletRightBuffer = new ArrayList<>();
+
+        for (int i = 0; i < HauntedHouse.getMaxNumberBullets(); i++) {
+
+            ImageComponent bulletUp = bulletUpSprite.clone();
+            bulletUpBuffer.add(bulletUp);
+            gamePanel.add(bulletUp);
+
+            ImageComponent bulletLeft = bulletLeftSprite.clone();
+            bulletLeftBuffer.add(bulletLeft);
+            gamePanel.add(bulletLeft);
+
+            ImageComponent bulletDown = bulletDownSprite.clone();
+            bulletDownBuffer.add(bulletDown);
+            gamePanel.add(bulletDown);
+
+            ImageComponent bulletRight = bulletRightSprite.clone();
+            bulletRightBuffer.add(bulletRight);
+            gamePanel.add(bulletRight);
+
+        }
+
     }
 
 
@@ -68,20 +110,19 @@ public class DrawSwing implements DrawingMethod {
 
     private void drawFixed(ImageComponent image, int x, int y) {
         image.setPosition(x, y);
-        image.repaint();
+    }
+
+    private void eraseMovable(ImageComponent image) {
+        image.setPosition(-1, -1);
     }
 
     private void drawMovable(ImageComponent image, int x, int y) {
-        backgroundSprite.setPosition(image.getX(), image.getY());
-        backgroundSprite.repaint();
         image.setPosition(x, y);
-        gamePanel.repaint( x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 
-    public void drawInit(HauntedHouse house) {
+    private void drawInit(HauntedHouse house) {
         drawHouse(house.getWidth(), house.getHeight());
         drawWalls(house.getWalls());
-        gamePanel.repaint();
         this.firstDraw = false;
     }
 
@@ -92,10 +133,10 @@ public class DrawSwing implements DrawingMethod {
             drawInit(house);
 
         drawEnemies(house.getEnemies());
+        drawBullets(house.getBullets());
         drawPlayer(house.getPlayer());
 
         gamePanel.repaint();
-
     }
 
 
@@ -129,26 +170,45 @@ public class DrawSwing implements DrawingMethod {
 
     private void drawEnemies(List<Enemy> enemies) {
 
+        int zombieCount = 0;
+        int ghostCount = 0;
+        int poltergeistCount = 0;
+
+
         for(Enemy enemy : enemies) {
 
             if (enemy instanceof Zombie) {
-                drawMovable(zombieSprite, enemy.getPosition().getX(), enemy.getPosition().getY());
+                drawMovable(zombieBuffer.get(zombieCount++), enemy.getPosition().getX(), enemy.getPosition().getY());
             }
             else if (enemy instanceof Ghost) {
-                drawMovable(ghostSprite, enemy.getPosition().getX(), enemy.getPosition().getY());
+                drawMovable(ghostBuffer.get(ghostCount++), enemy.getPosition().getX(), enemy.getPosition().getY());
             }
             else if(enemy instanceof Poltergeist) {
-                drawMovable(poltergeistSprite, enemy.getPosition().getX(), enemy.getPosition().getY());
+                drawMovable(poltergeistBuffer.get(poltergeistCount++), enemy.getPosition().getX(), enemy.getPosition().getY());
             }
 
         }
 
+
+        for (int i = zombieCount; i < HauntedHouse.getMaxNumberEnemies(); i++) {
+            eraseMovable(zombieBuffer.get(i));
+        }
+
+        for (int i = ghostCount; i < HauntedHouse.getMaxNumberEnemies(); i++) {
+            eraseMovable(ghostBuffer.get(i));
+        }
+
+        for (int i = poltergeistCount; i < HauntedHouse.getMaxNumberEnemies(); i++) {
+            eraseMovable(poltergeistBuffer.get(i));
+        }
+
+    }
+
+    private void drawBullets(List<Bullet> bullets) {
+        // igual ao drawEnemies mas com bullets
     }
 
     private void drawPlayer(Player player) {
-        int x = player.getPosition().getX();
-        int y = player.getPosition().getY();
-        playerSprite.setPosition(x, y);
-        gamePanel.repaint((x-1) * TILE_SIZE, (y-1) * TILE_SIZE, 3 * TILE_SIZE, 3 * TILE_SIZE);
+        drawMovable(playerSprite, player.getPosition().getX(), player.getPosition().getY());
     }
 }

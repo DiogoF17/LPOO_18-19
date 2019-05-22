@@ -27,6 +27,7 @@ public class GameSwing extends Game {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         panel = new JPanel();
+        panel.setBackground(Color.DARK_GRAY);
         frame.add(panel);
         // frame.pack();
         frame.setVisible(true);
