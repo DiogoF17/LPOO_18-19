@@ -56,7 +56,6 @@ public class DrawSwing implements DrawingMethod {
         this.firstDraw = true;
 
         gamePanel.add(playerSprite);
-        gamePanel.add(backgroundSprite);
 
         zombieBuffer = new ArrayList<>();
         ghostBuffer = new ArrayList<>();
@@ -108,15 +107,11 @@ public class DrawSwing implements DrawingMethod {
         return new ImageComponent(ImageIO.read(getClass().getResource("/" + imageName + ".png")));
     }
 
-    private void drawFixed(ImageComponent image, int x, int y) {
-        image.setPosition(x, y);
-    }
-
-    private void eraseMovable(ImageComponent image) {
+    private void eraseImage(ImageComponent image) {
         image.setPosition(-1, -1);
     }
 
-    private void drawMovable(ImageComponent image, int x, int y) {
+    private void drawImage(ImageComponent image, int x, int y) {
         image.setPosition(x, y);
     }
 
@@ -148,7 +143,7 @@ public class DrawSwing implements DrawingMethod {
 
                 ImageComponent tile = backgroundSprite.clone();
                 gamePanel.add(tile);
-                drawFixed(tile, j, i);
+                drawImage(tile, j, i);
 
             }
 
@@ -162,7 +157,7 @@ public class DrawSwing implements DrawingMethod {
 
             ImageComponent tile = wallSprite.clone();
             gamePanel.add(tile);
-            drawFixed(tile, wall.getPosition().getX(), wall.getPosition().getY());
+            drawImage(tile, wall.getPosition().getX(), wall.getPosition().getY());
 
         }
 
@@ -178,37 +173,79 @@ public class DrawSwing implements DrawingMethod {
         for(Enemy enemy : enemies) {
 
             if (enemy instanceof Zombie) {
-                drawMovable(zombieBuffer.get(zombieCount++), enemy.getPosition().getX(), enemy.getPosition().getY());
+                drawImage(zombieBuffer.get(zombieCount++), enemy.getPosition().getX(), enemy.getPosition().getY());
             }
             else if (enemy instanceof Ghost) {
-                drawMovable(ghostBuffer.get(ghostCount++), enemy.getPosition().getX(), enemy.getPosition().getY());
+                drawImage(ghostBuffer.get(ghostCount++), enemy.getPosition().getX(), enemy.getPosition().getY());
             }
             else if(enemy instanceof Poltergeist) {
-                drawMovable(poltergeistBuffer.get(poltergeistCount++), enemy.getPosition().getX(), enemy.getPosition().getY());
+                drawImage(poltergeistBuffer.get(poltergeistCount++), enemy.getPosition().getX(), enemy.getPosition().getY());
             }
 
         }
 
 
         for (int i = zombieCount; i < HauntedHouse.getMaxNumberEnemies(); i++) {
-            eraseMovable(zombieBuffer.get(i));
+            eraseImage(zombieBuffer.get(i));
         }
 
         for (int i = ghostCount; i < HauntedHouse.getMaxNumberEnemies(); i++) {
-            eraseMovable(ghostBuffer.get(i));
+            eraseImage(ghostBuffer.get(i));
         }
 
         for (int i = poltergeistCount; i < HauntedHouse.getMaxNumberEnemies(); i++) {
-            eraseMovable(poltergeistBuffer.get(i));
+            eraseImage(poltergeistBuffer.get(i));
         }
 
     }
 
     private void drawBullets(List<Bullet> bullets) {
-        // igual ao drawEnemies mas com bullets
+
+        int bulletUpCount = 0;
+        int bulletLeftCount = 0;
+        int bulletDownCount = 0;
+        int bulletRightCount = 0;
+
+        for (Bullet bullet : bullets) {
+
+            if (bullet instanceof VerticalBullet) {
+                if (bullet.getDelta() > 0) {
+                    drawImage(bulletDownBuffer.get(bulletDownCount++), bullet.getPosition().getX(), bullet.getPosition().getY());
+                }
+                else {
+                    drawImage(bulletUpBuffer.get(bulletUpCount++), bullet.getPosition().getX(), bullet.getPosition().getY());
+                }
+            }
+            else if (bullet instanceof HorizontalBullet) {
+                if (bullet.getDelta() > 0) {
+                    drawImage(bulletRightBuffer.get(bulletRightCount++), bullet.getPosition().getX(), bullet.getPosition().getY());
+                }
+                else {
+                    drawImage(bulletLeftBuffer.get(bulletLeftCount++), bullet.getPosition().getX(), bullet.getPosition().getY());
+                }
+            }
+
+        }
+
+        for (int i = bulletUpCount; i < HauntedHouse.getMaxNumberBullets(); i++) {
+            eraseImage(bulletUpBuffer.get(i));
+        }
+
+        for (int i = bulletLeftCount; i < HauntedHouse.getMaxNumberBullets(); i++) {
+            eraseImage(bulletLeftBuffer.get(i));
+        }
+
+        for (int i = bulletDownCount; i < HauntedHouse.getMaxNumberBullets(); i++) {
+            eraseImage(bulletDownBuffer.get(i));
+        }
+
+        for (int i = bulletRightCount; i < HauntedHouse.getMaxNumberBullets(); i++) {
+            eraseImage(bulletRightBuffer.get(i));
+        }
+
     }
 
     private void drawPlayer(Player player) {
-        drawMovable(playerSprite, player.getPosition().getX(), player.getPosition().getY());
+        drawImage(playerSprite, player.getPosition().getX(), player.getPosition().getY());
     }
 }
