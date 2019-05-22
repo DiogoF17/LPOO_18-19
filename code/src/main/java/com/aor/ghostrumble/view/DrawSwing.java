@@ -1,29 +1,28 @@
 package com.aor.ghostrumble.view;
 
+import com.aor.ghostrumble.model.Element;
 import com.aor.ghostrumble.model.HauntedHouse;
 import com.aor.ghostrumble.model.Player;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-
-import static com.aor.ghostrumble.view.GameSwing.TILE_SIZE;
+import java.util.List;
 
 public class DrawSwing implements DrawingMethod {
 
     private JPanel gamePanel;
 
-    private BufferedImage backgroundSprite;
-    private BufferedImage playerSprite;
-    private BufferedImage bulletRightSprite;
-    private BufferedImage bulletUpSprite;
-    private BufferedImage bulletDownSprite;
-    private BufferedImage bulletLeftSprite;
-    private BufferedImage zombieSprite;
-    private BufferedImage ghostSprite;
-    private BufferedImage poltergeistSprite;
-    private BufferedImage wallSprite;
+    private ImageComponent backgroundSprite;
+    private ImageComponent playerSprite;
+    private ImageComponent bulletRightSprite;
+    private ImageComponent bulletUpSprite;
+    private ImageComponent bulletDownSprite;
+    private ImageComponent bulletLeftSprite;
+    private ImageComponent zombieSprite;
+    private ImageComponent ghostSprite;
+    private ImageComponent poltergeistSprite;
+    private ImageComponent wallSprite;
 
 
     public DrawSwing(JPanel gamePanel) {
@@ -31,17 +30,17 @@ public class DrawSwing implements DrawingMethod {
 
 
         try {
-            this.playerSprite = loadImage("guy.png");
-            this.bulletUpSprite = loadImage("bulletUp.png");
-            this.bulletLeftSprite = loadImage("bulletLeft.png");
-            this.bulletDownSprite = loadImage("bulletDown.png");
-            this.bulletRightSprite = loadImage("bulletRight.png");
-            this.zombieSprite = loadImage("zombie.png");
-            this.ghostSprite = loadImage("ghost.png");
+            this.playerSprite = loadImage("guy");
+            this.bulletUpSprite = loadImage("bulletUp");
+            this.bulletLeftSprite = loadImage("bulletLeft");
+            this.bulletDownSprite = loadImage("bulletDown");
+            this.bulletRightSprite = loadImage("bulletRight");
+            this.zombieSprite = loadImage("zombie");
+            this.ghostSprite = loadImage("ghost");
+            this.backgroundSprite = loadImage("floor");
+            this.wallSprite = loadImage("wall");
 /*
-            this.backgroundSprite = loadImage("bulletUp.png");
             this.poltergeistSprite = loadImage();
-            this.wallSprite = loadImage();
 */
         } catch(IOException e) {
             e.printStackTrace();
@@ -50,20 +49,24 @@ public class DrawSwing implements DrawingMethod {
     }
 
 
-    private BufferedImage loadImage(String imageName) throws IOException {
-        return ImageIO.read(getClass().getResource("/" + imageName));
+    private ImageComponent loadImage(String imageName) throws IOException {
+        return new ImageComponent(ImageIO.read(getClass().getResource("/" + imageName + ".png")));
     }
 
 
-    private void drawImage(BufferedImage image, int x, int y) {
-        gamePanel.getGraphics().drawImage(image, x * TILE_SIZE, y * TILE_SIZE, null);
+    private void drawImage(ImageComponent image, int x, int y) {
+        // gamePanel.getGraphics().drawImage(image, x * TILE_SIZE, y * TILE_SIZE, null);
+        image.setPosition(x, y);
+        gamePanel.add(image);
     }
 
 
     @Override
     public void drawAll(HauntedHouse house) throws IOException {
-        // drawHouse(house.getWidth(), house.getHeight());
+        drawHouse(house.getWidth(), house.getHeight());
+        drawWalls(house.getWalls());
         drawPlayer(house.getPlayer());
+        gamePanel.revalidate();
     }
 
 
@@ -72,6 +75,12 @@ public class DrawSwing implements DrawingMethod {
             for (int j = 0; j < width; j++) {
                 drawImage(backgroundSprite, j, i);
             }
+        }
+    }
+
+    private void drawWalls(List<Element> walls) {
+        for (Element wall : walls) {
+            drawImage(wallSprite, wall.getPosition().getX(), wall.getPosition().getY());
         }
     }
 

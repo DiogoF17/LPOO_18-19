@@ -9,6 +9,7 @@ import java.io.IOException;
 public class GameSwing extends Game {
 
     protected final static int TILE_SIZE = 24;
+    private final static int BORDER_OFFSET = 16;
 
     JFrame frame;
     JPanel panel;
@@ -20,7 +21,7 @@ public class GameSwing extends Game {
     public GameSwing(int width, int height) {
         frame = new JFrame("Ghost Rumble (GR)");
         frame.setLocation(50,50);
-        frame.setSize(width * TILE_SIZE, height * TILE_SIZE);
+        frame.setSize(width * TILE_SIZE + BORDER_OFFSET, height * TILE_SIZE);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         panel = new JPanel();
