@@ -14,11 +14,17 @@ public abstract class Game {
     private Updater updater;
     private boolean loop;
 
+    private EventQueue eventQueue;
+
     protected void init(int width, int height) {
         this.house = new HauntedHouse(width, height - 5);
         this.drawingMethod = createDrawingMethod();
         this.updater = new Updater();
         this.loop = true;
+    }
+
+    public EventQueue getEventQueue() {
+        return eventQueue;
     }
 
     protected abstract DrawingMethod createDrawingMethod();
@@ -33,7 +39,7 @@ public abstract class Game {
          * 3 - LOGIC
          */
 
-        EventQueue eventQueue = new EventQueue();
+        eventQueue = new EventQueue();
 
         new Thread() {
 
@@ -53,6 +59,7 @@ public abstract class Game {
 
             drawingMethod.drawAll(house);
             updater.update(eventQueue, house);
+
         }
     }
 

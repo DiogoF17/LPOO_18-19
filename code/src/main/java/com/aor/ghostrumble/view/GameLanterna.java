@@ -97,6 +97,7 @@ public class GameLanterna extends Game {
                 break;
 
         }
+
     }
 
     @Override
