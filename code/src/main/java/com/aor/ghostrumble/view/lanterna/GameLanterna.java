@@ -1,7 +1,8 @@
-package com.aor.ghostrumble.view;
+package com.aor.ghostrumble.view.lanterna;
 
 import com.aor.ghostrumble.Game;
 import com.aor.ghostrumble.controller.event.*;
+import com.aor.ghostrumble.view.DrawingMethod;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;

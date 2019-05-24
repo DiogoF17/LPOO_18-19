@@ -1,6 +1,7 @@
-package com.aor.ghostrumble.view;
+package com.aor.ghostrumble.view.swing;
 
 import com.aor.ghostrumble.model.*;
+import com.aor.ghostrumble.view.DrawingMethod;
 
 public class DrawSwing implements DrawingMethod {
 

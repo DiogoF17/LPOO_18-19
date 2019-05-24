@@ -1,7 +1,7 @@
 package com.aor.ghostrumble;
 
 import com.aor.ghostrumble.controller.event.EventQueue;
-import com.aor.ghostrumble.view.GameLanterna;
+import com.aor.ghostrumble.view.lanterna.GameLanterna;
 import org.junit.Test;
 import org.mockito.Mockito;
 import static org.mockito.ArgumentMatchers.*;

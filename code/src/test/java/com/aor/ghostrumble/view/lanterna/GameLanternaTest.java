@@ -1,4 +1,4 @@
-package com.aor.ghostrumble.view;
+package com.aor.ghostrumble.view.lanterna;
 
 import com.aor.ghostrumble.controller.event.*;
 import com.googlecode.lanterna.input.KeyStroke;

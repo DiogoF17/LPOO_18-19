@@ -1,4 +1,4 @@
-package com.aor.ghostrumble.view;
+package com.aor.ghostrumble.view.swing;
 
 import com.aor.ghostrumble.model.*;
 
@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
-import static com.aor.ghostrumble.view.GameSwing.TILE_SIZE;
+import static com.aor.ghostrumble.view.swing.GameSwing.TILE_SIZE;
 
 public class GameComponent extends JPanel {
 

@@ -1,6 +1,7 @@
-package com.aor.ghostrumble.view;
+package com.aor.ghostrumble.view.lanterna;
 
 import com.aor.ghostrumble.model.*;
+import com.aor.ghostrumble.view.DrawingMethod;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;

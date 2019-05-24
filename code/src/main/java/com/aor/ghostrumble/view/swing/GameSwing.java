@@ -1,8 +1,9 @@
-package com.aor.ghostrumble.view;
+package com.aor.ghostrumble.view.swing;
 
 import com.aor.ghostrumble.Game;
 import com.aor.ghostrumble.controller.event.*;
 import com.aor.ghostrumble.controller.event.EventQueue;
+import com.aor.ghostrumble.view.DrawingMethod;
 
 import javax.swing.*;
 import java.awt.*;
