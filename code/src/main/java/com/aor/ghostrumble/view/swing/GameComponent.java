@@ -183,6 +183,16 @@ public class GameComponent extends JPanel {
         drawHPBar(g, player);
     }
 
+    private void drawScore(Graphics g, int score) {
+
+        g.setColor(Color.ORANGE);
+
+        g.setFont(new Font("Consolas", Font.BOLD, 25));
+
+        g.drawString("Score: " + score,  (width - 10 * GameSwing.getTileSize()),
+                3 * GameSwing.getTileSize());
+    }
+
     private void drawAll(Graphics g) {
 
         drawHouse(g, house);
@@ -190,6 +200,7 @@ public class GameComponent extends JPanel {
         drawEnemies(g, house.getEnemies());
         drawBullets(g, house.getBullets());
         drawPlayer(g, house.getPlayer());
+        drawScore(g, house.getScore());
     }
 
     @Override
