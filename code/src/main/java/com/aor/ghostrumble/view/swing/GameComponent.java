@@ -9,8 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
-import static com.aor.ghostrumble.view.swing.GameSwing.TILE_SIZE;
-
 public class GameComponent extends JPanel {
 
     private HauntedHouse house;
@@ -67,7 +65,7 @@ public class GameComponent extends JPanel {
 
             for (int j = 1; j < house.getWidth() - 1; j++) {
 
-                g.drawImage(image, j * TILE_SIZE, i * TILE_SIZE, null);
+                g.drawImage(image, j * GameSwing.getTileSize(), i * GameSwing.getTileSize(), null);
 
             }
 
@@ -76,7 +74,8 @@ public class GameComponent extends JPanel {
     }
 
     private void drawElement(Graphics g, Element element) {
-        g.drawImage(image, element.getPosition().getX() * TILE_SIZE, element.getPosition().getY() * TILE_SIZE, null);
+        g.drawImage(image, element.getPosition().getX() * GameSwing.getTileSize(),
+                element.getPosition().getY() * GameSwing.getTileSize(), null);
     }
 
     private void drawWalls(Graphics g, List<Element> walls) {
@@ -93,7 +92,10 @@ public class GameComponent extends JPanel {
 
     private void drawEnemies(Graphics g, List<Enemy> enemies) {
 
-        g.drawString("Enemies left: " + enemies.size(), 5 * TILE_SIZE, height - 4 * TILE_SIZE);
+        g.setFont(new Font("Consolas", Font.BOLD, 20));
+
+        g.drawString("Enemies left: " + enemies.size(), 4 * GameSwing.getTileSize(),
+                (height - 3 * GameSwing.getTileSize()) - 10);
 
         for (Enemy enemy : enemies) {
 
@@ -150,6 +152,7 @@ public class GameComponent extends JPanel {
     }
 
     private void drawAll(Graphics g) {
+
         drawHouse(g, house);
         drawWalls(g, house.getWalls());
         drawEnemies(g, house.getEnemies());

@@ -15,11 +15,11 @@ import static java.awt.event.KeyEvent.*;
 
 public class GameSwing extends Game implements KeyListener {
 
-    protected final static int TILE_SIZE = 24;
+    private final static int TILE_SIZE = 24;
     private final static int BORDER_OFFSET = 16;
 
-    JFrame frame;
-    GameComponent panel;
+    private JFrame frame;
+    private GameComponent panel;
 
     public GameSwing() {
         this(60, 40);
@@ -35,14 +35,19 @@ public class GameSwing extends Game implements KeyListener {
 
         panel = new GameComponent(width * TILE_SIZE + BORDER_OFFSET, height * TILE_SIZE);
         panel.setBackground(Color.DARK_GRAY);
+
+        init(width, height);
+        panel.setHouse(house);
+
         frame.add(panel);
         frame.setVisible(true);
 
         frame.addKeyListener(this);
-
-        init(width, height);
-
     }
+
+
+    public final static int getTileSize() { return TILE_SIZE; }
+
 
     @Override
     protected DrawingMethod createDrawingMethod()
@@ -56,8 +61,19 @@ public class GameSwing extends Game implements KeyListener {
         if (eventQueue.exit())
             return false;
 
-        if (eventQueue.close())
+        if (eventQueue.close()) {
+            frame.setVisible(false);
+            frame.dispose();
             eventQueue.setExit(true);
+        }
+
+
+        try {
+            Thread.sleep(1);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         return true;
     }

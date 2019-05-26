@@ -26,7 +26,7 @@ public class HauntedHouse {
     }
 
     public void init() {
-        this.player = new Player();
+        this.player = new Player(width / 2, height / 2);
         this.walls = createWalls();
         this.enemies = new ArrayList<>();
         this.bullets = new ArrayList<>();
