@@ -26,6 +26,7 @@ public class GameComponent extends JPanel {
     private BufferedImage zombieSprite;
     private BufferedImage ghostSprite;
     private BufferedImage poltergeistSprite;
+    private JProgressBar hpBar;
 
     public GameComponent(int width, int height) {
 
@@ -46,6 +47,11 @@ public class GameComponent extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        this.hpBar = new JProgressBar();
+        hpBar.setVisible(true);
+        hpBar.setStringPainted(true);
+        this.add(hpBar);
 
     }
 
@@ -92,10 +98,11 @@ public class GameComponent extends JPanel {
 
     private void drawEnemies(Graphics g, List<Enemy> enemies) {
 
+        g.setColor(Color.ORANGE);
         g.setFont(new Font("Consolas", Font.BOLD, 20));
 
         g.drawString("Enemies left: " + enemies.size(), 4 * GameSwing.getTileSize(),
-                (height - 3 * GameSwing.getTileSize()) - 10);
+                (height - 3 * GameSwing.getTileSize()));
 
         for (Enemy enemy : enemies) {
 
@@ -146,9 +153,34 @@ public class GameComponent extends JPanel {
 
     }
 
+    private void drawHPBar(Graphics g, Player player) {
+
+        g.setFont(new Font("Consolas", Font.BOLD, 26));
+        g.drawString("HP: ", 2 * GameSwing.getTileSize(), 3 * GameSwing.getTileSize() - 4);
+
+        hpBar.setBounds(
+                hpBar.getRootPane().getInsets().left + 4 * GameSwing.getTileSize(),
+                hpBar.getRootPane().getInsets().top + 2 * GameSwing.getTileSize(),
+                hpBar.getWidth(),
+                hpBar.getHeight()
+        );
+        hpBar.setString(player.getCurrentHealth() + "/" + player.getMaxHealth());
+        hpBar.setValue(player.getCurrentHealth());
+        hpBar.setMaximum(player.getMaxHealth());
+        hpBar.setBackground(Color.BLACK);
+        if (player.getCurrentHealth() > 5) {
+            hpBar.setForeground(Color.GREEN);
+        }
+        else {
+            hpBar.setForeground(Color.RED);
+        }
+
+    }
+
     private void drawPlayer(Graphics g, Player player) {
         image = playerSprite;
         drawElement(g, player);
+        drawHPBar(g, player);
     }
 
     private void drawAll(Graphics g) {
