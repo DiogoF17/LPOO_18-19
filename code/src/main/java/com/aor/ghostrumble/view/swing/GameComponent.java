@@ -93,6 +93,8 @@ public class GameComponent extends JPanel {
 
     private void drawEnemies(Graphics g, List<Enemy> enemies) {
 
+        g.drawString("Enemies left: " + enemies.size(), 5 * TILE_SIZE, height - 4 * TILE_SIZE);
+
         for (Enemy enemy : enemies) {
 
             if (enemy instanceof Zombie) {

@@ -2,7 +2,7 @@ package com.aor.ghostrumble.model;
 
 public class Zombie extends Enemy {
 
-    private final static int ZOMBIE_SPEED = 500;
+    private final static int ZOMBIE_SPEED = 350;
     private final static int ZOMBIE_DAMAGE = 2;
 
     public Zombie(int x, int y) {

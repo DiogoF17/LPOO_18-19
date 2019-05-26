@@ -2,7 +2,7 @@ package com.aor.ghostrumble.model;
 
 public class Ghost extends Enemy {
 
-    private final static int GHOST_SPEED = 300;
+    private final static int GHOST_SPEED = 200;
     private final static int GHOST_DAMAGE = 3;
 
     public Ghost(int x, int y) {
