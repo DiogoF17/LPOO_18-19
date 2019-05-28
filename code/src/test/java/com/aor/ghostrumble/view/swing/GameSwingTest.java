@@ -1,22 +1,15 @@
 package com.aor.ghostrumble.view.swing;
 
-import com.aor.ghostrumble.Game;
-import com.aor.ghostrumble.controller.event.EventPlayerUp;
-import com.aor.ghostrumble.controller.event.EventQueue;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
-import com.googlecode.lanterna.screen.Screen;
+import com.aor.ghostrumble.controller.event.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-import static java.awt.event.KeyEvent.VK_ESCAPE;
+import static java.awt.event.KeyEvent.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
@@ -68,20 +61,149 @@ public class GameSwingTest {
     }
 
     @Test
-    public void testCreateLanternaEventW() throws IOException {
-        Screen screen = Mockito.mock(Screen.class);
-        game.setScreen(screen);
+    public void testCreateSwingEventW() {
+        JFrame frame = Mockito.mock(JFrame.class);
+        game.setFrame(frame);
 
-        KeyStroke key = Mockito.mock(KeyStroke.class);
-        Mockito.when(key.getKeyType()).thenReturn(KeyType.Character);
-        Mockito.when(key.getCharacter()).thenReturn('w');
-
-        Mockito.when(screen.readInput()).thenReturn(key);
+        KeyEvent e = Mockito.mock(KeyEvent.class);
+        Mockito.when(e.getKeyCode()).thenReturn(VK_W);
 
         EventQueue queue = new EventQueue();
+        game.setEventQueue(queue);
 
-        assertTrue(game.handleInput(queue));
+        game.keyPressed(e);
+
         assertTrue(queue.getEventQueue().peek() instanceof EventPlayerUp);
+    }
+
+
+    @Test
+    public void testCreateSwingEventA() {
+        JFrame frame = Mockito.mock(JFrame.class);
+        game.setFrame(frame);
+
+        KeyEvent e = Mockito.mock(KeyEvent.class);
+        Mockito.when(e.getKeyCode()).thenReturn(VK_A);
+
+        EventQueue queue = new EventQueue();
+        game.setEventQueue(queue);
+
+        game.keyPressed(e);
+
+        assertTrue(queue.getEventQueue().peek() instanceof EventPlayerLeft);
+    }
+
+
+    @Test
+    public void testCreateSwingEventS() {
+        JFrame frame = Mockito.mock(JFrame.class);
+        game.setFrame(frame);
+
+        KeyEvent e = Mockito.mock(KeyEvent.class);
+        Mockito.when(e.getKeyCode()).thenReturn(VK_S);
+
+        EventQueue queue = new EventQueue();
+        game.setEventQueue(queue);
+
+        game.keyPressed(e);
+        assertTrue(queue.getEventQueue().peek() instanceof EventPlayerDown);
+    }
+
+
+    @Test
+    public void testCreateSwingEventD() {
+        JFrame frame = Mockito.mock(JFrame.class);
+        game.setFrame(frame);
+
+        KeyEvent e = Mockito.mock(KeyEvent.class);
+        Mockito.when(e.getKeyCode()).thenReturn(VK_D);
+
+        EventQueue queue = new EventQueue();
+        game.setEventQueue(queue);
+
+        game.keyPressed(e);
+        assertTrue(queue.getEventQueue().peek() instanceof EventPlayerRight);
+    }
+
+
+    @Test
+    public void testCreateSwingEventUP() {
+        JFrame frame = Mockito.mock(JFrame.class);
+        game.setFrame(frame);
+
+        KeyEvent e = Mockito.mock(KeyEvent.class);
+        Mockito.when(e.getKeyCode()).thenReturn(VK_UP);
+
+        EventQueue queue = new EventQueue();
+        game.setEventQueue(queue);
+
+        game.keyPressed(e);
+        assertTrue(queue.getEventQueue().peek() instanceof EventBulletUp);
+    }
+
+
+    @Test
+    public void testCreateSwingEventDOWN() {
+        JFrame frame = Mockito.mock(JFrame.class);
+        game.setFrame(frame);
+
+        KeyEvent e = Mockito.mock(KeyEvent.class);
+        Mockito.when(e.getKeyCode()).thenReturn(VK_DOWN);
+
+        EventQueue queue = new EventQueue();
+        game.setEventQueue(queue);
+
+        game.keyPressed(e);
+        assertTrue(queue.getEventQueue().peek() instanceof EventBulletDown);
+    }
+
+
+    @Test
+    public void testCreateSwingEventLEFT() {
+        JFrame frame = Mockito.mock(JFrame.class);
+        game.setFrame(frame);
+
+        KeyEvent e = Mockito.mock(KeyEvent.class);
+        Mockito.when(e.getKeyCode()).thenReturn(VK_LEFT);
+
+        EventQueue queue = new EventQueue();
+        game.setEventQueue(queue);
+
+        game.keyPressed(e);
+        assertTrue(queue.getEventQueue().peek() instanceof EventBulletLeft);
+    }
+
+
+    @Test
+    public void testCreateSwingEventRIGHT() {
+        JFrame frame = Mockito.mock(JFrame.class);
+        game.setFrame(frame);
+
+        KeyEvent e = Mockito.mock(KeyEvent.class);
+        Mockito.when(e.getKeyCode()).thenReturn(VK_RIGHT);
+
+        EventQueue queue = new EventQueue();
+        game.setEventQueue(queue);
+
+        game.keyPressed(e);
+        assertTrue(queue.getEventQueue().peek() instanceof EventBulletRight);
+    }
+
+
+    @Test
+    public void testCreateSwingIrrelevantKey() throws IOException {
+        JFrame frame = Mockito.mock(JFrame.class);
+        game.setFrame(frame);
+
+        KeyEvent e = Mockito.mock(KeyEvent.class);
+        Mockito.when(e.getKeyCode()).thenReturn(VK_ENTER);
+
+        EventQueue queue = new EventQueue();
+        game.setEventQueue(queue);
+
+        game.keyPressed(e);
+        assertTrue(queue.getEventQueue().isEmpty());
+        assertTrue(game.handleInput(queue));
     }
 
 }
