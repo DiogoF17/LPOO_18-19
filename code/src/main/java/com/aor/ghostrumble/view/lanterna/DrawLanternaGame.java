@@ -1,7 +1,6 @@
 package com.aor.ghostrumble.view.lanterna;
 
 import com.aor.ghostrumble.model.*;
-import com.aor.ghostrumble.view.DrawingMethod;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -12,15 +11,14 @@ import com.googlecode.lanterna.screen.Screen;
 import java.io.IOException;
 import java.util.List;
 
-public class DrawLanterna implements DrawingMethod {
+public class DrawLanternaGame {
 
     private Screen screen;
 
-    public DrawLanterna(Screen screen) {
+    public DrawLanternaGame(Screen screen) {
         this.screen = screen;
     }
 
-    @Override
     public void drawAll(HauntedHouse house) throws IOException {
 
         TextGraphics graphics = screen.newTextGraphics();

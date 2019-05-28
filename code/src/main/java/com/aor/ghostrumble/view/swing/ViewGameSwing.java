@@ -1,31 +1,29 @@
 package com.aor.ghostrumble.view.swing;
 
-import com.aor.ghostrumble.Game;
 import com.aor.ghostrumble.controller.event.*;
-import com.aor.ghostrumble.controller.event.EventQueue;
-import com.aor.ghostrumble.view.DrawingMethod;
+import com.aor.ghostrumble.model.HauntedHouse;
+import com.aor.ghostrumble.view.ViewGame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 
 import static java.awt.event.KeyEvent.*;
 
-public class GameSwing extends Game implements KeyListener {
+public class ViewGameSwing extends ViewGame implements KeyListener {
 
     private final static int TILE_SIZE = 24;
     private final static int BORDER_OFFSET = 16;
 
     private JFrame frame;
-    private GameComponent panel;
+    private DrawSwingGame drawer;
 
-    public GameSwing() {
+    public ViewGameSwing() {
         this(60, 40);
     }
 
-    public GameSwing(int width, int height) {
+    public ViewGameSwing(int width, int height) {
 
         frame = new JFrame("Ghost Rumble (GR)");
         frame.setLayout(new GridLayout());
@@ -33,40 +31,37 @@ public class GameSwing extends Game implements KeyListener {
         frame.setSize(width * TILE_SIZE + BORDER_OFFSET, height * TILE_SIZE);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        panel = new GameComponent(width * TILE_SIZE + BORDER_OFFSET, height * TILE_SIZE);
+        GameComponent panel = new GameComponent(width * TILE_SIZE + BORDER_OFFSET, height * TILE_SIZE, TILE_SIZE);
         panel.setBackground(Color.DARK_GRAY);
 
-        init(width, height);
-        panel.setHouse(house);
+        // init(width, height);
+        // panel.setHouse(house);
 
         frame.add(panel);
         frame.setVisible(true);
-
         frame.addKeyListener(this);
-    }
 
+        drawer = new DrawSwingGame(panel);
+    }
 
     public final static int getTileSize() { return TILE_SIZE; }
 
 
-    public void setFrame(JFrame frame) { this.frame = frame; }
-
     @Override
-    protected DrawingMethod createDrawingMethod()
-    {
-        return new DrawSwing(panel);
+    public void drawAll(HauntedHouse house) {
+        drawer.drawAll(house);
     }
 
-    @Override
-    protected boolean handleInput(EventQueue eventQueue) throws IOException {
 
-        if (eventQueue.exit())
+    @Override
+    public boolean handleInput() {
+        if (queue.exit())
             return false;
 
-        if (eventQueue.close()) {
+        if (queue.close()) {
             frame.setVisible(false);
             frame.dispose();
-            eventQueue.setExit(true);
+            queue.setExit(true);
         }
 
 
@@ -76,7 +71,6 @@ public class GameSwing extends Game implements KeyListener {
             e.printStackTrace();
         }
 
-
         return true;
     }
 
@@ -85,51 +79,56 @@ public class GameSwing extends Game implements KeyListener {
 
         switch(e.getKeyCode()) {
             case VK_W:
-                this.getEventQueue().raiseEvent(new EventPlayerUp());
+                queue.raiseEvent(new EventPlayerUp());
                 break;
 
             case VK_A:
-                this.getEventQueue().raiseEvent(new EventPlayerLeft());
+                queue.raiseEvent(new EventPlayerLeft());
                 break;
 
             case VK_S:
-                this.getEventQueue().raiseEvent(new EventPlayerDown());
+                queue.raiseEvent(new EventPlayerDown());
                 break;
 
             case VK_D:
-                this.getEventQueue().raiseEvent(new EventPlayerRight());
+                queue.raiseEvent(new EventPlayerRight());
                 break;
 
             case VK_UP:
-                this.getEventQueue().raiseEvent(new EventBulletUp());
+                queue.raiseEvent(new EventBulletUp());
                 break;
 
             case VK_DOWN:
-                this.getEventQueue().raiseEvent(new EventBulletDown());
+                queue.raiseEvent(new EventBulletDown());
                 break;
 
             case VK_LEFT:
-                this.getEventQueue().raiseEvent(new EventBulletLeft());
+                queue.raiseEvent(new EventBulletLeft());
                 break;
 
             case VK_RIGHT:
-                this.getEventQueue().raiseEvent(new EventBulletRight());
+                queue.raiseEvent(new EventBulletRight());
                 break;
 
             case VK_ESCAPE:
-                this.getEventQueue().setClose(true);
+                queue.setClose(true);
                 break;
 
             default:
                 break;
 
         }
+    }
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
 
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {}
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+
+    }
 }

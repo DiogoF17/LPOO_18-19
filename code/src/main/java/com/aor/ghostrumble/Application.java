@@ -1,7 +1,7 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.view.lanterna.GameLanterna;
-import com.aor.ghostrumble.view.swing.GameSwing;
+import com.aor.ghostrumble.view.lanterna.ViewGameLanterna;
+import com.aor.ghostrumble.view.swing.ViewGameSwing;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -35,20 +35,16 @@ public class Application {
 
     public static void main(String[] args) {
 
-        try {
             Game game;
 
             if (getGameType() == 0)
-                game = new GameLanterna();
+                game = new Game(100, 35, new ViewGameLanterna());
             else {
-                game = new GameSwing();
+                game = new Game(60, 40, new ViewGameSwing());
             }
 
             game.run();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }

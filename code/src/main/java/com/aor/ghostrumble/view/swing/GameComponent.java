@@ -14,6 +14,7 @@ public class GameComponent extends JPanel {
     private HauntedHouse house;
     private int width;
     private int height;
+    private int tileSize;
     private BufferedImage image;
 
     private BufferedImage backgroundSprite;
@@ -28,10 +29,11 @@ public class GameComponent extends JPanel {
     private BufferedImage poltergeistSprite;
     private JProgressBar hpBar;
 
-    public GameComponent(int width, int height) {
+    public GameComponent(int width, int height, int tileSize) {
 
         this.width = width;
         this.height = height;
+        this.tileSize = tileSize;
 
         try {
             this.backgroundSprite = loadImage("floor");
@@ -71,7 +73,7 @@ public class GameComponent extends JPanel {
 
             for (int j = 1; j < house.getWidth() - 1; j++) {
 
-                g.drawImage(image, j * GameSwing.getTileSize(), i * GameSwing.getTileSize(), null);
+                g.drawImage(image, j * tileSize, i * tileSize, null);
 
             }
 
@@ -80,8 +82,8 @@ public class GameComponent extends JPanel {
     }
 
     private void drawElement(Graphics g, Element element) {
-        g.drawImage(image, element.getPosition().getX() * GameSwing.getTileSize(),
-                element.getPosition().getY() * GameSwing.getTileSize(), null);
+        g.drawImage(image, element.getPosition().getX() * tileSize,
+                element.getPosition().getY() * tileSize, null);
     }
 
     private void drawWalls(Graphics g, List<Element> walls) {
@@ -101,8 +103,8 @@ public class GameComponent extends JPanel {
         g.setColor(Color.ORANGE);
         g.setFont(new Font("Consolas", Font.BOLD, 20));
 
-        g.drawString("Enemies left: " + enemies.size(), 4 * GameSwing.getTileSize(),
-                (height - 3 * GameSwing.getTileSize()));
+        g.drawString("Enemies left: " + enemies.size(), 4 * tileSize,
+                (height - 3 * tileSize));
 
         for (Enemy enemy : enemies) {
 
@@ -156,11 +158,11 @@ public class GameComponent extends JPanel {
     private void drawHPBar(Graphics g, Player player) {
 
         g.setFont(new Font("Consolas", Font.BOLD, 26));
-        g.drawString("HP: ", 2 * GameSwing.getTileSize(), 3 * GameSwing.getTileSize() - 4);
+        g.drawString("HP: ", 2 * tileSize, 3 * tileSize - 4);
 
         hpBar.setBounds(
-                hpBar.getRootPane().getInsets().left + 4 * GameSwing.getTileSize(),
-                hpBar.getRootPane().getInsets().top + 2 * GameSwing.getTileSize(),
+                hpBar.getRootPane().getInsets().left + 4 * tileSize,
+                hpBar.getRootPane().getInsets().top + 2 * tileSize,
                 hpBar.getWidth(),
                 hpBar.getHeight()
         );
@@ -189,8 +191,8 @@ public class GameComponent extends JPanel {
 
         g.setFont(new Font("Consolas", Font.BOLD, 25));
 
-        g.drawString("Score: " + score,  (width - 10 * GameSwing.getTileSize()),
-                3 * GameSwing.getTileSize());
+        g.drawString("Score: " + score,  (width - 10 * tileSize),
+                3 * tileSize);
     }
 
     private void drawAll(Graphics g) {
@@ -211,7 +213,8 @@ public class GameComponent extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawAll(g);
+        if(house != null)
+            drawAll(g);
     }
 
 }

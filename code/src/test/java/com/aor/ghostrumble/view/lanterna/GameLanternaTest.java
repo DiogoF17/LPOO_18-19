@@ -15,7 +15,7 @@ import static org.mockito.Mockito.times;
 
 public class GameLanternaTest {
 
-    private GameLanterna game;
+    /*private GameLanterna game;
 
     @Before
     public void init() throws IOException {
@@ -223,6 +223,6 @@ public class GameLanternaTest {
 
         assertTrue(game.handleInput(queue));
         assertTrue(queue.getEventQueue().isEmpty());
-    }
+    }*/
 
 }

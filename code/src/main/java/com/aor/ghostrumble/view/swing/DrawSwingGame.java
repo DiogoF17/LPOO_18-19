@@ -1,19 +1,16 @@
 package com.aor.ghostrumble.view.swing;
 
 import com.aor.ghostrumble.model.*;
-import com.aor.ghostrumble.view.DrawingMethod;
 
-public class DrawSwing implements DrawingMethod {
+public class DrawSwingGame {
 
     private GameComponent gamePanel;
 
-    public DrawSwing(GameComponent gamePanel) {
-
+    public DrawSwingGame(GameComponent gamePanel) {
         this.gamePanel = gamePanel;
-
     }
 
-    @Override
+
     public void drawAll(HauntedHouse house) {
         gamePanel.setHouse(house);
         gamePanel.repaint();
