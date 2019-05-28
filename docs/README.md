@@ -61,18 +61,23 @@
 > In order to do this, we decided to implement a slightly different version of the MVC (Model - View - Controller) architectural pattern. The Model functions only has a data "warehouse", containing all the information about the game and its current state, but not knowing how and when to change it; the Controller receives the Model and an EventQueue, that contains all the current events, and updates the Model accordingly; the View (contrary to the standard MVC pattern) is split in two parts, one that receives the user input and generates an Event that is added to the EventQueue, that is going to be processed by the Controller, and another one that receives the Model, and is in charge of drawing the current state of the game onto the screen. Finally, we have a Game class that connects all these modules, and contains the main game cycle.
 
 #### 1.3 The Implementation
-> Here's how we decided to implement the pattern:
+> Here's how we decided to implement the pattern (NOTE: The Game and DrawingMethod classes also have subclasses for Swing;
+those are not shown here in order to not complicate the URL diagram):
 ![Alt text](diagrams/UML_MVC/UML_MVC.png)
 
 > The classes can be found in the following files:
 >
 > [Game](../code/src/main/java/com/aor/ghostrumble/Game.java)
 >
-> [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
+> [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/GameLanterna.java)
+>
+> [GameSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
 >
 > [DrawingMethod](../code/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
 >
-> [DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
+> [DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/DrawLanterna.java)
+>
+> [DrawSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/DrawSwing.java)
 >
 > [HauntedHouse](../code/src/main/java/com/aor/ghostrumble/model/HauntedHouse.java)
 >
@@ -87,18 +92,16 @@
 > [EventQueue](../code/src/main/java/com/aor/ghostrumble/controller/event/EventQueue.java)
 >
 #### 1.4 Consequences
-> As said before, using the MVC design (or similar, like we did) increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, deciding to use another way of drawing and reading inputs, other than Lanterna), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that has a new way of reading inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen). This shows that our code structure respects the Open-Closed Principle: modules are open for extensions, but closed for modification.
+> As said before, using the MVC design (or similar, like we did) increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, choosing whether to use Lanterna or Swing in order to draw the various components of the game, and read user input), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that has a new way of reading inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen). This shows that our code structure respects the Open-Closed Principle: modules are open for extensions, but closed for modification.
 >
-> As we also said before, it meets the requirements of the Single Responsability Principle: each module has only one reason to change. In our opinion, separating the View into two parts (one that draws, one that reads user input) contributes even more to the following of this principle.
+> As we also said before, it meets the requirements of the Single Responsability Principle: each module has only one reason to change. In our opinion, in a way, separating the View into two parts (one that draws, one that reads user input) contributes even more to the following of this principle.
 
 ### 2. Joining the Different View Components
 #### 2.1 Problem in Context
 > As we said before, when implementing the MVC pattern, we opted to separate the View module into two: one that is in charge of reading user input, and the other is in charge of drawing onto the screen. Because of this, we needed to find a way to join these two modules together (example: if we want to use Lanterna, then we should use the Game subclass GameLanterna, that reads input using Lanterna functions; the drawing aspect should also be done using Lanterna functions, so the class in charge of that should be DrawLanterna).
      
 #### 2.2 The Pattern
-> For this, we decided to implement the Factory Method design pattern. In the game class, that will have a drawing interface associated, a method will be called to decide the specific way of drawing the elements. In the concrete classes that extend the game class (and are in charge of reading input), we can instanciate the concrete drawing interface that we want for that specific type of game. (We can actually also consider this to be sort of a Strategy pattern too, because the way game class "draws" is to delegate the task to the drawing interface. The different interfaces are the different strategies).
->
-> NOTE: if needed, this design pattern can later be changed to an Abstract Factory pattern; for now, we do not feel the need to do that, so we kept it has a regular Factory Method pattern.
+> For this, we decided to implement the Factory Method design pattern. In the game class, that will have a drawing interface associated, a method will be called to decide the specific way of drawing the elements. In the concrete classes that extend the game class (and are in charge of reading input), we can instanciate the concrete drawing interface that we want for that specific type of game.
      
 #### 2.3 Implementation  
 > Here's how we decided to implement the design pattern:
@@ -108,16 +111,20 @@
 >
 >[Game](../code/src/main/java/com/aor/ghostrumble/Game.java)
 >
->[GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
+>[GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/GameLanterna.java)
+>
+>[GameSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
 >
 >[DrawingMethod](../code/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
 >
->[DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
+>[DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/DrawLanterna.java)
+>
+>[DrawSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
         
 #### 2.4 Consequences
 > The main Game class doesn't need to anticipate what implementation of DrawingMethod it needs to create; it just delegates that decision to the subclasses.
 >
-> In order to change the View component, we only need to change what Game subclass we use, because doing so changes what drawing interface we use, because of the Factory Method pattern.
+> In order to change/select the View component, we only need to change what Game subclass we use, because doing so changes what drawing interface we use, because of the Factory Method pattern. This can be seen in our [Application](../code/src/main/java/com/aor/ghostrumble/Application.java) class, where the main function is: we first declare a Game object, and we ask the user whether he would like to play the game in "retro" (lanterna) mode, or "modern" (swing) mode. Depending on the option given by the user, we instanciate, respectively, a GameLanterna object or a GameSwing object. After that, all we need is to call the run method.
 
 ### 3. Diferent Ways and Movements for Different Monsters
 #### 3.1 Problem in Context
