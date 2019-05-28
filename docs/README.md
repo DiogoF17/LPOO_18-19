@@ -61,18 +61,23 @@
 > In order to do this, we decided to implement a slightly different version of the MVC (Model - View - Controller) architectural pattern. The Model functions only has a data "warehouse", containing all the information about the game and its current state, but not knowing how and when to change it; the Controller receives the Model and an EventQueue, that contains all the current events, and updates the Model accordingly; the View (contrary to the standard MVC pattern) is split in two parts, one that receives the user input and generates an Event that is added to the EventQueue, that is going to be processed by the Controller, and another one that receives the Model, and is in charge of drawing the current state of the game onto the screen. Finally, we have a Game class that connects all these modules, and contains the main game cycle.
 
 #### 1.3 The Implementation
-> Here's how we decided to implement the pattern:
+> Here's how we decided to implement the pattern (NOTE: The Game and DrawingMethod classes also have subclasses for Swing;
+those are not shown here in order to not complicate the URL diagram):
 ![Alt text](diagrams/UML_MVC/UML_MVC.png)
 
 > The classes can be found in the following files:
 >
 > [Game](../code/src/main/java/com/aor/ghostrumble/Game.java)
 >
-> [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
+> [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/GameLanterna.java)
+>
+> [GameSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
 >
 > [DrawingMethod](../code/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
 >
-> [DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
+> [DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/DrawLanterna.java)
+>
+> [DrawSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/DrawSwing.java)
 >
 > [HauntedHouse](../code/src/main/java/com/aor/ghostrumble/model/HauntedHouse.java)
 >
@@ -87,9 +92,9 @@
 > [EventQueue](../code/src/main/java/com/aor/ghostrumble/controller/event/EventQueue.java)
 >
 #### 1.4 Consequences
-> As said before, using the MVC design (or similar, like we did) increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, deciding to use another way of drawing and reading inputs, other than Lanterna), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that has a new way of reading inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen). This shows that our code structure respects the Open-Closed Principle: modules are open for extensions, but closed for modification.
+> As said before, using the MVC design (or similar, like we did) increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, choosing whether to use Lanterna or Swing in order to draw the various components of the game, and read user input), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that has a new way of reading inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen). This shows that our code structure respects the Open-Closed Principle: modules are open for extensions, but closed for modification.
 >
-> As we also said before, it meets the requirements of the Single Responsability Principle: each module has only one reason to change. In our opinion, separating the View into two parts (one that draws, one that reads user input) contributes even more to the following of this principle.
+> As we also said before, it meets the requirements of the Single Responsability Principle: each module has only one reason to change. In our opinion, in a way, separating the View into two parts (one that draws, one that reads user input) contributes even more to the following of this principle.
 
 ### 2. Joining the Different View Components
 #### 2.1 Problem in Context
