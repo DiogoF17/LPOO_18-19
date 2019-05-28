@@ -101,9 +101,7 @@ those are not shown here in order to not complicate the URL diagram):
 > As we said before, when implementing the MVC pattern, we opted to separate the View module into two: one that is in charge of reading user input, and the other is in charge of drawing onto the screen. Because of this, we needed to find a way to join these two modules together (example: if we want to use Lanterna, then we should use the Game subclass GameLanterna, that reads input using Lanterna functions; the drawing aspect should also be done using Lanterna functions, so the class in charge of that should be DrawLanterna).
      
 #### 2.2 The Pattern
-> For this, we decided to implement the Factory Method design pattern. In the game class, that will have a drawing interface associated, a method will be called to decide the specific way of drawing the elements. In the concrete classes that extend the game class (and are in charge of reading input), we can instanciate the concrete drawing interface that we want for that specific type of game. (We can actually also consider this to be sort of a Strategy pattern too, because the way game class "draws" is to delegate the task to the drawing interface. The different interfaces are the different strategies).
->
-> NOTE: if needed, this design pattern can later be changed to an Abstract Factory pattern; for now, we do not feel the need to do that, so we kept it has a regular Factory Method pattern.
+> For this, we decided to implement the Factory Method design pattern. In the game class, that will have a drawing interface associated, a method will be called to decide the specific way of drawing the elements. In the concrete classes that extend the game class (and are in charge of reading input), we can instanciate the concrete drawing interface that we want for that specific type of game.
      
 #### 2.3 Implementation  
 > Here's how we decided to implement the design pattern:
@@ -113,16 +111,20 @@ those are not shown here in order to not complicate the URL diagram):
 >
 >[Game](../code/src/main/java/com/aor/ghostrumble/Game.java)
 >
->[GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java)
+>[GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/GameLanterna.java)
+>
+>[GameSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
 >
 >[DrawingMethod](../code/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
 >
->[DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java)
+>[DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/DrawLanterna.java)
+>
+>[DrawSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
         
 #### 2.4 Consequences
 > The main Game class doesn't need to anticipate what implementation of DrawingMethod it needs to create; it just delegates that decision to the subclasses.
 >
-> In order to change the View component, we only need to change what Game subclass we use, because doing so changes what drawing interface we use, because of the Factory Method pattern.
+> In order to change/select the View component, we only need to change what Game subclass we use, because doing so changes what drawing interface we use, because of the Factory Method pattern. This can be seen in our [Application](../code/src/main/java/com/aor/ghostrumble/Application.java) class, where the main function is: we first declare a Game object, and we ask the user whether he would like to play the game in "retro" (lanterna) mode, or "modern" (swing) mode. Depending on the option given by the user, we instanciate, respectively, a GameLanterna object or a GameSwing object. After that, all we need is to call the run method.
 
 ### 3. Diferent Ways and Movements for Different Monsters
 #### 3.1 Problem in Context
