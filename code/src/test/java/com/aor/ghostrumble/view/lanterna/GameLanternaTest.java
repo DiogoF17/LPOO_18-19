@@ -23,12 +23,12 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateDrawingMethod() {
+    public void testCreateLanternaDrawingMethod() {
         assertTrue(game.createDrawingMethod() instanceof DrawLanterna);
     }
 
     @Test
-    public void testCreateEventEscape() throws IOException {
+    public void testCreateLanternaEventEscape() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -46,7 +46,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateEventEOF() throws IOException {
+    public void testCreateLanternaEventEOF() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -61,7 +61,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateEventW() throws IOException {
+    public void testCreateLanternaEventW() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -78,7 +78,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateEventA() throws IOException {
+    public void testCreateLanternaEventA() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -95,7 +95,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateEventS() throws IOException {
+    public void testCreateLanternaEventS() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -112,7 +112,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateEventD() throws IOException {
+    public void testCreateLanternaEventD() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -129,7 +129,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateEventUP() throws IOException {
+    public void testCreateLanternaEventUP() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -145,7 +145,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateEventDOWN() throws IOException {
+    public void testCreateLanternaEventDOWN() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -161,7 +161,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateEventLEFT() throws IOException {
+    public void testCreateLanternaEventLEFT() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -177,7 +177,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testCreateEventRIGHT() throws IOException {
+    public void testCreateLanternaEventRIGHT() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -193,7 +193,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testEventIrrelevantCharacter() throws IOException {
+    public void testLanternaEventIrrelevantCharacter() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 
@@ -210,7 +210,7 @@ public class GameLanternaTest {
     }
 
     @Test
-    public void testEventIrrelevantKeyType() throws IOException {
+    public void testLanternaEventIrrelevantKeyType() throws IOException {
         Screen screen = Mockito.mock(Screen.class);
         game.setScreen(screen);
 

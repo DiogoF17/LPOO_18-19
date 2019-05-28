@@ -49,6 +49,8 @@ public class GameSwing extends Game implements KeyListener {
     public final static int getTileSize() { return TILE_SIZE; }
 
 
+    public void setFrame(JFrame frame) { this.frame = frame; }
+
     @Override
     protected DrawingMethod createDrawingMethod()
     {

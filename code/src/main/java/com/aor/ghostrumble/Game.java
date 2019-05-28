@@ -1,5 +1,6 @@
 package com.aor.ghostrumble;
 
+import com.aor.ghostrumble.controller.event.Event;
 import com.aor.ghostrumble.controller.event.EventQueue;
 import com.aor.ghostrumble.controller.Updater;
 import com.aor.ghostrumble.view.DrawingMethod;
@@ -25,6 +26,10 @@ public abstract class Game {
 
     public EventQueue getEventQueue() {
         return eventQueue;
+    }
+
+    public void setEventQueue(EventQueue queue) {
+        this.eventQueue = queue;
     }
 
     protected abstract DrawingMethod createDrawingMethod();
