@@ -1,13 +1,8 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.controller.event.Event;
-import com.aor.ghostrumble.controller.event.EventQueue;
-import com.aor.ghostrumble.controller.Updater;
-import com.aor.ghostrumble.model.HauntedHouse;
-import com.aor.ghostrumble.view.ViewGame;
-
-import javax.swing.text.View;
-import java.io.IOException;
+import com.aor.ghostrumble.play.controller.Updater;
+import com.aor.ghostrumble.play.model.HauntedHouse;
+import com.aor.ghostrumble.play.view.ViewGame;
 
 public class Game {
 

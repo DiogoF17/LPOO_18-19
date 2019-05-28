@@ -1,9 +1,8 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.view.lanterna.ViewGameLanterna;
-import com.aor.ghostrumble.view.swing.ViewGameSwing;
+import com.aor.ghostrumble.play.view.lanterna.ViewGameLanterna;
+import com.aor.ghostrumble.play.view.swing.ViewGameSwing;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Application {
