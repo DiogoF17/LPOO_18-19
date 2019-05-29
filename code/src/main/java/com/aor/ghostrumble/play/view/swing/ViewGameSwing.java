@@ -34,6 +34,7 @@ public class ViewGameSwing extends ViewGame implements KeyListener {
     }
 
     public void prepareStateChange() {
+        drawer.getComponent().removeHPBar();
         frame.remove(drawer.getComponent());
     }
 

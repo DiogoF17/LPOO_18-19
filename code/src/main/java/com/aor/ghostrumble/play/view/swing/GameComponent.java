@@ -57,6 +57,10 @@ public class GameComponent extends JPanel {
 
     }
 
+    public void removeHPBar() {
+        this.remove(hpBar);
+    }
+
     protected void setHouse(HauntedHouse house) {
         this.house = house;
     }
