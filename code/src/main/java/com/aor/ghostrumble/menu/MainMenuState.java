@@ -1,6 +1,6 @@
 package com.aor.ghostrumble.menu;
 
-import com.aor.ghostrumble.ViewAbstractFactory;
+import com.aor.ghostrumble.factory.ViewAbstractFactory;
 import com.aor.ghostrumble.menu.event.MenuEvent;
 import com.aor.ghostrumble.menu.event.NullEvent;
 import com.aor.ghostrumble.menu.model.MenuModel;

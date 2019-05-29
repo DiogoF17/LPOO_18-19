@@ -1,7 +1,7 @@
 package com.aor.ghostrumble.play;
 
 import com.aor.ghostrumble.State;
-import com.aor.ghostrumble.ViewAbstractFactory;
+import com.aor.ghostrumble.factory.ViewAbstractFactory;
 import com.aor.ghostrumble.menu.GameOverState;
 import com.aor.ghostrumble.play.controller.Updater;
 import com.aor.ghostrumble.play.model.HauntedHouse;

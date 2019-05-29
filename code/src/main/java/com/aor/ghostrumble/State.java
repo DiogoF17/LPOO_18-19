@@ -1,5 +1,7 @@
 package com.aor.ghostrumble;
 
+import com.aor.ghostrumble.factory.ViewAbstractFactory;
+
 public abstract class State {
 
     protected ViewAbstractFactory factory;
