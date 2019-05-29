@@ -17,12 +17,12 @@ public class ViewGameLanterna extends ViewGame {
     private Screen screen;
     private DrawLanternaGame drawer;
 
-    public ViewGameLanterna() {
+    /*public ViewGameLanterna() {
         this(100, 35);
-    }
+    }*/
 
-    public ViewGameLanterna(int width, int height)  {
-        try {
+    /*public ViewGameLanterna(int width, int height)  {
+        /*try {
             Terminal terminal = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(width, height)).createTerminal();
             this.screen = new TerminalScreen(terminal);
 
@@ -37,6 +37,13 @@ public class ViewGameLanterna extends ViewGame {
         } catch(IOException e ) {
             e.printStackTrace();
         }
+
+
+    }*/
+
+    public ViewGameLanterna(Screen screen) {
+        this.screen = screen;
+        this.drawer = new DrawLanternaGame(screen);
     }
 
     private void createEvent(KeyStroke key) {

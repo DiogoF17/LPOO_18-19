@@ -9,15 +9,12 @@ public class DrawSwingGame {
     public DrawSwingGame(GameComponent gamePanel) {
 
         this.gamePanel = gamePanel;
-
     }
 
 
     public void drawAll(HauntedHouse house) {
-
         gamePanel.setHouse(house);
         gamePanel.repaint();
-
     }
 
 }

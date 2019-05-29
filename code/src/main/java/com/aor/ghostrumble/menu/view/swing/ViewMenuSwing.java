@@ -28,7 +28,6 @@ public class ViewMenuSwing extends ViewMenu implements KeyListener {
         frame.addKeyListener(this);
 
         frame.revalidate();
-
     }
 
     @Override

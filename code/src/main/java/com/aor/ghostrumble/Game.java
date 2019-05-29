@@ -1,6 +1,7 @@
 package com.aor.ghostrumble;
 
 import com.aor.ghostrumble.menu.MenuState;
+import com.aor.ghostrumble.play.GameState;
 
 public class Game implements StateObserver {
 

@@ -29,7 +29,6 @@ public class ViewGameSwing extends ViewGame implements KeyListener {
         frame.revalidate();
 
         drawer = new DrawSwingGame(panel);
-
     }
 
     @Override
