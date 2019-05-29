@@ -43,7 +43,7 @@ public class Updater {
     public final static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
     public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
 
-    public void update(EventQueue eventQueue, HauntedHouse house) {
+    public boolean update(EventQueue eventQueue, HauntedHouse house) {
         eventQueue.executeEvents(this, house);
 
         checkBulletCollisions(house);
@@ -68,7 +68,7 @@ public class Updater {
 
         increaseScoreWithTime(house);
 
-        checkForGameOver(house);
+        return !checkForGameOver(eventQueue, house);
     }
 
     public void increaseScoreWithKills(HauntedHouse house) {
@@ -85,11 +85,9 @@ public class Updater {
         }
     }
 
-    public void checkForGameOver(HauntedHouse house) {
-        if(house.getPlayer().getCurrentHealth() <= 0) {
-            System.out.println("You died! Your final score was " + house.getScore());
-            house.init();
-        }
+    public boolean checkForGameOver(EventQueue queue, HauntedHouse house) {
+        return (house.getPlayer().getCurrentHealth() <= 0) ||
+                queue.close();
     }
 
     public void removeFlagged(HauntedHouse house) {

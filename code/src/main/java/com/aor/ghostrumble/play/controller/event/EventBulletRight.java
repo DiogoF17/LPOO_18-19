@@ -3,7 +3,7 @@ package com.aor.ghostrumble.play.controller.event;
 import com.aor.ghostrumble.play.controller.Updater;
 import com.aor.ghostrumble.play.model.HauntedHouse;
 
-public class EventBulletRight implements Event {
+public class EventBulletRight implements GameEvent {
 
     @Override
     public void process(Updater updater, HauntedHouse house) {

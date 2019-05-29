@@ -178,18 +178,20 @@ public class GameUpdateTest {
     public void testCheckForGameOver() {
         Updater updater = new Updater();
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        EventQueue queue = Mockito.mock(EventQueue.class);
 
         Player player = Mockito.mock(Player.class);
         Mockito.when(player.getCurrentHealth()).thenReturn(2);
         Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(queue.close()).thenReturn(false);
 
-        updater.checkForGameOver(house);
+        updater.checkForGameOver(queue, house);
 
         Mockito.verify(house, times(0)).init();
 
         Mockito.when(player.getCurrentHealth()).thenReturn(0);
 
-        updater.checkForGameOver(house);
+        updater.checkForGameOver(queue, house);
 
         Mockito.verify(house, times(1)).init();
     }

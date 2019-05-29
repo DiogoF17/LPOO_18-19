@@ -58,7 +58,7 @@ public class EventQueueTest {
 
     @Test
     public void testExecuteEvents() {
-        Event event = Mockito.mock(Event.class);
+        GameEvent event = Mockito.mock(GameEvent.class);
         Updater updater = Mockito.mock(Updater.class);
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
         Mockito.doNothing().when(event).process(updater, house);

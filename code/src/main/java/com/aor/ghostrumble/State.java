@@ -1,10 +1,30 @@
 package com.aor.ghostrumble;
 
-public interface State {
+public abstract class State {
 
-    void handleInput();
+    protected ViewAbstractFactory factory;
+    protected StateObserver observer;
 
-    void draw();
+    public State(ViewAbstractFactory factory) {
+        this.factory = factory;
+    }
 
-    void update();
+    public boolean keepGoing() {
+        return true;
+    }
+
+    public StateObserver getObserver() {
+        return observer;
+    }
+
+    public void setObserver(StateObserver observer) {
+        this.observer = observer;
+    }
+
+    public abstract void handleInput();
+
+    public abstract void draw();
+
+    public abstract void update();
+
 }

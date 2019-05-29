@@ -13,39 +13,24 @@ import static java.awt.event.KeyEvent.*;
 
 public class ViewGameSwing extends ViewGame implements KeyListener {
 
-    private final static int TILE_SIZE = 24;
-    private final static int BORDER_OFFSET = 16;
-
-    private JFrame frame;
     private DrawSwingGame drawer;
 
-    public ViewGameSwing() {
-        this(60, 40);
-    }
+    public ViewGameSwing(JFrame frame, int width, int height, int tileSize, int borderOffset) {
 
-    public ViewGameSwing(int width, int height) {
-
-        frame = new JFrame("Ghost Rumble (GR)");
-        frame.setLayout(new GridLayout());
-        frame.setLocation(50,50);
-        frame.setSize(width * TILE_SIZE + BORDER_OFFSET, height * TILE_SIZE);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        GameComponent panel = new GameComponent(width * TILE_SIZE + BORDER_OFFSET, height * TILE_SIZE, TILE_SIZE);
+        int panWidth = width * tileSize + borderOffset;
+        int panHeight = height * tileSize;
+        GameComponent panel = new GameComponent(panWidth, panHeight, tileSize);
+        panel.setPreferredSize(new Dimension(panWidth, panHeight));
         panel.setBackground(Color.DARK_GRAY);
 
-        // init(width, height);
-        // panel.setHouse(house);
-
         frame.add(panel);
-        frame.setVisible(true);
         frame.addKeyListener(this);
 
+        frame.revalidate();
+
         drawer = new DrawSwingGame(panel);
+
     }
-
-    public final static int getTileSize() { return TILE_SIZE; }
-
 
     @Override
     public void drawAll(HauntedHouse house) {
@@ -54,24 +39,25 @@ public class ViewGameSwing extends ViewGame implements KeyListener {
 
 
     @Override
-    public boolean handleInput() {
+    public void handleInput() {
+
+/*
         if (queue.exit())
             return false;
 
         if (queue.close()) {
-            frame.setVisible(false);
-            frame.dispose();
             queue.setExit(true);
         }
+*/
 
-
+/*
         try {
             Thread.sleep(1);
         } catch(InterruptedException e) {
             e.printStackTrace();
         }
+*/
 
-        return true;
     }
 
     @Override
@@ -118,17 +104,14 @@ public class ViewGameSwing extends ViewGame implements KeyListener {
                 break;
 
         }
-    }
-
-
-    @Override
-    public void keyTyped(KeyEvent e) {
 
     }
 
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyTyped(KeyEvent e) {}
 
-    }
+    @Override
+    public void keyReleased(KeyEvent e) {}
+
 }

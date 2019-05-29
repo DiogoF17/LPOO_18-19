@@ -1,23 +1,19 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.play.controller.Updater;
-import com.aor.ghostrumble.play.model.HauntedHouse;
-import com.aor.ghostrumble.play.view.ViewGame;
+import com.aor.ghostrumble.menu.MenuState;
 
-public class Game {
+public class Game implements StateObserver {
 
-    protected HauntedHouse house;
-    private ViewGame gameView;
-    private Updater updater;
-    private boolean loop;
+    private State state;
 
-    public Game(int width, int height, ViewGame gameView) {
-        this.house = new HauntedHouse(width, height - 5);
-        this.gameView = gameView;
-        this.updater = new Updater();
-        this.loop = true;
+    public Game(ViewAbstractFactory factory) {
+        changeState(new MenuState(factory));
     }
 
+    public void changeState(State state) {
+        this.state = state;
+        this.state.setObserver(this);
+    }
 
     public void run() {
 
@@ -27,21 +23,21 @@ public class Game {
          * 3 - LOGIC
          */
 
-
         new Thread() {
 
             @Override
             public void run() {
-                while (loop) {
-                    loop = gameView.handleInput();
+                while (state.keepGoing()) {
+                    state.handleInput();
                 }
             }
         }.start();
 
-        while (loop) {
-            gameView.drawAll(house);
-            updater.update(gameView.getQueue(), house);
+        while (state.keepGoing()) {
+            state.draw();
+            state.update();
         }
+
     }
 
 }

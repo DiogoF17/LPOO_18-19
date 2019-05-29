@@ -36,10 +36,13 @@ public class Application {
 
             Game game;
 
-            if (getGameType() == 0)
-                game = new Game(100, 35, new ViewGameLanterna());
+            if (getGameType() == 0) {
+                System.out.println("You chose - RETRO");
+                game = new Game(new ViewLanternaFactory());
+            }
             else {
-                game = new Game(60, 40, new ViewGameSwing());
+                System.out.println("You chose - MODERN");
+                game = new Game(new ViewSwingFactory());
             }
 
             game.run();

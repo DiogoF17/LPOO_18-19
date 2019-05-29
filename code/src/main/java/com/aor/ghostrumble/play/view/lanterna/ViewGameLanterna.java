@@ -100,22 +100,26 @@ public class ViewGameLanterna extends ViewGame {
     }
 
     @Override
-    public boolean handleInput() {
+    public void handleInput() {
         try {
             KeyStroke key = screen.readInput();
             createEvent(key);
 
+/*
             if (queue.exit())
                 return false;
 
             if (queue.close())
                 screen.close();
+*/
 
         } catch(IOException e) {
             e.printStackTrace();
         }
+/*
 
         return true;
+*/
     }
 
 

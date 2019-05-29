@@ -4,7 +4,7 @@ import com.aor.ghostrumble.play.controller.Updater;
 import com.aor.ghostrumble.play.model.HauntedHouse;
 import com.aor.ghostrumble.play.model.Player;
 
-public class EventPlayerDown implements Event {
+public class EventPlayerDown implements GameEvent {
 
     @Override
     public void process(Updater updater, HauntedHouse house) {

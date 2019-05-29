@@ -15,7 +15,7 @@ public abstract class ViewGame {
         this.queue = queue;
     }
 
-    public abstract boolean handleInput();
+    public abstract void handleInput();
 
     public abstract void drawAll(HauntedHouse house);
 }

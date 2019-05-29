@@ -8,7 +8,7 @@ import java.util.Queue;
 
 public class EventQueue {
 
-    private Queue<Event> eventQueue = new LinkedList<>();
+    private Queue<GameEvent> eventQueue = new LinkedList<>();
     private boolean close;
     private boolean exit;
 
@@ -16,14 +16,14 @@ public class EventQueue {
 
         while(!eventQueue.isEmpty()) {
 
-            Event currentEvent = eventQueue.remove();
-            currentEvent.process(updater, house);
+            GameEvent currentGameEvent = eventQueue.remove();
+            currentGameEvent.process(updater, house);
 
         }
 
     }
 
-    public void raiseEvent(Event event) {
+    public void raiseEvent(GameEvent event) {
         eventQueue.add(event);
     }
 
@@ -43,7 +43,7 @@ public class EventQueue {
         this.exit = exit;
     }
 
-    public Queue<Event> getEventQueue() {
+    public Queue<GameEvent> getEventQueue() {
         return eventQueue;
     }
 }
