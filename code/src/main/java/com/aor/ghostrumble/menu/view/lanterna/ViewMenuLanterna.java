@@ -4,21 +4,20 @@ import com.aor.ghostrumble.menu.event.EventChangeOption;
 import com.aor.ghostrumble.menu.event.EventConfirmOption;
 import com.aor.ghostrumble.menu.model.MenuModel;
 import com.aor.ghostrumble.menu.view.ViewMenu;
-import com.aor.ghostrumble.play.controller.event.*;
 import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class ViewMenuLanterna extends ViewMenu {
 
-    Screen screen;
-    int width;
-    int height;
+    private Screen screen;
+    private int width;
+    private int height;
 
     public ViewMenuLanterna(Screen screen, int width, int height) {
         this.screen = screen;
@@ -32,17 +31,29 @@ public class ViewMenuLanterna extends ViewMenu {
 
             case ArrowUp: case ArrowDown:
                 event = new EventChangeOption();
-
+                break;
 
             case Enter:
                 event = new EventConfirmOption();
+                break;
+
+            default:
+                break;
+
         }
+
     }
 
+    public void prepareStateChange() {
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#32204E"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+    }
 
     @Override
     public void handleInput() {
         try {
+
             KeyStroke key = screen.readInput();
             createEvent(key);
 
@@ -57,15 +68,19 @@ public class ViewMenuLanterna extends ViewMenu {
         TextGraphics graphics = screen.newTextGraphics();
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#32204E"));
-
         graphics.setForegroundColor(TextColor.Factory.fromString("#CEC20F"));
-        graphics.putString(new TerminalPosition(width / 3, height / 3), "Ghost Rumble (GR)");
+
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+
+        graphics.putString(new TerminalPosition(width / 2 - 8, height / 3), ViewMenu.getText());
 
         if(model.willPlay()) {
             graphics.setForegroundColor(TextColor.Factory.fromString("#009999"));
+            graphics.putString(new TerminalPosition(width / 2 - 4, (int)(1.5 * height) / 3 - 1), "XXXXXXXX");
+            graphics.putString(new TerminalPosition(width / 2 - 4, (int)(1.5 * height) / 3 + 1), "XXXXXXXX");
         }
 
-        graphics.putString(new TerminalPosition(width / 3, (int) (1.5 * height) / 3), "Play");
+        graphics.putString(new TerminalPosition(width / 2 - 2, (int) (1.5 * height) / 3), ViewMenu.getFirst());
 
 
         if (model.willPlay()) {
@@ -73,9 +88,18 @@ public class ViewMenuLanterna extends ViewMenu {
         }
         else {
             graphics.setForegroundColor(TextColor.Factory.fromString("#009999"));
+            graphics.putString(new TerminalPosition(width / 2 - 4, 2 * height / 3 - 1), "XXXXXXXX");
+            graphics.putString(new TerminalPosition(width / 2 - 4, 2 * height / 3 + 1), "XXXXXXXX");
         }
 
-        graphics.putString(new TerminalPosition(width / 3, 2 * height / 3), "Exit");
+        graphics.putString(new TerminalPosition(width / 2 - 2, 2 * height / 3), ViewMenu.getSecond());
+
+        try {
+            screen.refresh();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

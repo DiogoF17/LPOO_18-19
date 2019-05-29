@@ -4,6 +4,7 @@ import com.aor.ghostrumble.State;
 import com.aor.ghostrumble.ViewAbstractFactory;
 import com.aor.ghostrumble.gameOver.model.GameOverModel;
 import com.aor.ghostrumble.gameOver.view.ViewGameOver;
+import com.aor.ghostrumble.play.GameState;
 
 public class GameOverState extends State {
 
@@ -16,17 +17,14 @@ public class GameOverState extends State {
         this.view = factory.createGameOverView();
     }
 
-    public void handleInput() {
-
-    }
+    public void handleInput() { view.handleInput(); }
 
     public void draw() {
-
+        view.drawAll(model);
     }
 
     public void update() {
 
     }
-
 
 }

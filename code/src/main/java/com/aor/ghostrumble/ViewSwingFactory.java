@@ -37,30 +37,15 @@ public class ViewSwingFactory implements ViewAbstractFactory {
     public int getScreenHeight() { return SCREEN_HEIGHT; }
 
     public ViewMenu createMenuView() {
-        System.out.println("Hello!");
-        frameInit();
         return new ViewMenuSwing(frame, SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, BORDER_OFFSET);
     }
 
     public ViewGame createGameView() {
-        System.out.println("Starting the game ...");
-        frameInit();
         return new ViewGameSwing(frame, SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, BORDER_OFFSET);
     }
 
     public ViewGameOver createGameOverView() {
-        System.out.println(":-[");
-        frameInit();
-/*
-        return new ViewGameOverSwing(frame, SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, BORDER_OFFSET);
-*/
         return new ViewGameOverSwing();
-    }
-
-    private void frameInit() {
-
-        frame.revalidate();
-
     }
 
 }

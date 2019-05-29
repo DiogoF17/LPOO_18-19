@@ -1,15 +1,12 @@
 package com.aor.ghostrumble.menu.view.swing;
 
 import com.aor.ghostrumble.menu.model.MenuModel;
+import com.aor.ghostrumble.menu.view.ViewMenu;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MenuComponent extends JPanel {
-
-    private final String text = "Ghost Rumble (GR)";
-    private final String first = "Play";
-    private final String second = "Exit";
 
     private MenuModel model;
     private int width;
@@ -32,21 +29,24 @@ public class MenuComponent extends JPanel {
 
         g.setFont(new Font("Consolas", Font.BOLD, 40));
 
-        g.drawString(text, width / 3, height / 3);
+        g.drawString(ViewMenu.getText(), width / 3, height / 3);
 
         g.setFont(new Font("Consolas", Font.BOLD, 25));
 
-        if (model.willPlay())
+        if (model.willPlay()) {
             g.setColor(Color.CYAN);
-        g.drawString(first, width / 3, (int) (1.5 * height) / 3);
+            g.drawRect(width / 3 - 12, (int) (1.5 * height) / 3 - 33, 80, 50);
+        }
+        g.drawString(ViewMenu.getFirst(), width / 3, (int) (1.5 * height) / 3);
 
         if (model.willPlay()) {
             g.setColor(Color.ORANGE);
         }
         else {
             g.setColor(Color.CYAN);
+            g.drawRect(width / 3 - 12, 2 * height / 3 - 33, 80, 50);
         }
-        g.drawString(second, width / 3, 2 * height / 3);
+        g.drawString(ViewMenu.getSecond(), width / 3, 2 * height / 3);
 
     }
 

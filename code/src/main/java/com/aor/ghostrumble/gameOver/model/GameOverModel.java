@@ -16,4 +16,8 @@ public class GameOverModel {
 
     public int getScore() { return this.score; }
 
+    public boolean willPlay() {
+        return this.play;
+    }
+
 }

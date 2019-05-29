@@ -39,6 +39,7 @@ public class MenuState extends State {
 
         if (event.process(model)) {
             if (model.willPlay()) {
+                view.prepareStateChange();
                 observer.changeState(new GameState(factory));
             }
             else {

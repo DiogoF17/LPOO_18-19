@@ -34,6 +34,7 @@ public class ViewLanternaFactory implements ViewAbstractFactory {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 

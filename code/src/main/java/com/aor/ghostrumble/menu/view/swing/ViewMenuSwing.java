@@ -14,20 +14,27 @@ import static java.awt.event.KeyEvent.*;
 
 public class ViewMenuSwing extends ViewMenu implements KeyListener {
 
+    private JFrame frame;
     private MenuComponent component;
 
     public ViewMenuSwing(JFrame frame, int width, int height, int tileSize, int borderOffset) {
 
+        this.frame = frame;
         int compWidth = width * tileSize + borderOffset;
         int compHeight = height * tileSize;
         component = new MenuComponent(compWidth, compHeight);
         component.setPreferredSize(new Dimension(compWidth, compHeight));
         component.setBackground(Color.DARK_GRAY);
 
-        frame.add(component);
-        frame.addKeyListener(this);
+        this.frame.add(component);
+        this.frame.addKeyListener(this);
 
-        frame.revalidate();
+        this.frame.revalidate();
+
+    }
+
+    public void prepareStateChange() {
+        this.frame.remove(component);
     }
 
     @Override
