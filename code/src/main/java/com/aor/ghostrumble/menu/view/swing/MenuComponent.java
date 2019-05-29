@@ -35,7 +35,7 @@ public class MenuComponent extends JPanel {
 
         if (model.willPlay()) {
             g.setColor(Color.CYAN);
-            g.drawRect(width / 3 - 12, (int) (1.5 * height) / 3 - 33, 80, 50);
+            g.drawRect(width / 3 - 12, (int) (1.5 * height) / 3 - 33, 21 * model.getFirst().length(), 50);
         }
         g.drawString(model.getFirst(), width / 3, (int) (1.5 * height) / 3);
 
@@ -44,7 +44,7 @@ public class MenuComponent extends JPanel {
         }
         else {
             g.setColor(Color.CYAN);
-            g.drawRect(width / 3 - 12, 2 * height / 3 - 33, 80, 50);
+            g.drawRect(width / 3 - 12, 2 * height / 3 - 33, 20 * model.getSecond().length(), 50);
         }
         g.drawString(model.getSecond(), width / 3, 2 * height / 3);
 

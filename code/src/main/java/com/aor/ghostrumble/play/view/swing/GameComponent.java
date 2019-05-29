@@ -165,11 +165,12 @@ public class GameComponent extends JPanel {
         g.drawString("HP: ", 2 * tileSize, 3 * tileSize - 4);
 
         hpBar.setBounds(
-                hpBar.getRootPane().getInsets().left + 4 * tileSize,
-                hpBar.getRootPane().getInsets().top + 2 * tileSize,
+                4 * tileSize,
+                2 * tileSize,
                 hpBar.getWidth(),
                 hpBar.getHeight()
         );
+
         hpBar.setString(player.getCurrentHealth() + "/" + player.getMaxHealth());
         hpBar.setValue(player.getCurrentHealth());
         hpBar.setMaximum(player.getMaxHealth());

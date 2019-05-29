@@ -31,6 +31,10 @@ public class Game implements StateObserver {
                 while (state.keepGoing()) {
                     state.handleInput();
 
+                    // NOTA: este sleep encontra-se aqui inserido devido a uma race condition
+                    // nas nosas threads. Depois de falar com o professor Restivo, este afirmou
+                    // que este assunto nao e de grande relevancia e que nao nos deviamos
+                    // preocupar com isso.
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {

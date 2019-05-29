@@ -79,10 +79,6 @@ public class ViewGameLanterna extends ViewGame {
                 queue.setClose(true);
                 break;
 
-            case EOF:
-                queue.setExit(true);
-                break;
-
             default:
                 break;
 

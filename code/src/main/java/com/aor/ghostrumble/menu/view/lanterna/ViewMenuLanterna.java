@@ -82,7 +82,7 @@ public class ViewMenuLanterna extends ViewMenu {
             graphics.enableModifiers(SGR.BOLD);
         }
 
-        graphics.putString(new TerminalPosition(width / 2 - 2, (int) (1.5 * height) / 3), model.getFirst());
+        graphics.putString(new TerminalPosition((width - model.getFirst().length()) / 2, (int) (1.5 * height) / 3), model.getFirst());
         graphics.disableModifiers(SGR.BOLD);
 
         if (model.willPlay()) {
@@ -93,7 +93,7 @@ public class ViewMenuLanterna extends ViewMenu {
             graphics.enableModifiers(SGR.BOLD);
         }
 
-        graphics.putString(new TerminalPosition(width / 2 - 2, 2 * height / 3), model.getSecond());
+        graphics.putString(new TerminalPosition((width - model.getSecond().length()) / 2, 2 * height / 3), model.getSecond());
         graphics.disableModifiers(SGR.BOLD);
 
         try {
