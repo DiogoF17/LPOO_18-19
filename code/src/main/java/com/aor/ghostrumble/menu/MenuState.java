@@ -8,22 +8,20 @@ import com.aor.ghostrumble.menu.model.MenuModel;
 import com.aor.ghostrumble.menu.view.ViewMenu;
 import com.aor.ghostrumble.play.GameState;
 
-public class MenuState extends State {
+public abstract class MenuState extends State {
 
-    private boolean end;
-    private MenuModel model;
-    private ViewMenu view;
+    protected MenuModel model;
+    protected ViewMenu view;
 
-    public MenuState(ViewAbstractFactory factory) {
+    public MenuState(ViewAbstractFactory factory, MenuModel model) {
         super(factory);
-        this.model = new MenuModel();
+        this.model = model;
         this.view = factory.createMenuView();
-        this.end = false;
     }
 
     @Override
     public boolean keepGoing() {
-        return !end;
+        return true;
     }
 
     public void handleInput() { view.handleInput(); }
@@ -32,21 +30,6 @@ public class MenuState extends State {
         view.drawAll(model);
     }
 
-    public void update() {
-
-        MenuEvent event = view.getEvent();
-        view.setEvent(new NullEvent());
-
-        if (event.process(model)) {
-            if (model.willPlay()) {
-                view.prepareStateChange();
-                observer.changeState(new GameState(factory));
-            }
-            else {
-                end = true;
-            }
-        }
-
-    }
+    public abstract void update();
 
 }

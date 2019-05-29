@@ -4,6 +4,7 @@ import com.aor.ghostrumble.menu.event.EventChangeOption;
 import com.aor.ghostrumble.menu.event.EventConfirmOption;
 import com.aor.ghostrumble.menu.model.MenuModel;
 import com.aor.ghostrumble.menu.view.ViewMenu;
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -72,27 +73,28 @@ public class ViewMenuLanterna extends ViewMenu {
 
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
 
-        graphics.putString(new TerminalPosition(width / 2 - 8, height / 3), ViewMenu.getText());
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(width / 2 - 8, height / 3), model.getTitle());
+        graphics.disableModifiers(SGR.BOLD);
 
         if(model.willPlay()) {
             graphics.setForegroundColor(TextColor.Factory.fromString("#009999"));
-            graphics.putString(new TerminalPosition(width / 2 - 4, (int)(1.5 * height) / 3 - 1), "XXXXXXXX");
-            graphics.putString(new TerminalPosition(width / 2 - 4, (int)(1.5 * height) / 3 + 1), "XXXXXXXX");
+            graphics.enableModifiers(SGR.BOLD);
         }
 
-        graphics.putString(new TerminalPosition(width / 2 - 2, (int) (1.5 * height) / 3), ViewMenu.getFirst());
-
+        graphics.putString(new TerminalPosition(width / 2 - 2, (int) (1.5 * height) / 3), model.getFirst());
+        graphics.disableModifiers(SGR.BOLD);
 
         if (model.willPlay()) {
             graphics.setForegroundColor(TextColor.Factory.fromString("#CEC20F"));
         }
         else {
             graphics.setForegroundColor(TextColor.Factory.fromString("#009999"));
-            graphics.putString(new TerminalPosition(width / 2 - 4, 2 * height / 3 - 1), "XXXXXXXX");
-            graphics.putString(new TerminalPosition(width / 2 - 4, 2 * height / 3 + 1), "XXXXXXXX");
+            graphics.enableModifiers(SGR.BOLD);
         }
 
-        graphics.putString(new TerminalPosition(width / 2 - 2, 2 * height / 3), ViewMenu.getSecond());
+        graphics.putString(new TerminalPosition(width / 2 - 2, 2 * height / 3), model.getSecond());
+        graphics.disableModifiers(SGR.BOLD);
 
         try {
             screen.refresh();

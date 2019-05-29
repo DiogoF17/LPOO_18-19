@@ -47,6 +47,6 @@ public class Application {
 
             game.run();
 
-
     }
+
 }

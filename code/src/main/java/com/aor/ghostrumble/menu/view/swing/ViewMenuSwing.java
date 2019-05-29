@@ -33,9 +33,7 @@ public class ViewMenuSwing extends ViewMenu implements KeyListener {
 
     }
 
-    public void prepareStateChange() {
-        this.frame.remove(component);
-    }
+    public void prepareStateChange() { this.frame.remove(component); }
 
     @Override
     public void handleInput() {}

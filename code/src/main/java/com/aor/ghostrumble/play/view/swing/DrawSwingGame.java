@@ -7,10 +7,10 @@ public class DrawSwingGame {
     private GameComponent gamePanel;
 
     public DrawSwingGame(GameComponent gamePanel) {
-
         this.gamePanel = gamePanel;
     }
 
+    public GameComponent getComponent() { return gamePanel; }
 
     public void drawAll(HauntedHouse house) {
         gamePanel.setHouse(house);

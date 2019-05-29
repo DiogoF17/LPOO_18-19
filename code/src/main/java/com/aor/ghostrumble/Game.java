@@ -1,14 +1,13 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.menu.MenuState;
-import com.aor.ghostrumble.play.GameState;
+import com.aor.ghostrumble.menu.MainMenuState;
 
 public class Game implements StateObserver {
 
     private State state;
 
     public Game(ViewAbstractFactory factory) {
-        changeState(new MenuState(factory));
+        changeState(new MainMenuState(factory));
     }
 
     public void changeState(State state) {
@@ -30,8 +29,17 @@ public class Game implements StateObserver {
             public void run() {
                 while (state.keepGoing()) {
                     state.handleInput();
+
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                 }
+
             }
+
         }.start();
 
         while (state.keepGoing()) {

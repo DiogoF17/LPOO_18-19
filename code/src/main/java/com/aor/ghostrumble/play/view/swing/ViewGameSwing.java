@@ -13,22 +13,28 @@ import static java.awt.event.KeyEvent.*;
 
 public class ViewGameSwing extends ViewGame implements KeyListener {
 
+    private JFrame frame;
     private DrawSwingGame drawer;
 
     public ViewGameSwing(JFrame frame, int width, int height, int tileSize, int borderOffset) {
 
+        this.frame = frame;
         int panWidth = width * tileSize + borderOffset;
         int panHeight = height * tileSize;
         GameComponent panel = new GameComponent(panWidth, panHeight, tileSize);
         panel.setPreferredSize(new Dimension(panWidth, panHeight));
         panel.setBackground(Color.DARK_GRAY);
 
-        frame.add(panel);
-        frame.addKeyListener(this);
+        this.frame.add(panel);
+        this.frame.addKeyListener(this);
 
-        frame.revalidate();
+        this.frame.revalidate();
 
         drawer = new DrawSwingGame(panel);
+    }
+
+    public void prepareStateChange() {
+        frame.remove(drawer.getComponent());
     }
 
     @Override
@@ -36,28 +42,8 @@ public class ViewGameSwing extends ViewGame implements KeyListener {
         drawer.drawAll(house);
     }
 
-
     @Override
-    public void handleInput() {
-
-/*
-        if (queue.exit())
-            return false;
-
-        if (queue.close()) {
-            queue.setExit(true);
-        }
-*/
-
-/*
-        try {
-            Thread.sleep(1);
-        } catch(InterruptedException e) {
-            e.printStackTrace();
-        }
-*/
-
-    }
+    public void handleInput() {}
 
     @Override
     public void keyPressed(KeyEvent e) {

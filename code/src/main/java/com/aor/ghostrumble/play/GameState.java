@@ -2,7 +2,7 @@ package com.aor.ghostrumble.play;
 
 import com.aor.ghostrumble.State;
 import com.aor.ghostrumble.ViewAbstractFactory;
-import com.aor.ghostrumble.gameOver.GameOverState;
+import com.aor.ghostrumble.menu.GameOverState;
 import com.aor.ghostrumble.play.controller.Updater;
 import com.aor.ghostrumble.play.model.HauntedHouse;
 import com.aor.ghostrumble.play.view.ViewGame;
@@ -30,6 +30,7 @@ public class GameState extends State {
 
     public void update() {
         if (!this.updater.update(view.getQueue(), house)) {
+            view.prepareStateChange();
             observer.changeState(new GameOverState(factory, house.getScore()));
         }
     }

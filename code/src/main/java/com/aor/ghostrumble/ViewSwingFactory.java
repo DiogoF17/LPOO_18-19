@@ -1,13 +1,8 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.gameOver.view.ViewGameOver;
-import com.aor.ghostrumble.gameOver.view.lanterna.ViewGameOverLanterna;
-import com.aor.ghostrumble.gameOver.view.swing.ViewGameOverSwing;
 import com.aor.ghostrumble.menu.view.ViewMenu;
-import com.aor.ghostrumble.menu.view.lanterna.ViewMenuLanterna;
 import com.aor.ghostrumble.menu.view.swing.ViewMenuSwing;
 import com.aor.ghostrumble.play.view.ViewGame;
-import com.aor.ghostrumble.play.view.lanterna.ViewGameLanterna;
 import com.aor.ghostrumble.play.view.swing.ViewGameSwing;
 
 import javax.swing.*;
@@ -44,8 +39,11 @@ public class ViewSwingFactory implements ViewAbstractFactory {
         return new ViewGameSwing(frame, SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, BORDER_OFFSET);
     }
 
-    public ViewGameOver createGameOverView() {
-        return new ViewGameOverSwing();
+    public void close() {
+
+        frame.removeAll();
+        frame.dispose();
+
     }
 
 }

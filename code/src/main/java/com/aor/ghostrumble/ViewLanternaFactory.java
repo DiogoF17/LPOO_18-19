@@ -1,7 +1,5 @@
 package com.aor.ghostrumble;
 
-import com.aor.ghostrumble.gameOver.view.ViewGameOver;
-import com.aor.ghostrumble.gameOver.view.lanterna.ViewGameOverLanterna;
 import com.aor.ghostrumble.menu.view.ViewMenu;
 import com.aor.ghostrumble.menu.view.lanterna.ViewMenuLanterna;
 import com.aor.ghostrumble.play.view.ViewGame;
@@ -46,11 +44,17 @@ public class ViewLanternaFactory implements ViewAbstractFactory {
     }
 
     public ViewGame createGameView() {
-        return new ViewGameLanterna(screen);
+        return new ViewGameLanterna(screen, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
 
-    public ViewGameOver createGameOverView() {
-        return new ViewGameOverLanterna();
+    public void close() {
+
+        try {
+            screen.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

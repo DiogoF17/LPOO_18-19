@@ -3,7 +3,10 @@ package com.aor.ghostrumble.play.view.lanterna;
 import com.aor.ghostrumble.play.controller.event.*;
 import com.aor.ghostrumble.play.model.HauntedHouse;
 import com.aor.ghostrumble.play.view.ViewGame;
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -16,34 +19,14 @@ public class ViewGameLanterna extends ViewGame {
 
     private Screen screen;
     private DrawLanternaGame drawer;
+    private int width;
+    private int height;
 
-    /*public ViewGameLanterna() {
-        this(100, 35);
-    }*/
-
-    /*public ViewGameLanterna(int width, int height)  {
-        /*try {
-            Terminal terminal = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(width, height)).createTerminal();
-            this.screen = new TerminalScreen(terminal);
-
-            this.screen.setCursorPosition(null);
-            this.screen.startScreen();
-            this.screen.doResizeIfNecessary();
-
-            // init(width, height);
-
-            this.drawer = new DrawLanternaGame(screen);
-
-        } catch(IOException e ) {
-            e.printStackTrace();
-        }
-
-
-    }*/
-
-    public ViewGameLanterna(Screen screen) {
+    public ViewGameLanterna(Screen screen, int width, int height) {
         this.screen = screen;
         this.drawer = new DrawLanternaGame(screen);
+        this.width = width;
+        this.height = height;
     }
 
     private void createEvent(KeyStroke key) {
@@ -107,35 +90,35 @@ public class ViewGameLanterna extends ViewGame {
     }
 
     @Override
+    public void prepareStateChange() {
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#32204E"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+
+    }
+
+    @Override
     public void handleInput() {
+
         try {
             KeyStroke key = screen.readInput();
             createEvent(key);
-
-/*
-            if (queue.exit())
-                return false;
-
-            if (queue.close())
-                screen.close();
-*/
-
         } catch(IOException e) {
             e.printStackTrace();
         }
-/*
 
-        return true;
-*/
     }
 
 
     @Override
     public void drawAll(HauntedHouse house) {
+
         try {
             drawer.drawAll(house);
         } catch(IOException e) {
             e.printStackTrace();
         }
+
     }
+
 }

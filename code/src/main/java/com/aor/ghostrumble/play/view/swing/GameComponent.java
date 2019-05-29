@@ -203,6 +203,7 @@ public class GameComponent extends JPanel {
         drawBullets(g, house.getBullets());
         drawPlayer(g, house.getPlayer());
         drawScore(g, house.getScore());
+
     }
 
     @Override
