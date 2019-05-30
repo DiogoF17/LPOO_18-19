@@ -6,7 +6,7 @@ public class HorizontalBullet extends Bullet {
 
     public HorizontalBullet(int x, int y, int delta) { super(x, y, delta, HOR_BULLET_SPEED); }
 
-    public final static int getHorBulletSpeed() { return HOR_BULLET_SPEED; }
+    public static int getHorBulletSpeed() { return HOR_BULLET_SPEED; }
 
     @Override
     public Position move() { return moveCustom(delta, 0); }

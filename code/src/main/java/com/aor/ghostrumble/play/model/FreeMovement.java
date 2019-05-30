@@ -4,7 +4,7 @@ import static java.lang.Math.abs;
 
 public class FreeMovement extends MovementStrategy {
 
-    public FreeMovement() {super();}
+    public FreeMovement() { super(); }
 
     @Override
     public void updateDirection(Position position1, Position position2) {

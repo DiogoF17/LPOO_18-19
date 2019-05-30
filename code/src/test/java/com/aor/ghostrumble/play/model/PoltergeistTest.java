@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class PoltergeistTest {
 
-    Poltergeist poltergeist;
+    private Poltergeist poltergeist;
 
     @Before
     public void init() {

@@ -6,6 +6,7 @@ import java.util.List;
 import static java.lang.System.currentTimeMillis;
 
 public class HauntedHouse {
+
     private int width;
     private int height;
     private Player player;
@@ -22,10 +23,6 @@ public class HauntedHouse {
     public HauntedHouse(int width, int height) {
         this.width = width;
         this.height = height;
-        init();
-    }
-
-    public void init() {
         this.player = new Player(width / 2, height / 2);
         this.walls = createWalls();
         this.enemies = new ArrayList<>();
@@ -44,8 +41,8 @@ public class HauntedHouse {
     public int getScore() { return score; }
     public long getLastIncrementedScore() { return lastIncrementedScore; }
     public long getLastSpawned() { return lastSpawned; }
-    public final static int getMaxNumberEnemies() { return MAX_NUMBER_ENEMIES; }
-    public final static int getMaxNumberBullets() { return MAX_NUMBER_BULLETS; }
+    public static int getMaxNumberEnemies() { return MAX_NUMBER_ENEMIES; }
+    public static int getMaxNumberBullets() { return MAX_NUMBER_BULLETS; }
 
     public void setLastSpawned(long lastSpawned) { this.lastSpawned = lastSpawned; }
     public void setLastIncrementedScore(long lastIncrementedScore) { this.lastIncrementedScore = lastIncrementedScore; }
@@ -71,13 +68,6 @@ public class HauntedHouse {
         enemies.add(enemy);
         player.addObserver(enemy);
     }
-
-/*
-    public void removeEnemy(Enemy enemy) {
-        enemies.remove(enemy);
-        player.removeObserver(enemy);
-    }
-*/
 
     public void addBullet(Bullet bullet) {
         bullets.add(bullet);

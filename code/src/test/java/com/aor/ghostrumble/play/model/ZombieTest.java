@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ZombieTest {
 
-    Zombie zombie;
+    private Zombie zombie;
 
     @Before
     public void init() {

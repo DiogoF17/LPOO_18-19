@@ -1,8 +1,9 @@
 package com.aor.ghostrumble.play.model;
 
 public abstract class MovementStrategy {
-    protected int deltaX;
-    protected int deltaY;
+
+    int deltaX;
+    int deltaY;
 
     public MovementStrategy() {
         this.deltaX = 0;

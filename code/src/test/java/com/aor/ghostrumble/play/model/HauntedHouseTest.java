@@ -30,6 +30,9 @@ public class HauntedHouseTest {
     public void testInitHeight() { assertEquals(randomHeight, house.getHeight()); }
 
     @Test
+    public void testInitPlayer() { assertNotEquals(null, house.getPlayer()); }
+
+    @Test
     public void testInitWalls() {
         assertEquals(2 * randomWidth + 2 * (randomHeight - 7), house.getWalls().size());
     }
@@ -68,16 +71,20 @@ public class HauntedHouseTest {
     }
 
     @Test
+    public void testAddBullet() {
+        house.addBullet(new HorizontalBullet(0, 0, 1));
+        assertEquals(1, house.getBullets().size());
+    }
+
+    @Test
     public void testMonsterInPositionTrue() {
         house.addEnemy(new Zombie(10, 10));
-
         assertTrue(house.hitsEnemies(new Position(10, 10)));
     }
 
     @Test
     public void testMonsterInPositionFalse() {
         house.addEnemy(new Zombie(20, 10));
-
         assertFalse(house.hitsEnemies(new Position(10, 10)));
     }
 
@@ -97,7 +104,6 @@ public class HauntedHouseTest {
     public void testLastSpawned() {
         long value = 1000;
         house.setLastSpawned(value);
-
         assertEquals(value, house.getLastSpawned());
     }
 
@@ -105,7 +111,6 @@ public class HauntedHouseTest {
     public void testLastIncrementedScore() {
         long value = 1000;
         house.setLastIncrementedScore(value);
-
         assertEquals(value, house.getLastIncrementedScore());
     }
 
@@ -118,7 +123,6 @@ public class HauntedHouseTest {
     public void testIncreaseScore() {
         house.increaseScore(20);
         house.increaseScore(30);
-
         assertEquals(50, house.getScore());
     }
 

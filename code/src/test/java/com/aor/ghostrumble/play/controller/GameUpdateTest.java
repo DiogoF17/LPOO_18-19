@@ -178,9 +178,7 @@ public class GameUpdateTest {
         Mockito.when(house.getPlayer()).thenReturn(player);
         Mockito.when(queue.close()).thenReturn(false);
 
-        updater.checkForGameOver(queue, house);
-
-        Mockito.verify(house, times(0)).init();
+        assertFalse(updater.checkForGameOver(queue, house));
 
         Mockito.when(player.getCurrentHealth()).thenReturn(0);
 
@@ -198,9 +196,7 @@ public class GameUpdateTest {
         Mockito.when(house.getPlayer()).thenReturn(player);
         Mockito.when(queue.close()).thenReturn(false);
 
-        updater.checkForGameOver(queue, house);
-
-        Mockito.verify(house, times(0)).init();
+        assertFalse(updater.checkForGameOver(queue, house));
 
         Mockito.when(queue.close()).thenReturn(true);
 

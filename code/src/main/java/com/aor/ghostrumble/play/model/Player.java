@@ -23,11 +23,12 @@ public class Player extends Movable {
         this.observers = new ArrayList<>();
     }
 
+    public static int getMaxHealthConstant() { return MAX_HEALTH; }
+
     public int getCurrentHealth() { return currentHealth; }
     public int getMaxHealth() { return maxHealth; }
     public long getLastFired() { return lastFired; }
     public List<PlayerObserver> getObservers() { return observers; }
-    public final static int getMaxHealthConstant() { return MAX_HEALTH; }
 
     public void setLastFired(long lastFired) { this.lastFired = lastFired; }
 

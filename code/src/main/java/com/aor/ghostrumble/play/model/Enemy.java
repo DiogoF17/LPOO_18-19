@@ -20,8 +20,6 @@ public abstract class Enemy extends AutoMovable implements PlayerObserver {
 
     public int getDamage() { return damage; }
 
-    public void setDamage(int damage) { this.damage = damage; }
-
     public void setHitPlayer(boolean hitPlayer) {
         this.hitPlayer = hitPlayer;
     }

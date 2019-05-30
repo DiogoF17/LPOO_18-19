@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class GhostTest {
 
-    Ghost ghost;
+    private Ghost ghost;
 
     @Before
     public void init() {
@@ -29,4 +29,5 @@ public class GhostTest {
     public void testGhostMovement() {
         assertTrue(ghost.createMovStrategy() instanceof FreeMovement);
     }
+
 }

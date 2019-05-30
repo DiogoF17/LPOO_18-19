@@ -1,5 +1,6 @@
 package com.aor.ghostrumble.play.model;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -9,38 +10,55 @@ import static org.mockito.Mockito.times;
 
 public class PlayerTest {
 
+    private Player player;
+
+    @Before
+    public void playerInit() { player = new Player(); }
+
     @Test
     public void testInitMaxHP() {
-        Player player = new Player();
         assertEquals(player.getMaxHealth(), Player.getMaxHealthConstant());
     }
 
     @Test
     public void testInitFullHP() {
-        Player player = new Player();
         assertEquals(player.getCurrentHealth(), player.getMaxHealth());
     }
 
     @Test
+    public void testInitLastFired() {
+        assertEquals(0, player.getLastFired());
+    }
+
+    @Test
     public void testInitObservers() {
-        Player player = new Player();
         assertTrue(player.getObservers().isEmpty());
     }
 
     @Test
+    public void testSetLastFired() {
+
+        long time = 1000;
+        player.setLastFired(time);
+        assertEquals(1000, player.getLastFired());
+
+    }
+
+    @Test
     public void testAddObservers() {
-        Player player = new Player();
+
         PlayerObserver observer = Mockito.mock(PlayerObserver.class);
         player.addObserver(observer);
         player.addObserver(observer);
         player.addObserver(observer);
 
         assertEquals(3, player.getObservers().size());
+
     }
 
     @Test
     public void testRemoveObservers() {
-        Player player = new Player();
+
         PlayerObserver observer = Mockito.mock(PlayerObserver.class);
 
         player.addObserver(observer);
@@ -51,11 +69,12 @@ public class PlayerTest {
         player.removeObserver(player.getObservers().get(0));
 
         assertEquals(1, player.getObservers().size());
+
     }
 
     @Test
     public void testNotifyObservers() {
-        Player player = new Player();
+
         PlayerObserver observer = Mockito.mock(PlayerObserver.class);
         player.addObserver(observer);
         player.addObserver(observer);
@@ -66,24 +85,27 @@ public class PlayerTest {
         player.notifyObservers();
 
         Mockito.verify(observer, times(6)).update(any(Player.class));
+
     }
 
     @Test
     public void testPartlyDamagePlayer() {
-        Player player = new Player();
+
         int damage = player.getMaxHealth() - 10;
 
         player.damagePlayer(damage);
 
         assertEquals(player.getMaxHealth() - damage, player.getCurrentHealth());
+
     }
 
     @Test
     public void testFullyDamagePlayer() {
-        Player player = new Player();
 
         player.damagePlayer(player.getMaxHealth() + 20);
 
         assertEquals(0, player.getCurrentHealth());
+
     }
+
 }

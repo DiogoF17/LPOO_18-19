@@ -8,9 +8,11 @@ public class VerticalBulletTest {
 
     @Test
     public void testMove() {
+
         Bullet bullet = new VerticalBullet(10, 10, 1);
         Position position = new Position(10, 11);
         assertEquals(position, bullet.move());
+
     }
 
     @Test
@@ -18,6 +20,7 @@ public class VerticalBulletTest {
 
         Bullet bullet = new VerticalBullet(10, 10, 1);
         assertEquals(VerticalBullet.getVertBulletSpeed(), bullet.getSpeed());
+
     }
 
 }
