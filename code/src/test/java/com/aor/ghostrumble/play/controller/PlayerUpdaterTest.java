@@ -96,8 +96,8 @@ public class PlayerUpdaterTest {
 
         playerUpdater.movePlayer(player, player.moveLeft(), house);
 
-        Position relativePosition = new Position(0, 1);
-        Position expectedRelativePosition = new Position(enemy.getMovStrategy().getDeltaX(), enemy.getMovStrategy().getDeltaY());
+        Position expectedRelativePosition = new Position(0, 1);
+        Position relativePosition = new Position(enemy.getMovStrategy().getDeltaX(), enemy.getMovStrategy().getDeltaY());
 
         assertEquals(expectedRelativePosition, relativePosition);
     }
@@ -107,11 +107,8 @@ public class PlayerUpdaterTest {
         PlayerUpdater playerUpdater = new PlayerUpdater();
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
         Player player = Mockito.mock(Player.class);
-        List<Element> walls = new ArrayList<>();
-        walls.add(new Element(10, 10));
 
         Mockito.when(house.getPlayer()).thenReturn(player);
-        Mockito.when(house.getWalls()).thenReturn(walls);
         Mockito.when(house.hitsWall(any(Position.class))).thenReturn(true);
 
         assertFalse(playerUpdater.movePlayer(player, new Position(10, 10), house));
@@ -122,11 +119,8 @@ public class PlayerUpdaterTest {
         PlayerUpdater playerUpdater = new PlayerUpdater();
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
         Player player = Mockito.mock(Player.class);
-        List<Element> walls = new ArrayList<>();
-        walls.add(new Element(10, 10));
 
         Mockito.when(house.getPlayer()).thenReturn(player);
-        Mockito.when(house.getWalls()).thenReturn(walls);
         Mockito.when(house.hitsWall(any(Position.class))).thenReturn(false);
 
         assertTrue(playerUpdater.movePlayer(player, new Position(10, 10), house));

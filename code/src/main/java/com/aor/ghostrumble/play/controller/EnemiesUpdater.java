@@ -74,7 +74,6 @@ public class EnemiesUpdater {
         for (Enemy enemy : house.getEnemies()) {
             if (currentTimeMillis() - enemy.getLastMoved() > enemy.getSpeed()) {
                 moveEnemy(enemy, enemy.move(), house);
-                // enemy.setLastMoved(currentTimeMillis());
             }
         }
     }
@@ -86,7 +85,6 @@ public class EnemiesUpdater {
         if (!house.hitsEnemies(position)) {
             enemy.setPosition(position);
             enemy.setLastMoved(currentTimeMillis());
-            // enemy.update(house.getPlayer());
         }
     }
 }

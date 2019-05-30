@@ -40,8 +40,10 @@ public class Updater {
     private final static int SCORE_TIME_INCREASE = 10;
     private final static int SCORE_KILL_INCREASE = 50;
 
+    public final static int getScoreIncreaseRate() { return SCORE_INCREASE_RATE; }
     public final static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
     public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
+
 
     public boolean update(EventQueue eventQueue, HauntedHouse house) {
         eventQueue.executeEvents(this, house);

@@ -98,6 +98,7 @@ public class GameUpdateTest {
         updater.checkEnemyCollisions(house);
 
         assertTrue(enemies.get(0).flaggedForRemoval());
+        assertTrue(enemies.get(0).hasHitPlayer());
     }
 
     @Test
@@ -167,7 +168,7 @@ public class GameUpdateTest {
     }
 
     @Test
-    public void testCheckForGameOver() {
+    public void testCheckForGameOverPlayerHealth() {
         Updater updater = new Updater();
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
         EventQueue queue = Mockito.mock(EventQueue.class);
@@ -187,17 +188,37 @@ public class GameUpdateTest {
     }
 
     @Test
+    public void testCheckForGameOverQueueClose() {
+        Updater updater = new Updater();
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        EventQueue queue = Mockito.mock(EventQueue.class);
+
+        Player player = Mockito.mock(Player.class);
+        Mockito.when(player.getCurrentHealth()).thenReturn(2);
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(queue.close()).thenReturn(false);
+
+        updater.checkForGameOver(queue, house);
+
+        Mockito.verify(house, times(0)).init();
+
+        Mockito.when(queue.close()).thenReturn(true);
+
+        assertTrue(updater.checkForGameOver(queue, house));
+    }
+
+    @Test
     public void testIncreaseScoreTime() {
         Updater updater = new Updater();
         HauntedHouse house = new HauntedHouse(50, 50);
 
-        house.setLastIncrementedScore(3000 - currentTimeMillis());
+        house.setLastIncrementedScore(Updater.getScoreIncreaseRate() - currentTimeMillis());
         updater.increaseScoreWithTime(house);
 
-        house.setLastIncrementedScore(currentTimeMillis() - 3000);
+        house.setLastIncrementedScore(currentTimeMillis() - Updater.getScoreIncreaseRate());
         updater.increaseScoreWithTime(house);
 
-        house.setLastIncrementedScore(currentTimeMillis() - 3001);
+        house.setLastIncrementedScore(currentTimeMillis() - (Updater.getScoreIncreaseRate() + 1));
         updater.increaseScoreWithTime(house);
         updater.increaseScoreWithTime(house);
 
