@@ -15,14 +15,21 @@ import java.io.IOException;
 public class ViewLanternaFactory implements ViewAbstractFactory {
 
     private Screen screen;
-
-    private final static int SCREEN_WIDTH = 100;
-    private final static int SCREEN_HEIGHT = 35;
+    private int screenWidth;
+    private int screenHeight;
 
     public ViewLanternaFactory() {
+        this(100, 35);
+    }
+
+
+    public ViewLanternaFactory(int screenWidth, int screenHeight) {
+
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
 
         try {
-            Terminal terminal = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(SCREEN_WIDTH, SCREEN_HEIGHT)).createTerminal();
+            Terminal terminal = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(screenWidth, screenHeight)).createTerminal();
             this.screen = new TerminalScreen(terminal);
 
             this.screen.setCursorPosition(null);
@@ -36,15 +43,20 @@ public class ViewLanternaFactory implements ViewAbstractFactory {
     }
 
 
-    public int getScreenWidth() { return SCREEN_WIDTH; }
-    public int getScreenHeight() { return SCREEN_HEIGHT; }
+    public void setScreen(Screen screen) {
+        this.screen = screen;
+    }
+
+
+    public int getScreenWidth() { return screenWidth; }
+    public int getScreenHeight() { return screenHeight; }
 
     public ViewMenu createMenuView() {
-        return new ViewMenuLanterna(screen, SCREEN_WIDTH, SCREEN_HEIGHT);
+        return new ViewMenuLanterna(screen, screenWidth, screenHeight);
     }
 
     public ViewGame createGameView() {
-        return new ViewGameLanterna(screen, SCREEN_WIDTH, SCREEN_HEIGHT);
+        return new ViewGameLanterna(screen, screenWidth, screenHeight);
     }
 
     public void close() {

@@ -32,20 +32,6 @@ public class GameLanternaTest {
         assertTrue(queue.close());
     }
 
-    @Test
-    public void testCreateLanternaEventEOF() throws IOException {
-        Screen screen = Mockito.mock(Screen.class);
-        game.setScreen(screen);
-
-        KeyStroke key = Mockito.mock(KeyStroke.class);
-        Mockito.when(key.getKeyType()).thenReturn(KeyType.EOF);
-
-        Mockito.when(screen.readInput()).thenReturn(key);
-
-        EventQueue queue = new EventQueue();
-
-        assertFalse(game.handleInput(queue));
-    }
 
     @Test
     public void testCreateLanternaEventW() throws IOException {

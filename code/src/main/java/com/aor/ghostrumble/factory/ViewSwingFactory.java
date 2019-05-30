@@ -11,32 +11,45 @@ import java.awt.*;
 public class ViewSwingFactory implements ViewAbstractFactory {
 
     private JFrame frame;
-    private final static int SCREEN_WIDTH = 60;
-    private final static int SCREEN_HEIGHT = 40;
-    private final static int TILE_SIZE = 24;
-    private final static int BORDER_OFFSET = 16;
+    private int screenWidth;
+    private int screenHeight;
+    private int tileSize;
+    private int borderOffset;
 
     public ViewSwingFactory() {
+        this(60, 40, 24, 16);
+    }
+
+    public ViewSwingFactory(int screenWidth, int screenHeight, int tileSize, int borderOffset) {
+
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+        this.tileSize = tileSize;
+        this.borderOffset = borderOffset;
 
         frame = new JFrame("Ghost Rumble (GR)");
 
         frame.setLayout(new GridLayout());
         frame.setLocation(50,50);
-        frame.setSize(SCREEN_WIDTH * TILE_SIZE + BORDER_OFFSET, SCREEN_HEIGHT * TILE_SIZE);
+        frame.setSize(screenWidth * tileSize + borderOffset, screenHeight * tileSize);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
     }
 
-    public int getScreenWidth() { return SCREEN_WIDTH; }
-    public int getScreenHeight() { return SCREEN_HEIGHT; }
+    public int getScreenWidth() { return screenWidth; }
+    public int getScreenHeight() { return screenHeight; }
+    public int getTileSize() { return tileSize; }
+    public int getBorderOffset() { return borderOffset; }
+
+    public void setFrame(JFrame frame) { this.frame = frame; }
 
     public ViewMenu createMenuView() {
-        return new ViewMenuSwing(frame, SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, BORDER_OFFSET);
+        return new ViewMenuSwing(frame, screenWidth, screenHeight, tileSize, borderOffset);
     }
 
     public ViewGame createGameView() {
-        return new ViewGameSwing(frame, SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, BORDER_OFFSET);
+        return new ViewGameSwing(frame, screenWidth, screenHeight, tileSize, borderOffset);
     }
 
     public void close() {

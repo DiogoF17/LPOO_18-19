@@ -16,6 +16,11 @@ public abstract class MenuState extends State {
         this.view = factory.createMenuView();
     }
 
+    public MenuModel getModel() { return model; }
+    public ViewMenu getView() { return view; }
+    public void setModel(MenuModel model) { this.model = model; }
+    public void setView(ViewMenu view) { this.view = view; }
+
     @Override
     public boolean keepGoing() {
         return true;

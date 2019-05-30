@@ -26,12 +26,6 @@ public class EventQueueTest {
     }
 
     @Test
-    public void testInitExit() {
-        EventQueue queue = new EventQueue();
-        assertFalse(queue.exit());
-    }
-
-    @Test
     public void testRaiseEvent() {
         EventQueue queue = new EventQueue();
         queue.raiseEvent(new EventBulletDown());
@@ -46,14 +40,6 @@ public class EventQueueTest {
         queue.setClose(true);
 
         assertTrue(queue.close());
-    }
-
-    @Test
-    public void testSetExit() {
-        EventQueue queue = new EventQueue();
-        queue.setExit(true);
-
-        assertTrue(queue.exit());
     }
 
     @Test
