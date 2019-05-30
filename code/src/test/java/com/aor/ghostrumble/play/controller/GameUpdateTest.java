@@ -56,12 +56,6 @@ public class GameUpdateTest {
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
         Player player = Mockito.mock(Player.class);
 
-        List<Element> walls = new ArrayList<>();
-        Element wall = new Element(12, 12);
-        wall.setRemoveFlag(true);
-        walls.add(wall);
-        walls.add(wall);
-
         List<Bullet> bullets = new ArrayList<>();
         Bullet bullet = new HorizontalBullet(12, 12, 1);
         bullet.setRemoveFlag(true);
@@ -74,7 +68,6 @@ public class GameUpdateTest {
         enemies.add(enemy);
         enemies.add(enemy);
 
-        Mockito.when(house.getWalls()).thenReturn(walls);
         Mockito.when(house.getBullets()).thenReturn(bullets);
         Mockito.when(house.getEnemies()).thenReturn(enemies);
         Mockito.when(house.getPlayer()).thenReturn(player);
@@ -83,9 +76,8 @@ public class GameUpdateTest {
 
         updater.removeFlagged(house);
 
-        int finalCount = house.getWalls().size() +
-                        house.getBullets().size() +
-                        house.getEnemies().size();
+        int finalCount = house.getBullets().size() +
+                         house.getEnemies().size();
 
         assertEquals(0, finalCount);
     }
@@ -191,9 +183,7 @@ public class GameUpdateTest {
 
         Mockito.when(player.getCurrentHealth()).thenReturn(0);
 
-        updater.checkForGameOver(queue, house);
-
-        Mockito.verify(house, times(1)).init();
+        assertTrue(updater.checkForGameOver(queue, house));
     }
 
     @Test

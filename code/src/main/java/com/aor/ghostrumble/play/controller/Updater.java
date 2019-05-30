@@ -92,7 +92,9 @@ public class Updater {
 
     public void removeFlagged(HauntedHouse house) {
 
+/*
         house.getWalls().removeIf( w -> w.flaggedForRemoval());
+*/
         house.getBullets().removeIf( b -> b.flaggedForRemoval());
 
         ListIterator<Enemy> enemyItr = house.getEnemies().listIterator();

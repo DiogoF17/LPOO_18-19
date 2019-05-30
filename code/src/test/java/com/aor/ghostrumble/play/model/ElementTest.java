@@ -22,16 +22,7 @@ public class ElementTest {
         this.element = new Element(randomX, randomY);
     }
 
-    @Test
-    public void testInitRemoveFlag() {
-        assertFalse(element.flaggedForRemoval());
-    }
 
-    @Test
-    public void testSetRemoveFlag() {
-        element.setRemoveFlag(true);
-        assertTrue(element.flaggedForRemoval());
-    }
 
     @Test
     public void testPosition() {

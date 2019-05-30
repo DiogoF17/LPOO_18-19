@@ -6,11 +6,21 @@ public abstract class AutoMovable extends Movable {
 
     private int speed;
     private long lastMoved;
+    private boolean removeFlag;
 
     public AutoMovable(int x, int y, int speed) {
         super(x, y);
         this.speed = speed;
         this.lastMoved = 0;
+        this.removeFlag = false;
+    }
+
+    public boolean flaggedForRemoval() {
+        return removeFlag;
+    }
+
+    public void setRemoveFlag(boolean removeFlag) {
+        this.removeFlag = removeFlag;
     }
 
     public int getSpeed() {

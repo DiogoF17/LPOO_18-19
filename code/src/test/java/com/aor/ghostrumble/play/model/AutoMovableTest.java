@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static java.lang.System.currentTimeMillis;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class AutoMovableTest {
 
@@ -19,6 +19,17 @@ public class AutoMovableTest {
     @Before
     public void init() {
         autoMovable = new Zombie(10, 10);
+    }
+
+    @Test
+    public void testInitRemoveFlag() {
+        assertFalse(autoMovable.flaggedForRemoval());
+    }
+
+    @Test
+    public void testSetRemoveFlag() {
+        autoMovable.setRemoveFlag(true);
+        assertTrue(autoMovable.flaggedForRemoval());
     }
 
     @Test
