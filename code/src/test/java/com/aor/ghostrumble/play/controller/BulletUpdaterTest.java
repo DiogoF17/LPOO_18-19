@@ -16,13 +16,13 @@ public class BulletUpdaterTest {
 
     @Test
     public void testLaunchHorizontalBullet() {
+
         BulletsUpdater updater = new BulletsUpdater();
         HauntedHouse house = new HauntedHouse(50, 30);
 
         long canShootTime = currentTimeMillis() - 501;
 
         updater.launchHorizontalBullet(house, 1);
-
 
         assertEquals(1, house.getBullets().size());
         assertEquals(house.getPlayer().getPosition().getX() + 1, house.getBullets().get(0).getPosition().getX());
@@ -49,17 +49,18 @@ public class BulletUpdaterTest {
         updater.launchHorizontalBullet(house, 1);
 
         assertEquals(5, house.getBullets().size());
+
     }
 
     @Test
     public void testLaunchVerticalBullet() {
+
         BulletsUpdater updater = new BulletsUpdater();
         HauntedHouse house = new HauntedHouse(50, 30);
 
         long canShootTime = currentTimeMillis() - 501;
 
         updater.launchVerticalBullet(house, 1);
-
 
         assertEquals(1, house.getBullets().size());
         assertEquals(house.getPlayer().getPosition().getX(), house.getBullets().get(0).getPosition().getX());
@@ -86,10 +87,12 @@ public class BulletUpdaterTest {
         updater.launchVerticalBullet(house, 1);
 
         assertEquals(5, house.getBullets().size());
+
     }
 
     @Test
     public void testFireRefreshRate() {
+
         BulletsUpdater updater = new BulletsUpdater();
         HauntedHouse house = Mockito.spy(new HauntedHouse(50, 30));
         Player player = Mockito.spy(new Player());
@@ -125,10 +128,12 @@ public class BulletUpdaterTest {
         updater.launchHorizontalBullet(house, 1);
 
         assertEquals(2, house.getBullets().size());
+
     }
 
     @Test
     public void testBulletMovement() {
+
         BulletsUpdater updater = new BulletsUpdater();
         Bullet horizontalBulletFront = Mockito.spy(new HorizontalBullet(10, 10, 1));
         Bullet horizontalBulletBack = Mockito.spy(new HorizontalBullet(20, 20, -1));
@@ -166,10 +171,12 @@ public class BulletUpdaterTest {
         for (int i = 0; i < bullets.size(); i++) {
             assertEquals(expected.get(i).getPosition(), bullets.get(i).getPosition());
         }
+
     }
 
     @Test
     public void testBulletSpeed() {
+
         BulletsUpdater updater = new BulletsUpdater();
         Bullet horizontalBulletFront = Mockito.spy(new HorizontalBullet(10, 10, 1));
 
@@ -198,6 +205,7 @@ public class BulletUpdaterTest {
         updater.moveBullets(house);
 
         assertEquals(bullets.get(0).getPosition(), expected.get(0).getPosition());
+
     }
 
 }

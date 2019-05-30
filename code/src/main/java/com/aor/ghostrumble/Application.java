@@ -7,9 +7,8 @@ import java.util.Scanner;
 
 public class Application {
 
-    private static int getGameType() {
+    public static int getGameType(Scanner scan) {
 
-        Scanner scan = new Scanner(System.in);
         int i;
 
         do {
@@ -36,7 +35,7 @@ public class Application {
 
             Game game;
 
-            if (getGameType() == 0) {
+            if (getGameType(new Scanner(System.in)) == 0) {
                 System.out.println("You chose - RETRO");
                 game = new Game(new ViewLanternaFactory());
             }
