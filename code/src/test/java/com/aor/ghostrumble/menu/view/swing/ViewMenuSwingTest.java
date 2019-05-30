@@ -55,7 +55,6 @@ public class ViewMenuSwingTest {
 
     @Test
     public void testViewMenuSwingIrrelevantKeyType() {
-
         KeyEvent e = Mockito.mock(KeyEvent.class);
         Mockito.when(e.getKeyCode()).thenReturn(VK_E);
 
@@ -65,7 +64,6 @@ public class ViewMenuSwingTest {
 
     @Test
     public void testViewMenuSwingPrepareStateChange() {
-
         view.prepareStateChange();
         Mockito.verify(frame, Mockito.times(1)).remove(any(JComponent.class));
     }

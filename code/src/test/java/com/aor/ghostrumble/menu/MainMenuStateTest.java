@@ -25,7 +25,6 @@ public class MainMenuStateTest {
         state = new MainMenuState(fac);
     }
 
-
     @Test
     public void testKeepGoingInitial() {
         assertTrue(state.keepGoing());

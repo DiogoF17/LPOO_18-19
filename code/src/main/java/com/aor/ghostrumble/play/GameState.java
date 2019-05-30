@@ -20,6 +20,14 @@ public class GameState extends State {
         this.updater = new Updater();
     }
 
+    public HauntedHouse getModel() { return house; }
+    public ViewGame getView() { return view; }
+    public Updater getController() { return updater; }
+    public void setModel(HauntedHouse house) { this.house = house; }
+    public void setView(ViewGame view) { this.view = view; }
+    public void setController(Updater updater) { this.updater = updater; }
+
+
     public void handleInput() {
         this.view.handleInput();
     }
