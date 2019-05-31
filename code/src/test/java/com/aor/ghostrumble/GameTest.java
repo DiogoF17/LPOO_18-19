@@ -37,10 +37,9 @@ public class GameTest {
     @Test
     public void testNewStateObserver() {
 
-        ViewAbstractFactory factory = Mockito.mock(ViewAbstractFactory.class);
-        State state = new MainMenuState(factory);
+        State state = Mockito.mock(State.class);
         game.changeState(state);
-        assertEquals(game, state.getObserver());
+        Mockito.verify(state, Mockito.times(1)).setObserver(game);
 
     }
 
