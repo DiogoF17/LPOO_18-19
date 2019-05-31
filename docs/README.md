@@ -143,26 +143,32 @@
 > As said before, in the very beginning of the game, the user is asked whether he would like to run the game with Swing or Lanterna. Based on their answer, the right concrete factory is created and passed to the game; when the menu View or the main game View is needed, all that needs to be done is to call the appropriate method for that.
      
 #### 2.3 Implementation  
-
-(MUDAR DIAGRAMA)
-
 > Here's how we decided to implement the design pattern:
-![Alt text](diagrams/UML_FactoryMethod_1/UML_FactoryMethod_1.png)
+
+![Alt text](diagrams/UML_AbstractFactory/UML_AbstractFactory.png)
 
 > The classes can be found in the following files:
 >
->[Game](../code/src/main/java/com/aor/ghostrumble/Game.java)
+> [ViewAbstractFactory](../code/src/main/java/com/aor/ghostrumble/factory/ViewAbstractFactory.java)
 >
->[GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/GameLanterna.java)
+> [ViewLanternaFactory](../code/src/main/java/com/aor/ghostrumble/view/factory/ViewLanternaFactory.java)
 >
->[GameSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
+> [ViewSwingFactory](../code/src/main/java/com/aor/ghostrumble/view/factory/ViewSwingFactory.java)
 >
->[DrawingMethod](../code/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
+> [ViewMenu](../code/src/main/java/com/aor/ghostrumble/menu/view/ViewMenu.java)
 >
->[DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/DrawLanterna.java)
+> [ViewMenuLanterna](../code/src/main/java/com/aor/ghostrumble/menu/view/lanterna/ViewMenuLanterna.java)
 >
->[DrawSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
-        
+> [ViewMenuSwing](../code/src/main/java/com/aor/ghostrumble/menu/view/swing/ViewMenuSwing.java)
+>
+> [ViewGame](../code/src/main/java/com/aor/ghostrumble/play/view/ViewGame.java)
+>
+> [ViewGameLanterna](../code/src/main/java/com/aor/ghostrumble/play/view/lanterna/ViewGameLanterna.java)
+>
+> [ViewGameSwing](../code/src/main/java/com/aor/ghostrumble/play/view/swing/ViewGameSwing.java)
+>
+> NOTE: The factory, after it is created at the beginning of the program, it is passed to the game class, which then passes it to the game state so he can instanciate the proper view type (the states will be covered later in the report).
+>
 #### 2.4 Consequences
 > The main advantage of the usage of this pattern is the ease to change product families (in this case, between the Lanterna family of views and Swing family of views); the only thing that needs to be done, as said before, is just change what type of concrete factory we are using to create those views. We can see this in our [Application](../code/src/main/java/com/aor/ghostrumble/Application.java) class.
 >
