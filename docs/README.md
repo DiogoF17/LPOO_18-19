@@ -4,7 +4,7 @@
 
 > The game lasts as long as the player is able to survive and overcome the monsters, by dodging and shooting them. If he lets the enemies get too close and touch him, his health will be lowered; the game ends when the player's HP drops to 0.
 
-> The game is being developed by Eduardo Ribeiro (up201705421@fe.up.pt) and Diogo Machado (up201706832@fe.up.pt).
+> The game is being developed by Diogo Machado (up201706832@fe.up.pt) and Eduardo Ribeiro (up201705421@fe.up.pt).
 
 ## Implemented Features
 
@@ -36,13 +36,13 @@
 > The current score is displayed at the top right of the screen. It will slowly increment from time to time, if the player manages to keep surviving. It will also increase, by a bigger amount, if an enemy is killed.
 
 ### Game Over
-> If the player's health goes down to 0, the game resets (the score is set to 0, all the enemies and bullets disappear, etc) and a new game starts. In the console, a message is printed showing the user what was the final score.
+> If the player's health goes down to 0, the game ends and the player is taken to a game over screen.
+
+### Main Menu and Game Over Screen
+> When the game is loaded, the player will be presented with a main menu screen, with the title of the game (Ghost Rumble (GR)) and the options to play and exit the game. As said before, when the player loses, they are taken to a game over screen, where they have the option to play again a new game, or return to the main menu.
 
 ## Planned Features
 > Some features in this module may never be added to the game; we're still deciding what we should implement or not.
-
-### Main Menu and Game Over Screen (?)
-> The game could also have a main menu screen, and a game over screen, for when the player loses.
 
 ### Upgrade Spawning in the Haunted House (?)
 > From time to time, an upgrade would spawn on a random location of the house; if the player picks it up, it can restore his health, increase his max health, speed, etc, depending on the type of the upgrade.
