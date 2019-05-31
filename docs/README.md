@@ -151,9 +151,9 @@
 >
 > [ViewAbstractFactory](../code/src/main/java/com/aor/ghostrumble/factory/ViewAbstractFactory.java)
 >
-> [ViewLanternaFactory](../code/src/main/java/com/aor/ghostrumble/view/factory/ViewLanternaFactory.java)
+> [ViewLanternaFactory](../code/src/main/java/com/aor/ghostrumble/factory/ViewLanternaFactory.java)
 >
-> [ViewSwingFactory](../code/src/main/java/com/aor/ghostrumble/view/factory/ViewSwingFactory.java)
+> [ViewSwingFactory](../code/src/main/java/com/aor/ghostrumble/factory/ViewSwingFactory.java)
 >
 > [ViewMenu](../code/src/main/java/com/aor/ghostrumble/menu/view/ViewMenu.java)
 >
