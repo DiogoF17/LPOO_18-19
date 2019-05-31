@@ -310,6 +310,8 @@
 
 > Screenshot of test coverage and mutation testing reports:
 >
+> ![Alt text](testResults/Screenshot_IntelliJ_PassedTests.png)
+>
 > ![Alt text](testResults/Screenshot_IntelliJ_Coverage.png)
 >
 > ![Alt text](testResults/Screenshot_Pitest.png)
