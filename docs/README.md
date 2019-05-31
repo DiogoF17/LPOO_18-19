@@ -15,7 +15,7 @@
 > The player is able to move using the WASD keys.
 
 ### Movement of the Monsters
-> The different types os monsters and creatures each have their own way of travelling arround the map; they also have different speeds.
+> The different types of monsters and creatures each have their own way of travelling arround the map; they also have different speeds.
 
 ### Monsters Chase the Player
 > The monsters, instead of roaming around the haunted house, will actually pursue the player and try to chase him down.
@@ -41,16 +41,23 @@
 ### Main Menu and Game Over Screen
 > When the game is loaded, the player will be presented with a main menu screen, with the title of the game (Ghost Rumble (GR)) and the options to play and exit the game. As said before, when the player loses, they are taken to a game over screen, where they have the option to play again a new game, or return to the main menu.
 
-## Planned Features
-> Some features in this module may never be added to the game; we're still deciding what we should implement or not.
+### Screenshots
+> Here are some screenshots that ilustrate the most importante features of our game:
+>
+![Alt text](screenshots/FeaturePrint1.png)
+>
+![Alt text](screenshots/FeaturePrint2.png)
+>
+![Alt text](screenshots/FeaturePrint3.png)
 
-### Upgrade Spawning in the Haunted House (?)
+## Planned Features
+> As of now (and considering the main focus of the project is the structure of the code and use of design patterns, rather than its complexity and playability), we are happy with the features we have implemented. However, if we had more time, we could've implemented some of the following features:
+
+### Upgrade Spawning in the Haunted House
 > From time to time, an upgrade would spawn on a random location of the house; if the player picks it up, it can restore his health, increase his max health, speed, etc, depending on the type of the upgrade.
 
-### Coin Collecting (?)
-> In the future there may be coins scattered arround the house, for the player to collect (it could increase the score).
-
-### ... and maybe some more.
+### Coin Collecting
+> There could be coins scattered arround the house, for the player to collect (it could increase the score).
 
 ## Design
 ### 1. Separating the Game's Modules
