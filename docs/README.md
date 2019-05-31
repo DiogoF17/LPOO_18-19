@@ -76,37 +76,51 @@
 > In the menus MVC, we have a different Model and View, related to the existing information in that part of the game. We also have a different group of events, the MenuEvents, that represent the possible changes that could be made and triggered by user inputs; some of these events update the Model accordingly. The View, just like the main game's View, receives user input, creates the correct event, and draws the Model onto the screen.
 
 #### 1.3 The Implementation
-> Here's how we decided to implement the pattern (NOTE: The Game and DrawingMethod classes also have subclasses for Swing; those are not shown here in order to not complicate the URL diagram):
+> Here's how we decided to implement the pattern:
+>
+> Main game MVC:
 
-(MUDAR DIAGRAMA)
-
-![Alt text](diagrams/UML_MVC/UML_MVC.png)
+![Alt text](diagrams/UML_MVCMainGame/UML_MVCMainGame.png)
 
 > The classes can be found in the following files:
 >
-> [Game](../code/src/main/java/com/aor/ghostrumble/Game.java)
+> [ViewGame](../code/src/main/java/com/aor/ghostrumble/play/view/ViewGame.java)
 >
-> [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/GameLanterna.java)
+> [ViewGameLanterna](../code/src/main/java/com/aor/ghostrumble/play/view/lanterna/ViewGameLanterna.java)
 >
-> [GameSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
+> [ViewGameSwing](../code/src/main/java/com/aor/ghostrumble/play/view/swing/ViewGameSwing.java)
 >
-> [DrawingMethod](../code/src/main/java/com/aor/ghostrumble/view/DrawingMethod.java)
+> [HauntedHouse](../code/src/main/java/com/aor/ghostrumble/play/model/HauntedHouse.java)
 >
-> [DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/lanterna/DrawLanterna.java)
+> [Updater](../code/src/main/java/com/aor/ghostrumble/controller/play/controller/Updater.java)
 >
-> [DrawSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/DrawSwing.java)
+> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/play/controller/PlayerUpdater.java)
 >
-> [HauntedHouse](../code/src/main/java/com/aor/ghostrumble/model/HauntedHouse.java)
+> [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/play/controller/EnemiesUpdater.java)
 >
-> [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java)
+> [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/controller/play/controller/BulletsUpdater.java)
 >
-> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/PlayerUpdater.java)
+> Menus MVC:
+
+![Alt text](diagrams/UML_MVCMenu/UML_MVCMenu.png)
+
+> The classes can be found in the following files:
 >
-> [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/EnemiesUpdater.java)
+> [ViewMenu](../code/src/main/java/com/aor/ghostrumble/menu/view/ViewMenu.java)
 >
-> [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/controller/BulletsUpdater.java)
+> [ViewMenuLanterna](../code/src/main/java/com/aor/ghostrumble/menu/view/lanterna/ViewMenuLanterna.java)
 >
-> [EventQueue](../code/src/main/java/com/aor/ghostrumble/controller/event/EventQueue.java)
+> [ViewMenuSwing](../code/src/main/java/com/aor/ghostrumble/menu/view/swing/ViewMenuSwing.java)
+>
+> [MenuModel](../code/src/main/java/com/aor/ghostrumble/menu/model/MenuModel.java)
+>
+> [MenuEvent](../code/src/main/java/com/aor/ghostrumble/menu/event/MenuEvent.java)
+>
+> [EventChangeOption](../code/src/main/java/com/aor/ghostrumble/menu/event/EventChangeOption.java)
+>
+> [EventConfirmOption](../code/src/main/java/com/aor/ghostrumble/menu/event/EventConfirmOption.java)
+>
+> [NullEvent](../code/src/main/java/com/aor/ghostrumble/menu/event/NullEvent.java)
 >
 > In the main game View, we opted to separate the input and event creation module from the drawing module. We did that by putting those functionalities into two different classes (for example ViewGameLanterna and DrawLanternaGame), and making the Draw class an attribute of the main View class; when the main View class needs to draw the model, it delegates that action to the Draw class. We did this because even though the two modules aren't exactly independent and separated (one depends on the other), in our point of view it contributed not only to the non-violation of the Single Responsability Principle, but also to the simplification of each class, given the size of the drawing functions for the main game.
 >
