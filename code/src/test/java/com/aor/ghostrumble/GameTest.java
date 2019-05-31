@@ -51,7 +51,8 @@ public class GameTest {
      //     metodos dentro de run()
      //   - o facto de se poder comprovar o devido funcionamento deste metodo tendo em
      //     conta apenas a sua simplicidade (nao faz nenhum processamento independente,
-     //     apenas mantem a "cadeia" de acoes entre as varias partes do MVC) e o
-     //     correto funcionamento do jogo, quando corrido efetivamente, fora dos testes
+     //     apenas faz com que o estado atual mantenha a "cadeia" de acoes entre as varias
+     //     partes do MVC) e o correto funcionamento do jogo, quando corrido efetivamente,
+     //     fora dos testes.
 
 }
