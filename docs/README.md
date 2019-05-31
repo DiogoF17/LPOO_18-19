@@ -45,7 +45,7 @@
 > When the game is loaded, the player will be presented with a main menu screen, with the title of the game (Ghost Rumble (GR)) and the options to play and exit the game. As said before, when the player loses, they are taken to a game over screen, where they have the option to play again a new game, or return to the main menu.
 
 ### Screenshots
-> Here are some screenshots that ilustrate the most importante features of our game:
+> Here are some screenshots that ilustrate the most important features of our game:
 >
 ![Alt text](screenshots/FeaturePrint1.png)
 >
@@ -321,7 +321,7 @@
 > As can be seen, a coverage of 100% was not achieved on the testing of our project. This can be attributed to a number of factors:
 >> #### Classes and Methods that only call other methods:
 >>
->> Some methods, such as [Application](../code/src/main/java/com/aor/ghostrumble/Application.java).main(), [Game](../code/src/main/java/com/aor/ghostrumble/Game.java).run(), and [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java).update(), only call other methods, which are already unit tested, making it redundant to test these methods as well.
+>> Some methods, such as [Application](../code/src/main/java/com/aor/ghostrumble/Application.java).main() and [Game](../code/src/main/java/com/aor/ghostrumble/Game.java).run(), only call other methods, which are already unit tested, making it redundant to test these methods as well.
 >
 >> #### Random generation of data: 
 >>
