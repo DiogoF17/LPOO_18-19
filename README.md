@@ -7,7 +7,31 @@
 ## Screenshots
 
 > Some screenshots that illustrate the game.
+> Here are some screenshots that ilustrate the general look of our game, as well as the different functionalities:
+>
+![Alt text](docs/screenshots/FeaturePrint1.png)
+>
+![Alt text](docs/screenshots/FeaturePrint2.png)
+>
+![Alt text](docs/screenshots/FeaturePrint3.png)
+>
+![Alt text](docs/screenshots/SwingPrint1.png)
+>
+![Alt text](docs/screenshots/SwingPrint2.png)
+>
+![Alt text](docs/screenshots/SwingPrint3.png)
+>
+![Alt text](docs/screenshots/SwingPrint4.png)
+
 
 ## Install Instructions
 
-> How can someone install the game in their computer.
+> How can someone install the game in their computer:
+>> Download the ['code'](code) folder from the repository.
+>>
+>> Open the folder as a project in IntelliJ IDEA. (Make sure not to accidentally import it :-] to open it is enough.)
+>>> Note: Choose the "Use Gradle 'wrapper' task configuration" option.
+>>
+>> Right click the 'Application' class, from the base package of the project (com.aor.ghostrumble) and choose "Run 'Application.main()'".
+>>
+>> Done!
