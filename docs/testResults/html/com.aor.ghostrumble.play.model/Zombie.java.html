@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>Zombie.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.aor.ghostrumble.play.model;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class Zombie extends Enemy {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final static int ZOMBIE_SPEED = 350;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final static int ZOMBIE_DAMAGE = 2;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Zombie(int x, int y) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(x, y, ZOMBIE_SPEED, ZOMBIE_DAMAGE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_12'/>
+12
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_12'>1</a>
+<span>
+
+1. getZombieSpeed : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    public static int getZombieSpeed() { return ZOMBIE_SPEED; }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_13'/>
+13
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_13'>1</a>
+<span>
+
+1. getZombieDamage : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    public static int getZombieDamage() { return ZOMBIE_DAMAGE; }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_16'/>
+16
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_16'>1</a>
+<span>
+
+1. createMovStrategy : mutated return of Object value for com/aor/ghostrumble/play/model/Zombie::createMovStrategy to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    protected MovementStrategy createMovStrategy() { return new LinearMovement(); }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@745cf754_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@745cf754_12'>12</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_12'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getZombieSpeed<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.ZombieTest.testZombieSpeed(com.aor.ghostrumble.play.model.ZombieTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@745cf754_13'>13</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_13'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getZombieDamage<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.ZombieTest.testZombieDamage(com.aor.ghostrumble.play.model.ZombieTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@745cf754_16'>16</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@745cf754_16'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createMovStrategy<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.ZombieTest.testZombieMovement(com.aor.ghostrumble.play.model.ZombieTest)</span></span> mutated return of Object value for com/aor/ghostrumble/play/model/Zombie::createMovStrategy to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+
+<li class='mutator'>MATH_MUTATOR</li>
+
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.aor.ghostrumble.play.model.EnemyTest.testHitPlayerTrue(com.aor.ghostrumble.play.model.EnemyTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testWalkThroughEnemiesUp(com.aor.ghostrumble.play.controller.GameUpdateTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.EnemiesUpdaterTest.testEnemyMovement(com.aor.ghostrumble.play.controller.EnemiesUpdaterTest) (105 ms)</li><li>com.aor.ghostrumble.play.model.AutoMovableTest.testGetSpeed(com.aor.ghostrumble.play.model.AutoMovableTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.HauntedHouseTest.testAddEnemiesObs(com.aor.ghostrumble.play.model.HauntedHouseTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.MovementStrategyTest.testMove(com.aor.ghostrumble.play.model.MovementStrategyTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.EnemiesUpdaterTest.testSpawnEnemy(com.aor.ghostrumble.play.controller.EnemiesUpdaterTest) (8 ms)</li><li>com.aor.ghostrumble.play.model.ZombieTest.testZombieMovement(com.aor.ghostrumble.play.model.ZombieTest) (3 ms)</li><li>com.aor.ghostrumble.play.model.AutoMovableTest.testSetRemoveFlag(com.aor.ghostrumble.play.model.AutoMovableTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.AutoMovableTest.testGetLastMoved(com.aor.ghostrumble.play.model.AutoMovableTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.EnemyTest.testUpdate(com.aor.ghostrumble.play.model.EnemyTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.EnemyTest.testGetStrat(com.aor.ghostrumble.play.model.EnemyTest) (20 ms)</li><li>com.aor.ghostrumble.play.model.AutoMovableTest.testSetSpeed(com.aor.ghostrumble.play.model.AutoMovableTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.HauntedHouseTest.testMonsterInPositionTrue(com.aor.ghostrumble.play.model.HauntedHouseTest) (1 ms)</li><li>com.aor.ghostrumble.play.controller.EnemiesUpdaterTest.testEnemySpeed(com.aor.ghostrumble.play.controller.EnemiesUpdaterTest) (12 ms)</li><li>com.aor.ghostrumble.play.model.ZombieTest.testZombieSpeed(com.aor.ghostrumble.play.model.ZombieTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testWalkThroughEnemiesLeft(com.aor.ghostrumble.play.controller.GameUpdateTest) (5 ms)</li><li>com.aor.ghostrumble.play.model.EnemyTest.testHitPlayerFalse(com.aor.ghostrumble.play.model.EnemyTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.HauntedHouseTest.testAddEnemies(com.aor.ghostrumble.play.model.HauntedHouseTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testCheckEnemyCollisions(com.aor.ghostrumble.play.controller.GameUpdateTest) (2 ms)</li><li>com.aor.ghostrumble.play.model.EnemyTest.testGetDamage(com.aor.ghostrumble.play.model.EnemyTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testRemoveFlagged(com.aor.ghostrumble.play.controller.GameUpdateTest) (4 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testWalkThroughEnemiesDown(com.aor.ghostrumble.play.controller.GameUpdateTest) (5 ms)</li><li>com.aor.ghostrumble.play.model.EnemyTest.testMove(com.aor.ghostrumble.play.model.EnemyTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testBulletEnemyCollision(com.aor.ghostrumble.play.controller.GameUpdateTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.PlayerUpdaterTest.testPlayerNotify(com.aor.ghostrumble.play.controller.PlayerUpdaterTest) (5 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testWalkThroughEnemiesRight(com.aor.ghostrumble.play.controller.GameUpdateTest) (4 ms)</li><li>com.aor.ghostrumble.play.model.AutoMovableTest.testInitRemoveFlag(com.aor.ghostrumble.play.model.AutoMovableTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.HauntedHouseTest.testMonsterInPositionFalse(com.aor.ghostrumble.play.model.HauntedHouseTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.AutoMovableTest.testSetLastMoved(com.aor.ghostrumble.play.model.AutoMovableTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testDeleteEnemies(com.aor.ghostrumble.play.controller.GameUpdateTest) (4 ms)</li><li>com.aor.ghostrumble.play.model.ZombieTest.testZombieDamage(com.aor.ghostrumble.play.model.ZombieTest) (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.3
+
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>Movable.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.aor.ghostrumble.play.model;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public abstract class Movable extends Element {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public Movable(int x, int y) { super(x, y); }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_8'/>
+8
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_8'>3</a>
+<span>
+
+1. moveCustom : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+2. moveCustom : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+3. moveCustom : mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveCustom to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    protected Position moveCustom(int x, int y) { return new Position(position.getX() + x, position.getY() + y); }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_10'/>
+10
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_10'>1</a>
+<span>
+
+1. moveUp : mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveUp to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    public Position moveUp() { return moveCustom(0, -1); }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_12'/>
+12
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_12'>1</a>
+<span>
+
+1. moveDown : mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveDown to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    public Position moveDown() { return moveCustom(0, 1); }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_14'/>
+14
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_14'>1</a>
+<span>
+
+1. moveLeft : mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveLeft to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    public Position moveLeft() { return moveCustom(-1, 0); }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_16'/>
+16
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_16'>1</a>
+<span>
+
+1. moveRight : mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveRight to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    public Position moveRight() { return moveCustom(1, 0); }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22f80e36_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22f80e36_8'>8</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_8'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveCustom<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.MovableTest.testMoveCustom(com.aor.ghostrumble.play.model.MovableTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>moveCustom<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.MovableTest.testMoveCustom(com.aor.ghostrumble.play.model.MovableTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>moveCustom<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.MovableTest.testMoveCustom(com.aor.ghostrumble.play.model.MovableTest)</span></span> mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveCustom to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22f80e36_10'>10</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_10'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveUp<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.MovableTest.testMoveUp(com.aor.ghostrumble.play.model.MovableTest)</span></span> mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveUp to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22f80e36_12'>12</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_12'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveDown<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.MovableTest.testMoveDown(com.aor.ghostrumble.play.model.MovableTest)</span></span> mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveDown to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22f80e36_14'>14</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_14'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveLeft<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.MovableTest.testMoveLeft(com.aor.ghostrumble.play.model.MovableTest)</span></span> mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveLeft to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22f80e36_16'>16</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22f80e36_16'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveRight<br/><b>Killed by : </b>com.aor.ghostrumble.play.model.MovableTest.testMoveRight(com.aor.ghostrumble.play.model.MovableTest)</span></span> mutated return of Object value for com/aor/ghostrumble/play/model/Movable::moveRight to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+
+<li class='mutator'>MATH_MUTATOR</li>
+
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.aor.ghostrumble.play.controller.GameUpdateTest.testWalkThroughEnemiesUp(com.aor.ghostrumble.play.controller.GameUpdateTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testWalkThroughEnemiesLeft(com.aor.ghostrumble.play.controller.GameUpdateTest) (5 ms)</li><li>com.aor.ghostrumble.play.model.MovableTest.testMoveRight(com.aor.ghostrumble.play.model.MovableTest) (7 ms)</li><li>com.aor.ghostrumble.play.model.MovableTest.testMoveLeft(com.aor.ghostrumble.play.model.MovableTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.BulletUpdaterTest.testBulletSpeed(com.aor.ghostrumble.play.controller.BulletUpdaterTest) (10 ms)</li><li>com.aor.ghostrumble.play.controller.EnemiesUpdaterTest.testEnemyMovement(com.aor.ghostrumble.play.controller.EnemiesUpdaterTest) (105 ms)</li><li>com.aor.ghostrumble.play.model.VerticalBulletTest.testMove(com.aor.ghostrumble.play.model.VerticalBulletTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.event.EventQueueTest.testCallCollision(com.aor.ghostrumble.play.controller.event.EventQueueTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.MovableTest.testMoveDown(com.aor.ghostrumble.play.model.MovableTest) (0 ms)</li><li>com.aor.ghostrumble.play.model.HorizontalBulletTest.testMove(com.aor.ghostrumble.play.model.HorizontalBulletTest) (3 ms)</li><li>com.aor.ghostrumble.play.model.MovementStrategyTest.testMove(com.aor.ghostrumble.play.model.MovementStrategyTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.PlayerUpdaterTest.testMovePlayer(com.aor.ghostrumble.play.controller.PlayerUpdaterTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testWalkThroughEnemiesDown(com.aor.ghostrumble.play.controller.GameUpdateTest) (5 ms)</li><li>com.aor.ghostrumble.play.controller.BulletUpdaterTest.testBulletMovement(com.aor.ghostrumble.play.controller.BulletUpdaterTest) (89 ms)</li><li>com.aor.ghostrumble.play.model.MovableTest.testMoveCustom(com.aor.ghostrumble.play.model.MovableTest) (0 ms)</li><li>com.aor.ghostrumble.play.controller.PlayerUpdaterTest.testPlayerNotify(com.aor.ghostrumble.play.controller.PlayerUpdaterTest) (5 ms)</li><li>com.aor.ghostrumble.play.controller.GameUpdateTest.testWalkThroughEnemiesRight(com.aor.ghostrumble.play.controller.GameUpdateTest) (4 ms)</li><li>com.aor.ghostrumble.play.controller.EnemiesUpdaterTest.testEnemySpeed(com.aor.ghostrumble.play.controller.EnemiesUpdaterTest) (12 ms)</li><li>com.aor.ghostrumble.play.model.MovableTest.testMoveUp(com.aor.ghostrumble.play.model.MovableTest) (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.3
+
+</body>
+</html>
