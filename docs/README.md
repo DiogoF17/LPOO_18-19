@@ -92,13 +92,13 @@
 >
 > [HauntedHouse](../code/src/main/java/com/aor/ghostrumble/play/model/HauntedHouse.java)
 >
-> [Updater](../code/src/main/java/com/aor/ghostrumble/controller/play/controller/Updater.java)
+> [Updater](../code/src/main/java/com/aor/ghostrumble/play/controller/Updater.java)
 >
-> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/play/controller/PlayerUpdater.java)
+> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/play/controller/PlayerUpdater.java)
 >
-> [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/play/controller/EnemiesUpdater.java)
+> [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/play/controller/EnemiesUpdater.java)
 >
-> [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/controller/play/controller/BulletsUpdater.java)
+> [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/play/controller/BulletsUpdater.java)
 >
 > Menus MVC:
 
