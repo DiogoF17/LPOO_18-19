@@ -8,6 +8,9 @@
 
 ## Implemented Features
 
+### "Retro" and "Modern" Styles
+> In the beginning of the game, the user is asked whether they would like to play the "retro" themed game (Lanterna), or the "Modern" version of it (Swing).
+
 ### Player, Walls, and Enemies Representation
 > The player character is shown inside a haunted house, delimited by walls, that the player cannot trespass; some monsters, like zombies and ghosts, will appear in the haunted house too.
 
@@ -109,24 +112,26 @@
 >
 > In the menus section, however, because of the simplicity of the drawing functions (compared to the main game), we opted to not separate the two, and keep all functionality in the main View class, in order to avoid unnecessary complexity to the code.
 >
-> Another important subject regarding this pattern is the lack of a Controller module in the menus "MVC". Because the menus are so simple, the only real operation that could be done to the menu Model is the change of one option to the other. We felt like it was unnecessary to create a Controller class just for this operation, and that it would add unneeded complexity to the code's structure. On the other hand, some MenuEvents do operate on the model, so in a way they can be seen as part of the controller.
+> Another important subject regarding this pattern is the lack of a Controller module in the menus "MVC". Because the menus are so simple, the only real operation that could be done to the menu Model is the change of one option to the other. We felt like it was unnecessary to create a Controller class just for this operation, and that it would add unneeded complexity to the code's structure. The operations on the model are done directly by some MenuEvents (so in a way they can be seen as part of the controller).
 
 #### 1.4 Consequences
 > As said before, using the MVC design increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, choosing whether to use Lanterna or Swing in order to draw the various components of the game, and read user input), because although they are linked, the code is not "mixed together" (we would only need to change the View component, keeping the Model and Controller intact). This shows that our code structure respects the Open-Closed Principle: for example, if we wanted our game to have another way of drawing itself and receive user input, we would need to create another View class, that implemented the right functionalities, and link it to the Model and Controller, without having to change any existing code. Modules are open for extensions, but closed for modification.
 >
 > As we also said before, it also meets the requirements of the Single Responsability Principle: each module has only one reason to change. In our opinion, as we said before, in a way, separating the main game View into two classes (one that draws, one that reads user input) contributes even more to the following of this principle.
 
-### 2. Main Menu and Game Over Screens
+### 2. Drawing and Reading User Input With Both Laterna and Swing
 #### 2.1 Problem in Context
-
-### 2. Joining the Different View Components
-#### 2.1 Problem in Context
-> As we said before, when implementing the MVC pattern, we opted to separate the View module into two: one that is in charge of reading user input, and the other is in charge of drawing onto the screen. Because of this, we needed to find a way to join these two modules together (example: if we want to use Lanterna, then we should use the Game subclass GameLanterna, that reads input using Lanterna functions; the drawing aspect should also be done using Lanterna functions, so the class in charge of that should be DrawLanterna).
+> As an extra requirement, it was asked that our game should work with either Lanterna or Swing. Having the ability to do so would show that the game was well implemented, in terms of structure; we would only need to change the Views of the main game and menu, in order to do that. Therefore, we needed to find and implement a way to create the right View types (Lanterna or Swing, Menu or Game), given the circunstance and also depending if the player chose Lanterna or Swing in the beggining of the game.
      
 #### 2.2 The Pattern
-> For this, we decided to implement the Factory Method design pattern. In the game class, that will have a drawing interface associated, a method will be called to decide the specific way of drawing the elements. In the concrete classes that extend the game class (and are in charge of reading input), we can instanciate the concrete drawing interface that we want for that specific type of game.
+> For this, we decided to implement, as was recommended, the Abstract Factory desgin pattern. We have an abstract factory, that has methods to create the main game View and the menu View, to be overridden in the concrete factories. The concrete factories are specific for Lanterna and Swing; these factories override the methods from the abstract factory and are able to produce the right Views.
+>
+> As said before, in the very beginning of the game, the user is asked whether he would like to run the game with Swing or Lanterna. Based on their answer, the right concrete factory is created and passed to the game; when the menu View or the main game View is needed, all that needs to be done is to call the appropriate method for that.
      
 #### 2.3 Implementation  
+
+(MUDAR DIAGRAMA)
+
 > Here's how we decided to implement the design pattern:
 ![Alt text](diagrams/UML_FactoryMethod_1/UML_FactoryMethod_1.png)
 
@@ -145,18 +150,42 @@
 >[DrawSwing](../code/src/main/java/com/aor/ghostrumble/view/swing/GameSwing.java)
         
 #### 2.4 Consequences
-> The main Game class doesn't need to anticipate what implementation of DrawingMethod it needs to create; it just delegates that decision to the subclasses.
+> The main advantage of the usage of this pattern is the ease to change product families (in this case, between the Lanterna family of views and Swing family of views); the only thing that needs to be done, as said before, is just change what type of concrete factory we are using to create those views. We can see this in our [Application](../code/src/main/java/com/aor/ghostrumble/Application.java) class.
 >
-> In order to change/select the View component, we only need to change what Game subclass we use, because doing so changes what drawing interface we use, because of the Factory Method pattern. This can be seen in our [Application](../code/src/main/java/com/aor/ghostrumble/Application.java) class, where the main function is: we first declare a Game object, and we ask the user whether he would like to play the game in "retro" (lanterna) mode, or "modern" (swing) mode. Depending on the option given by the user, we instanciate, respectively, a GameLanterna object or a GameSwing object. After that, all we need is to call the run method.
+> It also promotes consistency between products/views: using this technique will ensure that all views created are either from Lanterna or Swing.
 
-### 3. Diferent Ways and Movements for Different Monsters
+### 3. Main Menu and Game Over Screens, and Changing Between Them
 #### 3.1 Problem in Context
-> In order to make the game less "boring" and monotonous, instead of making every enemy move in the same way, we decided to associate each type of enemy to a movement strategy: we wanted Zombies to only be able to move in a straight line, that is, to the left, right, up or down; Ghosts, however, should be able to also move diagonally, so they have free movement around the house. Poltergeists could have either one of the two strategies. So, we needed to find a way to design and structure our code in order to implemement these features. 
+> In order to make our project feel like a proper game, we came across the idea of adding a main menu screen, and a game over screen as well. In the main menu, the player would have the option to play a new game, or to exit. After losing or quiting the current game, the user would then be taken to a game over screen, where they would choose between playing again a new game, or to return to the main menu.
+>
+> We then needed to find a way to implement and join these different parts of the game, and to correctly transfer from one part to another, without overly using conditional logic, which could violate the Open-Closed Principle.
 
 #### 3.2 The Pattern
-> For this problem, we opted to use a combination of two design patterns, the Factory Method pattern and the Strategy pattern. While we have subclasses representing the different types of enemies, we also have subclasses representing the different types of movement strategies. Each enemy would have a movement strategy associated to it, and when that enemy would need to move to a different position in the house, it would just delegate that action to the movement strategy (ence the Strategy pattern). Because we decided that all Ghosts and all Zombies would have the same strategy, we came to the conclusion that implementing the Factory Method pattern would also be a good choice.
+> The pattern implemented was actually a mixture and combined usage of two different design patterns, the State pattern and the Observer pattern.
+>
+> We can have an abstract class/interface for a generic state. Each of its concrete subclasses would represent a different game state, so we would have a different class for the play state, the main menu state, and the game over state. Each one of them would have the necessary information to function (for example, the main game state would have the main game MVC inside it, so it can update the game accordingly).
+>
+> The main Game class, that would have the main game cycle, would keep track of the current state; in the cycle, the actions of reading user input, drawing the game and updating the game would be delegated to the current state, which would then delegate it to its MVC (ex: when calling the draw method of a state, the state would call the draw method of the view that is inside him).
+>
+> Furthermore, the state would also have a state observer (which would be the game class); the state observer would have the ability to change state. Whenever that is needed, the current state creates the correct new state and tells the observer to change its state to it.
 
 #### 3.3 Implementation
+
+(FAZER DIAGRAMA)
+
+#### 3.4 Consequences
+> One big advantage of the use of this technique is the lack of need for conditional statements/logic in the game class: instead of it doing different things given the current state, it simply delegates those actions to the actual state.
+>
+> It is also fairly easy to add a new state to the game: we would need to have another State subclass, that would override and implement the necessary methods to function, and we would also need to incorporate it to the "diagram" of state transitions, specifying when to go to that state and when to leave it. It shows that the Open-Closed Principle is not violated.
+
+### 4. Diferent Ways and Movements for Different Monsters
+#### 4.1 Problem in Context
+> In order to make the game less "boring" and monotonous, instead of making every enemy move the same way, we decided to associate each type of enemy to a movement strategy: we wanted Zombies to only be able to move in a straight line, that is, to the left, right, up or down; Ghosts, however, should be able to also move diagonally, so they have free movement around the house. Poltergeists could have either one of the two strategies. So, we needed to find a way to design and structure our code in order to implemement these features. 
+
+#### 4.2 The Pattern
+> For this problem, we opted to use a combination of two design patterns, the Factory Method pattern and the Strategy pattern. While we have subclasses representing the different types of enemies, we also have subclasses representing the different types of movement strategies. Each enemy would have a movement strategy associated to it, and when that enemy would need to move to a different position in the house, it would just delegate that action to the movement strategy (ence the Strategy pattern). Because we decided that all Ghosts and all Zombies would have the same strategy, we came to the conclusion that implementing the Factory Method pattern would also be a good choice.
+
+#### 4.3 Implementation
 > Here's how we decided to implement the design patterns:
 >
 > ![Alt text](diagrams/UML_FacMethod&Strategy_1/UML_FacMethod&Strategy_1.png)
@@ -177,21 +206,21 @@
 >
 > [FreeMovement](../code/src/main/java/com/aor/ghostrumble/model/FreeMovement.java)
 
-#### 3.4 Consequences
+#### 4.4 Consequences
 > The Enemy class and its subclasses do not need to know anything about the processing of the movement (how its done). As said before, it simply delegates that action to the implementation of MovementStrategy, for that enemy.
 >
 > Conditional logic (if and elses, switch statements) are avoided by using different subclasses and polymorphism.
 >
 > It would be very easy to add another type of enemy or add another movement strategy, ence respecting the Open-Closed Principle.
 
-### 4. Monsters Chase the Player
-#### 4.1 Problem in Context
+### 5. Monsters Chase the Player
+#### 5.1 Problem in Context
 > A very important part of our game is the fact that enemies will chase the player around the house, in order to get to him and damage him. We needed to find a way for the enemies to know in which direction they should move, based on the current player position, so the monsters would get closer to the player.
 
-#### 4.2 The Pattern
+#### 5.2 The Pattern
 > For this, we decided to implement the Observer pattern. The player would have various observers (all the active/current enemies), and each time the player moved, it would notify all of the enemies, "telling them" about his new position: the enemies would then update the direction in with they should move. (Each time an enemy moves, its direction is also updated).
 
-#### 4.3 Implementation
+#### 5.3 Implementation
 > Here's how we decided to implement the design pattern:
 >
 > ![Alt text](diagrams/UML_Observer_1/UML_Observer_1.png)
@@ -210,18 +239,18 @@
 >
 > NOTE: when a PlayerObserver is added as an observer, the update function is also called. This is done so that an enemy will pursue the player as soon as it is spawned, and does not have to wait for the player to move.
 
-#### 4.4 Consequences
+#### 5.4 Consequences
 > Encapsulation and seperation of the code is promoted: the Player class does not know anything about the Enemy class; in fact, it only knows about PlayerObservers and that it needs to notify them, but does not know what they do or how they do it when that occurs.
 
-### 5. Event Queue and Event Processing
-#### 5.1 Problem in Context
+### 6. Event Queue and Event Processing
+#### 6.1 Problem in Context
 > Previously in our code, in order to detect and process user input, we did the following: if an important key was pressed, we would create an event, and in order to process it we had a big switch statement, that called diferent methods to update the game, given the specific event type. We wanted to eliminate this switch statement, as it is a code smell, and find a way to properly process the events generated by user input.
 
-#### 5.2 The Pattern
-> We came to the conclusion that the Command design pattern would be appropriate to solve this issue. Instead of processing one event at a time, we now have an event queue, that stores all events that were generated and not yet processed. In order to eliminate the switch statement, the events themselves are the ones calling the apropriate functions. For the main controller class to process the events, all it has to do is call the event queue method that processes all the events in it (after that, the queue is emptied).
+#### 6.2 The Pattern
+> We came to the conclusion that the Command design pattern would be appropriate to solve this issue. In the main game section, instead of processing one event at a time, we now have an event queue, that stores all events that were generated and not yet processed. In order to eliminate the switch statement, the events themselves are the ones calling the apropriate functions. For the main controller class to process the events, all it has to do is call the event queue method that processes all the events in it (after that, the queue is emptied).
 
-#### 5.3 Implementation
-> Here's how we decided to implement the design pattern:
+#### 6.3 Implementation
+> Here's how we decided to implement the design pattern (the diagram shows the design in the part of the project where this design pattern is in "full force", that is, in the main game section. We also implemented a similiar version of this in the menus section, but without the event queue, given the simplicity of the user interaction in that part of the game.):
 >
 > ![Alt text](diagrams/UML_Command_1/UML_Command_1.png)
 >
@@ -235,43 +264,27 @@
 >
 > [EventQueue](../code/src/main/java/com/aor/ghostrumble/controller/event/EventQueue.java)
 >
-> [Event](../code/src/main/java/com/aor/ghostrumble/controller/event/Event.java)
+> [GameEvent](../code/src/main/java/com/aor/ghostrumble/controller/event/Event.java)
 >
 > [EventBulletDown](../code/src/main/java/com/aor/ghostrumble/controller/event/EventBulletDown.java)
 >
 > [EventPlayerUp](../code/src/main/java/com/aor/ghostrumble/controller/event/EventPlayerUp.java)
 >
-> ... (all the other Event subclasses)
+> ... (all the other GameEvent subclasses)
 
-#### 5.4 Consequences
+#### 6.4 Consequences
 > As we said before, using this tecnique eliminates the switch statement that we had previously in the Updater class; all the event logic is done inside the specific Event subclasses.
 >
 > However, perhaps the biggest advantage of the usage of this design pattern in this situation is the fact that, now, it is extremely easy to add new events if we wanted to. This part of our code respects the Open-Closed Principle.
 
 ## Known Code Smells and Refactoring Suggestions
 
-### 1. Controller Module Centered In Only One Class - SOLVED
+### 1.
 #### 1.1 Code Smell
-> In the Controller module of our game, all the game's logic and operations are centered in only one class, the Updater class. This class can be considered as a Large Class, containing too many methods and lines of code.
-
+> 
 #### 1.2 Refactoring
-> One refactoring tecnique that can be applied to eliminate this code smell is the Extract Class tecnique: the Updater class can be split into various classes, like for example PlayerUpdater, EnemiesUpdater, etc, and each one of these classes would be in charge of the logic concerning the player, the enemies, and so on. The main Updater class would have methods that involves the various components, like for example, collision detection between the enemies and the player.
+> 
 
-### 2. ProcessEvent() Switch Statement in Updater Class - SOLVED
-#### 2.1 Code Smell
-> In the Updater class, a method called processEvent() is called in order to, given a specific event, do the operation (call the method) that corresponds to that action/event. For example, if the event type is BULLET_UP, the Updater class will call the methods necessary in order to create a bullet and launch it upwards. This originated a big switch statement, based on type code, in processEvent().
-
-#### 2.2 Refactoring
-> Probably one of the best ways to solve this problem is to apply the Replace Type Code with Subclasses refactoring tecnique. Instead of the Event class having an attribute that indicates the current event type, it could have various subclasses, each one for a specific event type (ex: PlayerLeftEvent, BulletUpEvent, etc). Each subclass could have its own implementation of a process() method, that received the Updater and the HauntedHouse (model), and called the right method of the Updater in order to satisfy that event. So, instead of being the Updater class that evaluates the event type and calls the right method, it would be the event itself that called them.
->
-> This would eliminate the switch statement in processEvent(), making the code much more readable, as well as ensure that the Open-Closed Principle of SOLID would be followed: if we wanted to add another event type, we wouldn't need to change any existing code, but to create a new subclass that represented the new event type. (Another possible solution would be Replace Type Code with State/Strategy).
-
-### 3. Collision Detection in Updater and HauntedHouse - SOLVED
-#### 3.1 Code Smell
-> In the Updater class, we have a function hitsEnemies(), that tells if the position given to the method hits any enemy that is in the haunted house. There is a similar function in the HauntedHouse class, checkMonsterInPosition(), that does the same thing. There is no need for these two functions to coexist, as they have the same functionality. This can be viewed as a small version of the Alternative Classes with Different Interfaces code smell.
-
-#### 3.2 Refactoring
-> The collision detection methods, like hitsWall() and hitsEnemies(), can be put in the HauntedHouse class, deleting these functions in the Updater class, in order to avoid repetition.
 
 ## Testing Results
 
@@ -296,24 +309,17 @@
 >
 >> #### Purely aesthetic Classes and Methods:
 >>
->> Concerning the [DrawLanterna](../code/src/main/java/com/aor/ghostrumble/view/DrawLanterna.java) class, all of its methods are meant only to visually represent the data contained in the classes belonging to the **model** module. Therefore, it wouldn't be the best use of development time to unit test these methods, as the important part is that the model and controller properly process that data, based on user input.
->>
->> Adding to this, the [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) class calls, in its constructor, methods to initialize the screen. These methods are not tested for on the unit tests that were developed, even though they are covered, for the reasons stated on the paragraph above.
+>> Concerning the "drawer" classes, like [DrawLanternaGame](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) and similar, all of its methods are meant only to visually represent the data contained in the classes belonging to the **model** module. Therefore, it wouldn't be the best use of development time to unit test these methods, as the important part is that the model and controller properly process that data, based on user input.
 >
 >> #### Additional Notes
->> There is also one surviving mutation due to the presence of a System.out.println() call.
->>
->> The number of mutations killed on the class [Poltergeist](../code/src/main/java/com/aor/ghostrumble/model/Poltergeist.java) depends on the results from random number generation, in any given test run.
+>> While it is stated above that the drawing methods are not tested, we do test the **view** methods that are related to user input, in order to know if, based on the input received, they are creating the concrete event that corresponds to the pressing of that key. In order to that, some screens may pop up and "start acting weird", but it is all necessary to test those functionalities.
 >>
 >> There is a difference between the coverage stats provided by the unit tests on IntelliJ, and those provided by running _pitest_. However, both were run with the exact same code.
 
 > ### Concerning the individuality of the tests
-> Due to the structure of our code, there are classes which have the function of calling the proper methods from other classes, while not directly manipulating the data of the game, these classes being the updater classes in the Controller module ([Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java), [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/PlayerUpdater.java), [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/EnemiesUpdater.java) and [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/controller/BulletsUpdater.java)) and the [GameLanterna](../code/src/main/java/com/aor/ghostrumble/view/GameLanterna.java) class. For this reason, some of those methods cannot be properly **unit** tested, as they don't contain any of the data they manipulate. Therefore, in those cases, we developed tests to see the effect of the methods on the data stored on the model classes, using that data to verify the correct operation of those methods, in the classes stated above.
+> Due to the structure of our code, there are classes which have the function of calling the proper methods from other classes, while not directly manipulating the data of the game; some of these classes being the updater classes in the main Controller module ([Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java), [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/PlayerUpdater.java), [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/EnemiesUpdater.java) and [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/controller/BulletsUpdater.java)). For this reason, some of those methods cannot be properly **unit** tested, as they don't contain any of the data they manipulate. Therefore, in those cases, we developed tests to see the effect of the methods on the data stored on the model classes, using that data to verify the correct operation of those methods, in the classes stated above.
 
 ## Self-evaluation
-
-> For the intermediate delivery:
->
 > Eduardo Ribeiro (up201705421@fe.up.pt): 50%
 >
 > Diogo Machado (up201706832@fe.up.pt): 50%
