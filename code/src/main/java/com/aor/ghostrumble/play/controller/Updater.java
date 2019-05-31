@@ -23,29 +23,18 @@ public class Updater {
     public EnemiesUpdater getEnemiesUpdater() { return enemiesUpdater; }
     public BulletsUpdater getBulletsUpdater() { return bulletsUpdater; }
 
-
-    public void setPlayerUpdater(PlayerUpdater playerUpdater) {
-        this.playerUpdater = playerUpdater;
-    }
-    public void setEnemiesUpdater(EnemiesUpdater enemiesUpdater) {
-        this.enemiesUpdater = enemiesUpdater;
-    }
-    public void setBulletsUpdater(BulletsUpdater bulletsUpdater) {
-        this.bulletsUpdater = bulletsUpdater;
-    }
-
-
     private final static int SCORE_INCREASE_RATE = 3000;
 
     private final static int SCORE_TIME_INCREASE = 10;
     private final static int SCORE_KILL_INCREASE = 50;
 
-    public final static int getScoreIncreaseRate() { return SCORE_INCREASE_RATE; }
-    public final static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
-    public final static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
+    public static int getScoreIncreaseRate() { return SCORE_INCREASE_RATE; }
+    public static int getScoreTimeIncrease() { return SCORE_TIME_INCREASE; }
+    public static int getScoreKillIncrease() { return SCORE_KILL_INCREASE; }
 
 
     public boolean update(EventQueue eventQueue, HauntedHouse house) {
+
         eventQueue.executeEvents(this, house);
 
         checkBulletCollisions(house);
@@ -71,12 +60,15 @@ public class Updater {
         increaseScoreWithTime(house);
 
         return !checkForGameOver(eventQueue, house);
+
     }
 
     public void increaseScoreWithKills(HauntedHouse house) {
+
         for(Bullet bullet : house.getBullets())
             if(bullet.getKillFlag())
                 house.increaseScore(SCORE_KILL_INCREASE);
+
     }
 
     public void increaseScoreWithTime(HauntedHouse house) {
@@ -98,38 +90,50 @@ public class Updater {
 
         ListIterator<Enemy> enemyItr = house.getEnemies().listIterator();
         while(enemyItr.hasNext()) {
+
             Enemy currentEnemy = enemyItr.next();
 
             if(currentEnemy.flaggedForRemoval()) {
                 house.getPlayer().removeObserver(currentEnemy);
                 enemyItr.remove();
             }
+
         }
+
     }
 
     public void checkEnemyCollisions(HauntedHouse house) {
+
         for(Enemy enemy : house.getEnemies()) {
+
             if(enemy.getPosition().equals(house.getPlayer().getPosition())) {
                 enemy.setHitPlayer(true);
                 enemy.setRemoveFlag(true);
             }
+
         }
+
     }
 
     public void checkBulletCollisions(HauntedHouse house) {
+
         for(Bullet bullet : house.getBullets()) {
 
             if(house.hitsWall(bullet.getPosition()))
                 bullet.setRemoveFlag(true);
 
             for(Enemy enemy : house.getEnemies()) {
+
                 if(bullet.getPosition().equals(enemy.getPosition())) {
                     bullet.setRemoveFlag(true);
                     bullet.setKillFlag(true);
                     enemy.setRemoveFlag(true);
                 }
+
             }
+
         }
+
     }
 
 }
