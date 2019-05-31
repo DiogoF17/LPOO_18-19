@@ -305,13 +305,13 @@
 >
 > [EventQueue](../code/src/main/java/com/aor/ghostrumble/play/controller/event/EventQueue.java)
 >
-> [GameEvent](../code/src/main/java/com/aor/ghostrumble/play/controller/event/Event.java)
+> [GameEvent](../code/src/main/java/com/aor/ghostrumble/play/controller/event/GameEvent.java)
 >
 > [EventBulletDown](../code/src/main/java/com/aor/ghostrumble/play/controller/event/EventBulletDown.java)
 >
 > [EventPlayerUp](../code/src/main/java/com/aor/ghostrumble/play/controller/event/EventPlayerUp.java)
 >
-> ... (all the other GameEvent subclasses)
+> [... (all the other GameEvent subclasses)](../code/src/main/java/com/aor/ghostrumble/play/controller/event)
 
 #### 6.4 Consequences
 > As we said before, using this tecnique eliminates the switch statement that we had previously in the Updater class; all the event logic is done inside the specific Event subclasses.
