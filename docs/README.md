@@ -60,16 +60,23 @@
 > There could be coins scattered arround the house, for the player to collect (it could increase the score).
 
 ## Design
+
 ### 1. Separating the Game's Modules
 #### 1.1 Problem in Context
-> The first problem that we came across was to find a way to separate, in a correct way, the different aspects of our game: the logic module, that would be in charge of the mechanics of the game (the inner workings of the game, such as the player and enemies movement, when the game ends, etc); the drawing module, that would be in charge of transmiting the game´s logic and current state onto the screen, for the user to understand/interact; and others. Performing a correct separation of the game's modules would avoid the violation of the Single Responsability Principle; furthermore, doing so would make it a lot easier if we were to change just one component of the game, such as the drawing method, because we wouldn't need to change the other modules, as they are separated and not dependent.
+> The first problem that we came across was to find a way to separate, in a correct way, the different aspects of our game: **the logic module**, that would be in charge of the mechanics of the game (the inner workings of the game, such as the player and enemies movement, when the game ends, what option did the player select in the menus, etc); **the drawing module**, that would be in charge of transmiting the game´s logic and current state onto the screen, for the user to understand/interact; and others. Performing a correct separation of the game's modules would avoid the violation of the Single Responsability Principle; furthermore, doing so would make it a lot easier if we were to change just one component of the game, such as the drawing method, because we wouldn't need to change the other modules, as they would be correctly separated.
 
 #### 1.2 The Pattern
-> In order to do this, we decided to implement a slightly different version of the MVC (Model - View - Controller) architectural pattern. The Model functions only has a data "warehouse", containing all the information about the game and its current state, but not knowing how and when to change it; the Controller receives the Model and an EventQueue, that contains all the current events, and updates the Model accordingly; the View (contrary to the standard MVC pattern) is split in two parts, one that receives the user input and generates an Event that is added to the EventQueue, that is going to be processed by the Controller, and another one that receives the Model, and is in charge of drawing the current state of the game onto the screen. Finally, we have a Game class that connects all these modules, and contains the main game cycle.
+> In order to do this, we decided to implement the MVC (Model - View - Controller) architectural pattern. In our project, we have two different MVC structures: one for the **main game**, and the other for the **main menu and game over screens**.
+>
+> In the main game MVC, the Model functions only has a data "warehouse", containing all the information about the game and its current state, and also some functions to modify it, but not knowing when to change it and why; the Controller receives the Model and an EventQueue, that contains all the current game events, and updates the Model accordingly; and finally, the View, that is in charge of receiving the user input and generating a GameEvent that is added to the EventQueue (that is going to be processed by the Controller); the View also receives the Model, and is in charge of drawing the current state of the game onto the screen. All these functionalities are combined in the main game cycle.
+>
+> In the menus MVC, we have a different Model and View, related to the existing information in that part of the game. We also have a different group of events, the MenuEvents, that represent the possible changes that could be made and triggered by user inputs; some of these events update the Model accordingly. The View, just like the main game's View, receives user input, creates the correct event, and draws the Model onto the screen.
 
 #### 1.3 The Implementation
-> Here's how we decided to implement the pattern (NOTE: The Game and DrawingMethod classes also have subclasses for Swing;
-those are not shown here in order to not complicate the URL diagram):
+> Here's how we decided to implement the pattern (NOTE: The Game and DrawingMethod classes also have subclasses for Swing; those are not shown here in order to not complicate the URL diagram):
+
+(MUDAR DIAGRAMA)
+
 ![Alt text](diagrams/UML_MVC/UML_MVC.png)
 
 > The classes can be found in the following files:
@@ -98,10 +105,19 @@ those are not shown here in order to not complicate the URL diagram):
 >
 > [EventQueue](../code/src/main/java/com/aor/ghostrumble/controller/event/EventQueue.java)
 >
-#### 1.4 Consequences
-> As said before, using the MVC design (or similar, like we did) increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, choosing whether to use Lanterna or Swing in order to draw the various components of the game, and read user input), because although they are linked, the code is not "mixed together" (we would need to create another subclass of Game, that has a new way of reading inputs, and another subclass of DrawingMethod, that would use a new way to draw onto the screen). This shows that our code structure respects the Open-Closed Principle: modules are open for extensions, but closed for modification.
+> In the main game View, we opted to separate the input and event creation module from the drawing module. We did that by putting those functionalities into two different classes (for example ViewGameLanterna and DrawLanternaGame), and making the Draw class an attribute of the main View class; when the main View class needs to draw the model, it delegates that action to the Draw class. We did this because even though the two modules aren't exactly independent and separated (one depends on the other), in our point of view it contributed not only to the non-violation of the Single Responsability Principle, but also to the simplification of each class, given the size of the drawing functions for the main game.
 >
-> As we also said before, it meets the requirements of the Single Responsability Principle: each module has only one reason to change. In our opinion, in a way, separating the View into two parts (one that draws, one that reads user input) contributes even more to the following of this principle.
+> In the menus section, however, because of the simplicity of the drawing functions (compared to the main game), we opted to not separate the two, and keep all functionality in the main View class, in order to avoid unnecessary complexity to the code.
+>
+> Another important subject regarding this pattern is the lack of a Controller module in the menus "MVC". Because the menus are so simple, the only real operation that could be done to the menu Model is the change of one option to the other. We felt like it was unnecessary to create a Controller class just for this operation, and that it would add unneeded complexity to the code's structure. On the other hand, some MenuEvents do operate on the model, so in a way they can be seen as part of the controller.
+
+#### 1.4 Consequences
+> As said before, using the MVC design increases the modularity of the code. It makes it easier to change only one component of the game, and to keep all the others (for example, choosing whether to use Lanterna or Swing in order to draw the various components of the game, and read user input), because although they are linked, the code is not "mixed together" (we would only need to change the View component, keeping the Model and Controller intact). This shows that our code structure respects the Open-Closed Principle: for example, if we wanted our game to have another way of drawing itself and receive user input, we would need to create another View class, that implemented the right functionalities, and link it to the Model and Controller, without having to change any existing code. Modules are open for extensions, but closed for modification.
+>
+> As we also said before, it also meets the requirements of the Single Responsability Principle: each module has only one reason to change. In our opinion, as we said before, in a way, separating the main game View into two classes (one that draws, one that reads user input) contributes even more to the following of this principle.
+
+### 2. Main Menu and Game Over Screens
+#### 2.1 Problem in Context
 
 ### 2. Joining the Different View Components
 #### 2.1 Problem in Context
