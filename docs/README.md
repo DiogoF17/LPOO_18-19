@@ -320,11 +320,26 @@
 
 ## Known Code Smells and Refactoring Suggestions
 
-### 1.
+### 1. Event Subclasses and Their Utility
 #### 1.1 Code Smell
-> 
+> We would first like to refer that these Event subclasses were made so that we could implement the Command pattern (as described in the section above), in order to eliminate some bigger and more concerning code smells and bad practices, like the overuse of conditional logic and the violation of the Open-Closed Principle.
+>
+> Having said that, the Event subclasses could be interpreted, in a way, as Lazy Classes, because all they do is override the process() method of their respective interface, that calls another method of another class, usually.
+
 #### 1.2 Refactoring
+> We could avoid this smell by eliminating the event subclasses and making a main Event class, that would have an enumeration type or any other method of identifying the concrete event that the object is representing. The class would need to have some conditional statements in order to call the right method, given the type of event to be processed (Collapse Hierarchy).
+>
+> However, we don't think this refactor would be a good idea, as it would clearly violate the Open-Closed Principle, and also make the code harder to understand and difficult to change.
+
+### 2. Input Handling between Lanterna and Swing
+#### 2.1 Code Smell
 > 
+
+
+
+
+
+
 
 
 ## Testing Results
