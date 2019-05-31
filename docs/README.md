@@ -190,9 +190,30 @@
 > Furthermore, the state would also have a state observer (which would be the game class); the state observer would have the ability to change state. Whenever that is needed, the current state creates the correct new state and tells the observer to change its state to it.
 
 #### 3.3 Implementation
+> Here's how we decided to implement the design pattern:
 
-(FAZER DIAGRAMA)
+![Alt text](diagrams/UML_State&Observer/UML_State&Observer.png)
 
+> The classes can be found in the following files:
+>
+> [StateObserver](../code/src/main/java/com/aor/ghostrumble/StateObserver.java)
+>
+> [Game](../code/src/main/java/com/aor/ghostrumble/Game.java)
+>
+> [State](../code/src/main/java/com/aor/ghostrumble/State.java)
+>
+> [GameState](../code/src/main/java/com/aor/ghostrumble/play/GameState.java)
+>
+> [MenuState](../code/src/main/java/com/aor/ghostrumble/menu/MenuState.java)
+>
+> [MainMenuState](../code/src/main/java/com/aor/ghostrumble/menu/MainMenuState.java)
+>
+> [GameOverState](../code/src/main/java/com/aor/ghostrumble/menu/GameOverState.java)
+>
+> NOTE: While implementing this pattern, we realized that the model and view for the states representing the game over and the main menu would be very similar, because these states essentially do the same thing: they present to the user a title, and two options that the player can choose from. We then decided (as it is shown in the diagram) to make an abstract class, MenuState, that the GameOverState and MainMenuState would be subclasses of. The only thing these classes have is an update() method, because that is the only thing that really separates the two; the events that can happen and the drawing of the model is the same for both cases.
+>
+> This was done in order to prevent code duplication, because if we had the menus MVC in both the GameOverState and MainMenuState, a lot of the functionalities would be the same.
+>
 #### 3.4 Consequences
 > One big advantage of the use of this technique is the lack of need for conditional statements/logic in the game class: instead of it doing different things given the current state, it simply delegates those actions to the actual state.
 >
@@ -208,23 +229,23 @@
 #### 4.3 Implementation
 > Here's how we decided to implement the design patterns:
 >
-> ![Alt text](diagrams/UML_FacMethod&Strategy_1/UML_FacMethod&Strategy_1.png)
+> ![Alt text](diagrams/UML_FacMethod&Strategy/UML_FacMethod&Strategy.png)
 
 > The classes can be found in the following files:
 >
-> [Enemy](../code/src/main/java/com/aor/ghostrumble/model/Enemy.java)
+> [Enemy](../code/src/main/java/com/aor/ghostrumble/play/model/Enemy.java)
 >
-> [Ghost](../code/src/main/java/com/aor/ghostrumble/model/Ghost.java)
+> [Ghost](../code/src/main/java/com/aor/ghostrumble/play/model/Ghost.java)
 >
-> [Zombie](../code/src/main/java/com/aor/ghostrumble/model/Zombie.java)
+> [Zombie](../code/src/main/java/com/aor/ghostrumble/play/model/Zombie.java)
 >
-> [Poltergeist](../code/src/main/java/com/aor/ghostrumble/model/Poltergeist.java)
+> [Poltergeist](../code/src/main/java/com/aor/ghostrumble/play/model/Poltergeist.java)
 >
-> [MovementStrategy](../code/src/main/java/com/aor/ghostrumble/model/MovementStrategy.java)
+> [MovementStrategy](../code/src/main/java/com/aor/ghostrumble/play/model/MovementStrategy.java)
 >
-> [LinearMovement](../code/src/main/java/com/aor/ghostrumble/model/LinearMovement.java)
+> [LinearMovement](../code/src/main/java/com/aor/ghostrumble/play/model/LinearMovement.java)
 >
-> [FreeMovement](../code/src/main/java/com/aor/ghostrumble/model/FreeMovement.java)
+> [FreeMovement](../code/src/main/java/com/aor/ghostrumble/play/model/FreeMovement.java)
 
 #### 4.4 Consequences
 > The Enemy class and its subclasses do not need to know anything about the processing of the movement (how its done). As said before, it simply delegates that action to the implementation of MovementStrategy, for that enemy.
@@ -243,19 +264,19 @@
 #### 5.3 Implementation
 > Here's how we decided to implement the design pattern:
 >
-> ![Alt text](diagrams/UML_Observer_1/UML_Observer_1.png)
+> ![Alt text](diagrams/UML_Observer/UML_Observer.png)
 
 > The classes can be found in the following files:
 >
-> [Enemy](../code/src/main/java/com/aor/ghostrumble/model/Enemy.java)
+> [Enemy](../code/src/main/java/com/aor/ghostrumble/play/model/Enemy.java)
 >
-> [PlayerObserver](../code/src/main/java/com/aor/ghostrumble/model/PlayerObserver.java)
+> [PlayerObserver](../code/src/main/java/com/aor/ghostrumble/play/model/PlayerObserver.java)
 >
-> [Player](../code/src/main/java/com/aor/ghostrumble/model/Player.java)
+> [Player](../code/src/main/java/com/aor/ghostrumble/play/model/Player.java)
 >
-> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/PlayerUpdater.java)
+> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/play/controller/PlayerUpdater.java)
 >
-> [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/controller/EnemiesUpdater.java)
+> [EnemiesUpdater](../code/src/main/java/com/aor/ghostrumble/play/controller/EnemiesUpdater.java)
 >
 > NOTE: when a PlayerObserver is added as an observer, the update function is also called. This is done so that an enemy will pursue the player as soon as it is spawned, and does not have to wait for the player to move.
 
@@ -272,23 +293,23 @@
 #### 6.3 Implementation
 > Here's how we decided to implement the design pattern (the diagram shows the design in the part of the project where this design pattern is in "full force", that is, in the main game section. We also implemented a similiar version of this in the menus section, but without the event queue, given the simplicity of the user interaction in that part of the game.):
 >
-> ![Alt text](diagrams/UML_Command_1/UML_Command_1.png)
+> ![Alt text](diagrams/UML_Command/UML_Command.png)
 >
 > The classes can be found in the following files:
 >
-> [Updater](../code/src/main/java/com/aor/ghostrumble/controller/Updater.java)
+> [Updater](../code/src/main/java/com/aor/ghostrumble/play/controller/Updater.java)
 >
-> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/controller/PlayerUpdater.java)
+> [PlayerUpdater](../code/src/main/java/com/aor/ghostrumble/play/controller/PlayerUpdater.java)
 >
-> [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/controller/BulletsUpdater.java)
+> [BulletsUpdater](../code/src/main/java/com/aor/ghostrumble/play/controller/BulletsUpdater.java)
 >
-> [EventQueue](../code/src/main/java/com/aor/ghostrumble/controller/event/EventQueue.java)
+> [EventQueue](../code/src/main/java/com/aor/ghostrumble/play/controller/event/EventQueue.java)
 >
-> [GameEvent](../code/src/main/java/com/aor/ghostrumble/controller/event/Event.java)
+> [GameEvent](../code/src/main/java/com/aor/ghostrumble/play/controller/event/Event.java)
 >
-> [EventBulletDown](../code/src/main/java/com/aor/ghostrumble/controller/event/EventBulletDown.java)
+> [EventBulletDown](../code/src/main/java/com/aor/ghostrumble/play/controller/event/EventBulletDown.java)
 >
-> [EventPlayerUp](../code/src/main/java/com/aor/ghostrumble/controller/event/EventPlayerUp.java)
+> [EventPlayerUp](../code/src/main/java/com/aor/ghostrumble/play/controller/event/EventPlayerUp.java)
 >
 > ... (all the other GameEvent subclasses)
 
