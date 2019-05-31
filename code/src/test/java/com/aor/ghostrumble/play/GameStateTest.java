@@ -34,6 +34,11 @@ public class GameStateTest {
     }
 
     @Test
+    public void initHouseDimensions() {
+        assertEquals(state.getFactory().getScreenHeight() - 5, state.getModel().getHeight());
+    }
+
+    @Test
     public void testGameStateGetView() {
         ViewGame view = Mockito.mock(ViewGame.class);
         state.setView(view);

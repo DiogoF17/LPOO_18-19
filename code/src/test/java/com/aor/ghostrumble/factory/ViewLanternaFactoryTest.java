@@ -22,6 +22,13 @@ public class ViewLanternaFactoryTest {
     }
 
     @Test
+    public void testDefaultInitDimensions() {
+        fac = new ViewLanternaFactory();
+        assertEquals(100, fac.getScreenWidth());
+        assertEquals(35, fac.getScreenHeight());
+    }
+
+    @Test
     public void testReturnLanternaViewMenu() {
         assertTrue(fac.createMenuView() instanceof ViewMenuLanterna);
     }
@@ -30,7 +37,6 @@ public class ViewLanternaFactoryTest {
     public void testReturnLanternaViewGame() {
         assertTrue(fac.createGameView() instanceof ViewGameLanterna);
     }
-
 
     @Test
     public void testFactoryLanternaWidth() {
@@ -41,7 +47,6 @@ public class ViewLanternaFactoryTest {
     public void testFactoryLanternaHeight() {
         assertEquals(fac.getScreenHeight(), 20);
     }
-
 
     @Test
     public void testFactoryLanternaClose() {
@@ -56,6 +61,5 @@ public class ViewLanternaFactoryTest {
             e.printStackTrace();
         }
     }
-
 
 }

@@ -4,6 +4,7 @@ import com.aor.ghostrumble.StateObserver;
 import com.aor.ghostrumble.factory.ViewAbstractFactory;
 import com.aor.ghostrumble.factory.ViewSwingFactory;
 import com.aor.ghostrumble.menu.event.MenuEvent;
+import com.aor.ghostrumble.menu.event.NullEvent;
 import com.aor.ghostrumble.menu.model.MenuModel;
 import com.aor.ghostrumble.menu.view.ViewMenu;
 import com.aor.ghostrumble.play.GameState;
@@ -14,6 +15,7 @@ import org.mockito.Mockito;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 
 public class MainMenuStateTest {
 
@@ -21,8 +23,10 @@ public class MainMenuStateTest {
 
     @Before
     public void initMainMenuState() {
-        ViewAbstractFactory fac = new ViewSwingFactory();
+
+        ViewAbstractFactory fac = Mockito.mock(ViewSwingFactory.class);
         state = new MainMenuState(fac);
+
     }
 
     @Test
@@ -32,6 +36,7 @@ public class MainMenuStateTest {
 
     @Test
     public void testUpdatePrepareStateChange() {
+
         MenuModel model = Mockito.mock(MenuModel.class);
         state.setModel(model);
         ViewMenu view = Mockito.mock(ViewMenu.class);
@@ -42,11 +47,13 @@ public class MainMenuStateTest {
 
         state.update();
 
-        Mockito.verify(view, Mockito.times(1)).prepareStateChange();
+        Mockito.verify(view, times(1)).prepareStateChange();
+
     }
 
     @Test
     public void testUpdateSwitchToGameState() {
+
         MenuModel model = Mockito.mock(MenuModel.class);
         state.setModel(model);
         ViewMenu view = Mockito.mock(ViewMenu.class);
@@ -60,12 +67,14 @@ public class MainMenuStateTest {
 
         state.update();
 
-        Mockito.verify(observer, Mockito.times(1)).changeState(any(GameState.class));
+        Mockito.verify(observer, times(1)).changeState(any(GameState.class));
+
     }
 
 
     @Test
     public void testUpdateEndGame() {
+
         MenuModel model = Mockito.mock(MenuModel.class);
         ViewMenu view = Mockito.mock(ViewMenu.class);
         state.setView(view);
@@ -77,8 +86,32 @@ public class MainMenuStateTest {
 
         state.update();
 
+        Mockito.verify(state.getFactory(), times(1)).close();
+
         assertFalse(state.keepGoing());
+
     }
 
+    @Test
+    public void testResetEvent() {
+
+        MenuModel model = Mockito.mock(MenuModel.class);
+        ViewMenu view = Mockito.spy(ViewMenu.class);
+        state.setView(view);
+        MenuEvent event = Mockito.mock(MenuEvent.class);
+        Mockito.when(event.process(model)).thenReturn(false);
+        view.setEvent(event);
+        state.setModel(model);
+
+        state.update();
+
+        assertTrue(view.getEvent() instanceof NullEvent);
+
+    }
+
+    @Test
+    public void testFactoryClose() {
+
+    }
 
 }

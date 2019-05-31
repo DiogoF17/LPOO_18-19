@@ -8,6 +8,8 @@ import org.mockito.Mockito;
 
 import javax.swing.*;
 
+import java.awt.*;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
@@ -20,18 +22,15 @@ public class ViewSwingFactoryTest {
         fac = new ViewSwingFactory(40, 30, 20, 10);
     }
 
-
     @Test
     public void testReturnSwingViewMenu() {
         assertTrue(fac.createMenuView() instanceof ViewMenuSwing);
     }
 
-
     @Test
     public void testReturnSwingViewGame() {
         assertTrue(fac.createGameView() instanceof ViewGameSwing);
     }
-
 
     @Test
     public void testSwingFactoryWidth() {
@@ -62,6 +61,21 @@ public class ViewSwingFactoryTest {
 
         Mockito.verify(frame, Mockito.times(1)).removeAll();
         Mockito.verify(frame, Mockito.times(1)).dispose();
+    }
+
+    @Test
+    public void testFactoryInitFrame() {
+
+        assertTrue(fac.getFrame().getLayout() instanceof BorderLayout);
+        assertEquals(50.0, fac.getFrame().getLocation().getX());
+        assertEquals(50.0, fac.getFrame().getLocation().getY());
+        assertEquals(new Dimension(
+                fac.getScreenWidth() * fac.getTileSize() + fac.getBorderOffset(),
+                fac.getScreenHeight() * fac.getTileSize()
+        ), fac.getFrame().getSize());
+        assertEquals(WindowConstants.EXIT_ON_CLOSE, fac.getFrame().getDefaultCloseOperation());
+        assertTrue(fac.getFrame().isVisible());
+
     }
 
 }

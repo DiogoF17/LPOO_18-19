@@ -23,6 +23,10 @@ public class Updater {
     public EnemiesUpdater getEnemiesUpdater() { return enemiesUpdater; }
     public BulletsUpdater getBulletsUpdater() { return bulletsUpdater; }
 
+    public void setPlayerUpdater(PlayerUpdater playerUpdater) { this.playerUpdater = playerUpdater; }
+    public void setEnemiesUpdater(EnemiesUpdater enemiesUpdater) { this.enemiesUpdater = enemiesUpdater; }
+    public void setBulletsUpdater(BulletsUpdater bulletsUpdater) { this.bulletsUpdater = bulletsUpdater; }
+
     private final static int SCORE_INCREASE_RATE = 3000;
 
     private final static int SCORE_TIME_INCREASE = 10;

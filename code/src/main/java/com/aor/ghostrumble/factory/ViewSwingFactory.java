@@ -29,7 +29,6 @@ public class ViewSwingFactory implements ViewAbstractFactory {
 
         frame = new JFrame("Ghost Rumble (GR)");
 
-        frame.setLayout(new GridLayout());
         frame.setLocation(50,50);
         frame.setSize(screenWidth * tileSize + borderOffset, screenHeight * tileSize);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -41,6 +40,7 @@ public class ViewSwingFactory implements ViewAbstractFactory {
     public int getScreenHeight() { return screenHeight; }
     public int getTileSize() { return tileSize; }
     public int getBorderOffset() { return borderOffset; }
+    public JFrame getFrame() { return frame; }
 
     public void setFrame(JFrame frame) { this.frame = frame; }
 

@@ -23,6 +23,10 @@ public abstract class State {
         this.observer = observer;
     }
 
+    public ViewAbstractFactory getFactory() {
+        return factory;
+    }
+
     public abstract void handleInput();
 
     public abstract void draw();

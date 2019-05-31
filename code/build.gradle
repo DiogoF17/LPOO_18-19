@@ -24,5 +24,14 @@ application {
 }
 
 pitest {
-    targetClasses = ['com.aor.ghostrumble.*']
+
+    targetClasses = [
+            'com.aor.ghostrumble.factory.*',
+            'com.aor.ghostrumble.menu.*',
+            'com.aor.ghostrumble.play.*',
+            'com.aor.ghostrumble.Application',
+            'com.aor.ghostrumble.Game',
+            'com.aor.ghostrumble.State'
+    ]
+
 }

@@ -11,9 +11,28 @@ import java.util.List;
 import static java.lang.System.currentTimeMillis;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.times;
 
 public class GameUpdateTest {
+
+    @Test
+    public void testGetPlayerUpdater() {
+        Updater updater = new Updater();
+        assertNotNull(updater.getPlayerUpdater());
+    }
+
+    @Test
+    public void testGetEnemiesUpdater() {
+        Updater updater = new Updater();
+        assertNotNull(updater.getEnemiesUpdater());
+    }
+
+    @Test
+    public void testGetBulletsUpdater() {
+        Updater updater = new Updater();
+        assertNotNull(updater.getBulletsUpdater());
+    }
 
     @Test
     public void testDeleteEnemies() {
@@ -222,7 +241,7 @@ public class GameUpdateTest {
     }
 
     @Test
-    public void testWalkThroughEnemies() {
+    public void testWalkThroughEnemiesRight() {
         Updater updater = Mockito.mock(Updater.class);
         PlayerUpdater playerUpdater = Mockito.mock(PlayerUpdater.class);
         HauntedHouse house = Mockito.mock(HauntedHouse.class);
@@ -247,6 +266,135 @@ public class GameUpdateTest {
         assertTrue(enemy.hasHitPlayer());
         assertTrue(enemy.flaggedForRemoval());
         assertEquals(new Position(11, 10), player.getPosition());
+    }
+
+    @Test
+    public void testWalkThroughEnemiesLeft() {
+        Updater updater = Mockito.mock(Updater.class);
+        PlayerUpdater playerUpdater = Mockito.mock(PlayerUpdater.class);
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        Player player = new Player(11, 10);
+        Enemy enemy = new Zombie(10, 10);
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(enemy);
+        EventQueue queue = new EventQueue();
+
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(house.getEnemies()).thenReturn(enemies);
+        Mockito.when(updater.getPlayerUpdater()).thenReturn(playerUpdater);
+        Mockito.doCallRealMethod().when(updater).checkEnemyCollisions(house);
+        Mockito.when(
+                playerUpdater.movePlayer(any(Player.class), any(Position.class), any(HauntedHouse.class))
+        ).thenCallRealMethod();
+
+        queue.raiseEvent(new EventPlayerLeft());
+        queue.raiseEvent(new EventPlayerLeft());
+        queue.executeEvents(updater, house);
+
+        assertTrue(enemy.hasHitPlayer());
+        assertTrue(enemy.flaggedForRemoval());
+        assertEquals(new Position(9, 10), player.getPosition());
+    }
+
+    @Test
+    public void testWalkThroughEnemiesUp() {
+        Updater updater = Mockito.mock(Updater.class);
+        PlayerUpdater playerUpdater = Mockito.mock(PlayerUpdater.class);
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        Player player = new Player(10, 11);
+        Enemy enemy = new Zombie(10, 10);
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(enemy);
+        EventQueue queue = new EventQueue();
+
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(house.getEnemies()).thenReturn(enemies);
+        Mockito.when(updater.getPlayerUpdater()).thenReturn(playerUpdater);
+        Mockito.doCallRealMethod().when(updater).checkEnemyCollisions(house);
+        Mockito.when(
+                playerUpdater.movePlayer(any(Player.class), any(Position.class), any(HauntedHouse.class))
+        ).thenCallRealMethod();
+
+        queue.raiseEvent(new EventPlayerUp());
+        queue.raiseEvent(new EventPlayerUp());
+        queue.executeEvents(updater, house);
+
+        assertTrue(enemy.hasHitPlayer());
+        assertTrue(enemy.flaggedForRemoval());
+        assertEquals(new Position(10, 9), player.getPosition());
+    }
+
+    @Test
+    public void testWalkThroughEnemiesDown() {
+        Updater updater = Mockito.mock(Updater.class);
+        PlayerUpdater playerUpdater = Mockito.mock(PlayerUpdater.class);
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        Player player = new Player(10, 9);
+        Enemy enemy = new Zombie(10, 10);
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(enemy);
+        EventQueue queue = new EventQueue();
+
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(house.getEnemies()).thenReturn(enemies);
+        Mockito.when(updater.getPlayerUpdater()).thenReturn(playerUpdater);
+        Mockito.doCallRealMethod().when(updater).checkEnemyCollisions(house);
+        Mockito.when(
+                playerUpdater.movePlayer(any(Player.class), any(Position.class), any(HauntedHouse.class))
+        ).thenCallRealMethod();
+
+        queue.raiseEvent(new EventPlayerDown());
+        queue.raiseEvent(new EventPlayerDown());
+        queue.executeEvents(updater, house);
+
+        assertTrue(enemy.hasHitPlayer());
+        assertTrue(enemy.flaggedForRemoval());
+        assertEquals(new Position(10, 11), player.getPosition());
+    }
+
+    @Test
+    public void testUpdateMethodCalls() {
+
+        Updater updater = Mockito.spy(new Updater());
+        PlayerUpdater playerUpdater = Mockito.spy(new PlayerUpdater());
+        EnemiesUpdater enemiesUpdater = Mockito.spy(new EnemiesUpdater());
+        BulletsUpdater bulletsUpdater = Mockito.spy(new BulletsUpdater());
+
+        updater.setPlayerUpdater(playerUpdater);
+        updater.setEnemiesUpdater(enemiesUpdater);
+        updater.setBulletsUpdater(bulletsUpdater);
+
+        EventQueue queue = Mockito.mock(EventQueue.class);
+        HauntedHouse house = Mockito.mock(HauntedHouse.class);
+        Player player = Mockito.mock(Player.class);
+
+        Mockito.doNothing().when(queue).executeEvents(updater, house);
+        Mockito.when(house.getBullets()).thenReturn(new ArrayList<>());
+        Mockito.when(house.getEnemies()).thenReturn(new ArrayList<>());
+        Mockito.when(house.getWalls()).thenReturn(new ArrayList<>());
+        Mockito.when(house.getPlayer()).thenReturn(player);
+        Mockito.when(house.getHeight()).thenReturn(10);
+        Mockito.when(house.getWidth()).thenReturn(20);
+        Mockito.when(player.getCurrentHealth()).thenReturn(10);
+        Mockito.when(queue.close()).thenReturn(false);
+
+        boolean result = updater.update(queue, house);
+
+        Mockito.verify(queue, times(1)).executeEvents(updater, house);
+
+        Mockito.verify(updater, times(3)).checkBulletCollisions(house);
+        Mockito.verify(updater, times(2)).checkEnemyCollisions(house);
+        Mockito.verify(updater, times(1)).increaseScoreWithKills(house);
+        Mockito.verify(updater, times(1)).removeFlagged(house);
+        Mockito.verify(updater, times(1)).increaseScoreWithTime(house);
+
+        Mockito.verify(bulletsUpdater, times(1)).moveBullets(house);
+        Mockito.verify(enemiesUpdater, times(1)).moveEnemies(house);
+        Mockito.verify(playerUpdater, times(1)).damagePlayer(house);
+        Mockito.verify(enemiesUpdater, times(1)).spawnEnemy(house);
+
+        assertTrue(result);
+
     }
 
 }

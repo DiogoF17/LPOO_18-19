@@ -33,6 +33,16 @@ public class HauntedHouseTest {
     public void testInitPlayer() { assertNotEquals(null, house.getPlayer()); }
 
     @Test
+    public void testInitPlayerX() {
+        assertEquals(randomWidth / 2, house.getPlayer().getPosition().getX());
+    }
+
+    @Test
+    public void testInitPlayerY() {
+        assertEquals(randomHeight / 2, house.getPlayer().getPosition().getY());
+    }
+
+    @Test
     public void testInitWalls() {
         assertEquals(2 * randomWidth + 2 * (randomHeight - 7), house.getWalls().size());
     }
