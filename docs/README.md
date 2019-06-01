@@ -4,7 +4,7 @@
 
 > The game lasts as long as the player is able to survive and overcome the monsters, by dodging and shooting them. If he lets the enemies get too close and touch him, his health will be lowered; the game ends when the player's HP drops to 0.
 
-> The game is being developed by Diogo Machado (up201706832@fe.up.pt) and Eduardo Ribeiro (up201705421@fe.up.pt).
+> The game was developed by Diogo Machado (up201706832@fe.up.pt) and Eduardo Ribeiro (up201705421@fe.up.pt).
 
 ## Implemented Features
 
