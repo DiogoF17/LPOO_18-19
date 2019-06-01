@@ -6,7 +6,6 @@
 
 ## Screenshots
 
-> Some screenshots that illustrate the game.
 > Here are some screenshots that ilustrate the general look of our game, as well as the different functionalities:
 >
 ![Alt text](docs/screenshots/FeaturePrint1.png)
