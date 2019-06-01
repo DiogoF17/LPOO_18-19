@@ -333,14 +333,23 @@
 
 ### 2. Input Handling between Lanterna and Swing
 #### 2.1 Code Smell
-> 
+> Because of the way Lanterna works in terms of receiving user input, the code had to be written in such a way that this task is performed by an isolated method handleInput(), which is called on a separate thread, so as to not interfere with the drawing and updating of the game, while an input is not received. Swing, however, works differently, being able to automatically receive user inputs (by implementing the KeyListener interface), thus eliminating the need for a separate thread to wait for the user to type.
+>
+> Therefore, due to the way our code is structured, both Lanterna and Swing views need to implement the handleInput() method. However, due to the reasons stated above, the implementation of this method on Swing doesn't need to actually do anything (Refused Bequest).
 
+#### 2.2 Refactoring
+> Since this hierarchy is appropriate and makes sense, a new class (e.g., ViewNeedsInput) would have to be created, as a subclass of the main view abstract class (ViewMenu or ViewGame). That main view would then have all the methods used by both versions of it (Lanterna and Swing), and ViewNeedsInput would have an abstract method for handleInput(), so that all the concrete views that required such a method would implement it. The Swing views, would be direct subclasses of ViewMenu and ViewGame, as they do not need the method, while the Lanterna views would be subclasses of ViewNeedsInput, and implement handleInput() (Extract Superclass).
+>
+> We opted not to perform this refactoring, as it would, in our opinion, add an unnecessary degree of complexity to our code, and although this smell is indeed present, it is not so on a large scale, being limited to a single method.
 
+### 3. Similarities between the Abstract Views for Menu and Game
+#### 3.1 Code Smell
+> If one looks at the abstract classes ViewMenu and ViewGame, they could very quickly notice that they require a few common methods from their respective subclasses, these methods being prepareStateChange(), handleInput() and drawAll() (Duplicate Code).
 
-
-
-
-
+#### 3.2 Refactoring
+> This smell could be eliminated by creating a universal View interface, containing the referred methods, and making the supramentioned classes implement it (Extract Superclass).
+>
+> We decided against this refactoring technique, in this case, as the classes require and handle different models, which should not be generalized, as each is very unique and individual.
 
 ## Testing Results
 
