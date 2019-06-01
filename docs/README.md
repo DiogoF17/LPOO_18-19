@@ -376,7 +376,7 @@
 >
 >> #### Purely aesthetic Classes and Methods:
 >>
->> Concerning the "drawer" classes, like [DrawLanternaGame](../code/src/main/java/com/aor/ghostrumble/play/view/DrawLanternaGame.java) and similar, all of its methods are meant only to visually represent the data contained in the classes belonging to the **model** module. Therefore, it wouldn't be the best use of development time to unit test these methods, as the important part is that the model and controller properly process that data, based on user input.
+>> Concerning the "drawer" classes, like [DrawLanternaGame](../code/src/main/java/com/aor/ghostrumble/play/view/lanterna/DrawLanternaGame.java) and similar, all of its methods are meant only to visually represent the data contained in the classes belonging to the **model** module. Therefore, it wouldn't be the best use of development time to unit test these methods, as the important part is that the model and controller properly process that data, based on user input.
 >
 >> #### Additional Notes
 >> While it is stated above that the drawing methods are not tested, we do test the **view** methods that are related to user input, in order to know if, based on the input received, they are creating the concrete event that corresponds to the pressing of that key. In order to that, some screens may pop up and "start acting weird", but it is all necessary to test those functionalities.
