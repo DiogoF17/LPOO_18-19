@@ -8,6 +8,9 @@
 >
 > **Project Grade:** 19/20
 
+**Disclaimer** - This repository was used for educational purposes and I do not take any responsibility for anything related to its content. You are free to use any code or algorithm you find, but do so at your own risk.
+
+
 # LPOO_25 Ghost Rumble (GR)
 
 > Ghost Rumble (or GR for short) is a survival arena combat game, in which the player must survive as long as he can inside a mysterious haunted house, filled with ghosts and other spooky creatures that will chase him down and may harm him. :skull: :ghost: 
