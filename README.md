@@ -1,3 +1,13 @@
+# LPOO Final Project - Ghost Rumble
+
+> **2018/2019** - 2nd Year, 2nd Semester
+>
+> **Course:** Laboratório de Programação Orientada a Objetos ([LPOO](https://sigarra.up.pt/feup/pt/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=420000)) | Object Oriented Programming Labs
+>
+> **Project developed by:** Diogo Machado ([diogosmac](github.com/diogosmac)) and Eduardo Ribeiro ([EduRibeiro00](github.com/EduRibeiro00))
+>
+> **Project Grade:** 19/20
+
 # LPOO_25 Ghost Rumble (GR)
 
 > Ghost Rumble (or GR for short) is a survival arena combat game, in which the player must survive as long as he can inside a mysterious haunted house, filled with ghosts and other spooky creatures that will chase him down and may harm him. :skull: :ghost: 
